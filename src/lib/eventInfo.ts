@@ -9,7 +9,7 @@ export const EVENT_INFO = {
   location: 'TBA',
 
   /** Short line under the section title. */
-  tagline: 'A Link Crew event for Lisgar students.',
+  tagline: 'Open to everyone — no sign-up needed. Just show up.',
 
   /** A few short paragraphs about the event. */
   about: [
@@ -27,8 +27,8 @@ export const EVENT_INFO = {
 
   /** Quick questions & answers. */
   faq: [
-    { q: 'Who can come?', a: 'Details coming soon — ask your Link Leader.' },
-    { q: 'Do I need to sign up?', a: 'Details coming soon — watch for announcements.' },
+    { q: 'Who can come?', a: 'Everyone! Fall Fest is open to all students.' },
+    { q: 'Do I need to sign up?', a: 'Nope — no sign-up needed. Just show up.' },
     { q: 'Do I need to play the games to come?', a: 'Nope. The arcade is just for fun — it’s free and optional.' },
   ],
 }
