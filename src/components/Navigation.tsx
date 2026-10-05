@@ -6,6 +6,7 @@ import { cosmeticValue } from '../lib/cosmetics'
 import { SoundToggle } from './SoundToggle'
 import { triggerSecret } from '../lib/secrets'
 import { play } from '../lib/sound'
+import { SchoolLogo } from './SchoolLogo'
 
 export const NAV = [
   { path: '/', label: 'HOME', icon: '🏠' },
@@ -36,7 +37,7 @@ function Logo() {
         }
       }}
     >
-      <span className="sticker grid place-items-center w-10 h-10 rounded-xl bg-purple font-display text-yellow text-lg -rotate-6">LC</span>
+      <SchoolLogo size={40} />
       <span className="leading-none hidden min-[380px]:block">
         <span className="block font-display text-sm text-yellow">LINK CREW</span>
         <span className="block font-pixel text-[0.7rem] text-pink mt-1">FALL FEST</span>

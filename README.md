@@ -19,6 +19,10 @@ npm run preview    # serve the production build
 
 Everything in the **ABOUT FALL FEST** section on the home page comes from `src/lib/eventInfo.ts`: date, time, location, the about text, the "What's happening" list and the Q&A. Some of it is still general wording or `TBA`, so update it as plans are confirmed.
 
+## School logo
+
+Put the Lisgar logo in `public/` named `lisgar-logo.png` (`.svg`, `.webp` or `.jpg` also work). It appears in the top bar and above the home title. Until it's added, an "LC" badge shows instead.
+
 ## Colours & fonts
 
 The theme is set at the top of `src/index.css` in the `@theme { … }` block:
