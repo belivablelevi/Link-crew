@@ -45,7 +45,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   { id: 'level-10', name: 'DOUBLE DIGITS', desc: 'Reach level 10.', icon: '🌟', tokens: 150, check: (s) => levelFromXp(s.xp) >= 10 },
   { id: 'legend', name: 'LEGEND', desc: 'Reach level 25.', icon: '🏆', tokens: 500, check: (s) => levelFromXp(s.xp) >= 25, progress: (s) => [levelFromXp(s.xp), 25] },
   { id: 'rich', name: 'TOKEN TYCOON', desc: 'Hold 2,000 Fest Tokens at once.', icon: '🪙', tokens: 100, check: (s) => s.tokens >= 2000, progress: (s) => [s.tokens, 2000] },
-  // Secrets — hidden until found
+  // Secrets, hidden until found
   { id: 'secret-logo', name: 'LOGO MASHER', desc: 'Clicked the logo way too many times.', icon: '🖱️', tokens: 50, secret: true, check: (s) => s.stats.secretsFound.includes('logo') },
   { id: 'secret-konami', name: 'OLD SCHOOL', desc: 'Entered the ancient code.', icon: '🎮', tokens: 100, secret: true, check: (s) => s.stats.secretsFound.includes('konami') },
   { id: 'secret-duck', name: 'THE CHOSEN DUCK', desc: 'Found the duck hiding in plain sight.', icon: '🐥', tokens: 75, secret: true, check: (s) => s.stats.secretsFound.includes('duck') },

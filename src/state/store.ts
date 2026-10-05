@@ -7,7 +7,6 @@ import { challengeForDay, dayOffsetKey, getChallenge, todayKey } from '../lib/da
 import { getGame } from '../games/meta'
 import { fx } from '../lib/fx'
 import { configureSound, play } from '../lib/sound'
-import { leaderboard } from '../lib/leaderboard'
 
 const STORAGE_KEY = 'lcff:player:v1'
 export const SPIN_COOLDOWN_MS = 15 * 60 * 1000
@@ -78,7 +77,7 @@ function load(): PlayerState {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) return merge(defaults(), JSON.parse(raw))
   } catch {
-    /* corrupted or blocked storage — start fresh */
+    /* corrupted or blocked storage, start fresh */
   }
   return defaults()
 }
@@ -87,7 +86,7 @@ function save(s: PlayerState) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(s))
   } catch {
-    /* storage full / private mode — progress is session-only */
+    /* storage full / private mode, progress is session-only */
   }
 }
 
@@ -233,7 +232,6 @@ export function recordGame(id: GameId, result: GameResult): GameSummary {
     grantXp(d, rewards.xp)
   })
 
-  void leaderboard.submitRun(id, score, result.stats ?? {}, getState())
   return { rewards, baseRewards: base, newHigh: newHigh && score > 0, prevHigh, dailyJustCompleted, boosted: { xp: xp2, tokens: tk2 } }
 }
 

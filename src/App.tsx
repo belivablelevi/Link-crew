@@ -13,7 +13,6 @@ import Home from './pages/Home'
 
 const Games = lazy(() => import('./pages/Games'))
 const GamePage = lazy(() => import('./pages/GamePage'))
-const LeaderboardPage = lazy(() => import('./pages/LeaderboardPage'))
 const ProfilePage = lazy(() => import('./pages/ProfilePage'))
 const AchievementsPage = lazy(() => import('./pages/AchievementsPage'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -22,7 +21,6 @@ function Page({ route }: { route: string }) {
   if (route === '/') return <Home />
   if (route === '/games') return <Games />
   if (route.startsWith('/games/')) return <GamePage id={route.slice('/games/'.length)} />
-  if (route === '/leaderboard') return <LeaderboardPage />
   if (route === '/profile') return <ProfilePage />
   if (route === '/achievements') return <AchievementsPage />
   return <NotFound />

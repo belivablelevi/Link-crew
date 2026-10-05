@@ -58,7 +58,7 @@ function award(i: number): Prize {
     }
     case '2X':
       grantSpinPrize({ xpBoostMs: 10 * 60_000 })
-      return { icon: '🔥', title: '2X XP — 10 MIN', body: 'Every game you play for the next 10 minutes earns double XP. Go!' }
+      return { icon: '🔥', title: '2X XP FOR 10 MIN', body: 'Every game you play for the next 10 minutes earns double XP. Go!' }
     case '???': {
       const pool = COSMETICS.filter((c) => !c.special && !c.level && c.cost > 0 && c.cost <= 300 && !s.cosmetics.owned.includes(c.id))
       if (pool.length) {
@@ -253,7 +253,7 @@ export default function SpinToWin() {
                 </li>
               ))}
             </ul>
-            <p className="text-xs text-dim mt-3">One free spin every 15 min. Every level-up gives a bonus spin. No purchases — ever.</p>
+            <p className="text-xs text-dim mt-3">One free spin every 15 min. Every level-up gives a bonus spin. No purchases, ever.</p>
           </div>
           {log.length > 0 && (
             <div className="panel p-4">

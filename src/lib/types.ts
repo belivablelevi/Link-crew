@@ -13,7 +13,7 @@ export type GameId =
 /** What a game reports back to the shell when a run ends. */
 export interface GameResult {
   score: number
-  /** Optional extra stats used for achievements, daily challenges and leaderboards. */
+  /** Optional extra stats used for achievements, and daily challenges. */
   stats?: GameStats
   /** Big headline on the game-over screen, e.g. "BOSS DEFEATED!" */
   headline?: string

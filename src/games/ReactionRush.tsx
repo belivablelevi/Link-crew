@@ -55,8 +55,8 @@ export default function ReactionRush({ onEnd }: GameProps) {
       headline: best && best < 230 ? 'LIGHTNING HANDS!' : 'TIME’S UP!',
       stats: { bestReactionMs: best, avgReactionMs: avg, maxCombo: maxCombo.current },
       details: [
-        { label: 'BEST', value: best ? `${Math.round(best)}ms` : '—' },
-        { label: 'AVERAGE', value: avg ? `${avg}ms` : '—' },
+        { label: 'BEST', value: best ? `${Math.round(best)}ms` : '-' },
+        { label: 'AVERAGE', value: avg ? `${avg}ms` : '-' },
         { label: 'HITS', value: `${t.length}/${ROUNDS}` },
         { label: 'MAX COMBO', value: `${maxCombo.current}x` },
       ],
@@ -208,8 +208,8 @@ export default function ReactionRush({ onEnd }: GameProps) {
         <ScoreDisplay label="SCORE" value={score.toLocaleString()} bump={score} />
         <ScoreDisplay label="ROUND" value={`${round}/${ROUNDS}`} color="var(--color-blue)" />
         <ScoreDisplay label="COMBO" value={`${combo}x`} color="var(--color-pink)" bump={combo} />
-        <ScoreDisplay label="BEST" value={best ? `${best}ms` : '—'} color="var(--color-lime)" className="hidden sm:block" />
-        <ScoreDisplay label="AVG" value={avg ? `${avg}ms` : '—'} color="var(--color-orange)" className="hidden sm:block" />
+        <ScoreDisplay label="BEST" value={best ? `${best}ms` : '-'} color="var(--color-lime)" className="hidden sm:block" />
+        <ScoreDisplay label="AVG" value={avg ? `${avg}ms` : '-'} color="var(--color-orange)" className="hidden sm:block" />
       </div>
 
       {phase === 'waiting' && (

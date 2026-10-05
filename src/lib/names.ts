@@ -1,4 +1,4 @@
-// Very small blocklist — school event, keep names friendly. Extend as needed.
+// Very small blocklist, school event, keep names friendly. Extend as needed.
 const BLOCKED = ['fuck', 'shit', 'bitch', 'cunt', 'dick', 'cock', 'pussy', 'nigg', 'fag', 'slut', 'whore', 'rape', 'nazi', 'porn', 'sex', 'penis', 'vagina', 'retard', 'kys']
 
 export function cleanName(raw: string): { ok: true; name: string } | { ok: false; error: string } {

@@ -1,5 +1,5 @@
 /**
- * Generated sound effects via the Web Audio API — no audio files.
+ * Generated sound effects via the Web Audio API, no audio files.
  * All sounds are short and run through one master gain so volume is easy to control.
  */
 export type SoundName =

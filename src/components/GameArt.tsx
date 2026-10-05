@@ -3,7 +3,7 @@ import type { GameId } from '../lib/types'
 
 const a = (name: string, dur: number, delay = 0, extra = ''): CSSProperties => ({ animation: `${name} ${dur}s ${extra || 'ease-in-out'} ${delay}s infinite` })
 
-/** Small animated scene for each game card — pure CSS/emoji, no images. */
+/** Small animated scene for each game card, pure CSS/emoji, no images. */
 export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
   const s = big ? 1.5 : 1
   const wrap = 'absolute inset-0 grid place-items-center overflow-hidden'

@@ -12,7 +12,6 @@ import { Icon, type IconName } from './Icon'
 export const NAV: { path: string; label: string; icon: IconName }[] = [
   { path: '/', label: 'HOME', icon: 'home' },
   { path: '/games', label: 'GAMES', icon: 'gamepad' },
-  { path: '/leaderboard', label: 'RANKS', icon: 'trophy' },
   { path: '/profile', label: 'PROFILE', icon: 'user' },
   { path: '/achievements', label: 'BADGES', icon: 'medal' },
 ]
@@ -91,7 +90,7 @@ export function Navigation() {
       </header>
 
       <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-panel border-t-[3px] border-bg shadow-[0_-6px_0_rgba(0,0,0,.35)] pb-[env(safe-area-inset-bottom)]" aria-label="Main">
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-4">
           {NAV.map((n) => {
             const active = isActive(route, n.path)
             return (

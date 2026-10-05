@@ -148,7 +148,7 @@ export default function FallFestBoss({ onEnd }: GameProps) {
         setWinding(move)
         play('error')
       } else if (s.windupUntil && now >= s.windupUntil) {
-        // Not blocked — ouch.
+        // Not blocked, ouch.
         s.windupUntil = 0
         s.nextAttack = now + (ph === 1 ? 7000 : ph === 2 ? 5500 : 4200) + Math.random() * 2000
         setWinding(null)

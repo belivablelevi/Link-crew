@@ -95,7 +95,7 @@ function Featured() {
             <div className="rounded-xl bg-bg/60 p-2">
               <div className="font-pixel text-[0.65rem] text-dim">YOUR BEST</div>
               <div className="font-display text-lg" style={{ color: g.color }}>
-                {best ? best.toLocaleString() : '—'}
+                {best ? best.toLocaleString() : '-'}
               </div>
             </div>
             <div className="rounded-xl bg-bg/60 p-2">
@@ -113,7 +113,7 @@ function Featured() {
 }
 
 function HowItWorks() {
-  const steps = ['PLAY GAMES', 'EARN XP', 'EARN TOKENS', 'UNLOCK BADGES', 'CLIMB THE BOARD']
+  const steps = ['PLAY GAMES', 'EARN XP', 'EARN TOKENS', 'UNLOCK BADGES', 'CUSTOMIZE YOUR PROFILE']
   return (
     <section className="panel p-4 sm:p-6" aria-label="How it works">
       <h2 className="font-display text-xl mb-4">HOW IT WORKS</h2>
@@ -134,7 +134,7 @@ function HowItWorks() {
           </li>
         ))}
       </ol>
-      <p className="text-sm text-dim mt-4">Everything is free. Tokens are just for fun cosmetics — no real money, ever.</p>
+      <p className="text-sm text-dim mt-4">Everything is free. Tokens are just for fun cosmetics. No real money, ever.</p>
     </section>
   )
 }

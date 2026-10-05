@@ -37,7 +37,7 @@ export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }
         </div>
         <p className="text-dim text-sm mt-2 leading-snug min-h-[2.5em]">{game.tagline}</p>
         <div className="grid grid-cols-2 gap-2 mt-3 text-center">
-          <Stat label="YOUR BEST" value={best ? best.toLocaleString() : '—'} color={game.color} />
+          <Stat label="YOUR BEST" value={best ? best.toLocaleString() : '-'} color={game.color} />
           <Stat label="TIMES PLAYED" value={plays.toString()} />
         </div>
         <div className="btn w-full mt-4 text-base" style={{ '--c': game.color, '--ct': '#071022' } as CSSProperties} aria-hidden>

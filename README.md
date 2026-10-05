@@ -1,6 +1,6 @@
 # Link Crew Fall Fest Arcade
 
-PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 10 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, leaderboards and hidden secrets.
+PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 10 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges and hidden secrets.
 
 Built with React, TypeScript, Vite and Tailwind CSS v4. There are no image assets: everything is CSS, SVG, Canvas or emoji. Sounds are generated with the Web Audio API.
 
@@ -64,17 +64,12 @@ src/
   lib/achievements.ts   33 achievements (5 are secret)
   lib/daily.ts          daily challenge pool (same challenge for everyone on a given day)
   lib/cosmetics.ts      avatars, titles, backdrops, name FX, confetti styles
-  lib/leaderboard.ts    leaderboard service interface + local implementation
   lib/sound.ts          generated sound effects
   lib/fx.ts             event bus for toasts, confetti, flashes, shakes, level-up and achievement overlays
-  components/           Button, Modal, ProgressBar, XPBar, GameCard, Leaderboard, Achievement, Toast,
+  components/           Button, Modal, ProgressBar, XPBar, GameCard, Achievement, Toast,
                         Confetti, Profile, Navigation, GameShell, ScoreDisplay, …
-  pages/                Home, Games, GamePage, Leaderboard, Profile, Achievements
+  pages/                Home, Games, GamePage, Profile, Achievements
 ```
-
-## Leaderboard: going global later
-
-Right now the board only shows **real scores from players on the same device/browser**. For example, friends taking turns on one computer under different names will all appear. There are no made-up players, and nothing is synced between devices. To make it global, implement `LeaderboardBackend` in `src/lib/leaderboard.ts` (`getTop` + `submitRun`) against a real API or database such as Supabase, Firebase or a small server, then swap the exported `leaderboard`. `submitRun` is already called after every game with the score and stats. Validate scores server-side.
 
 ## Secrets (spoilers)
 

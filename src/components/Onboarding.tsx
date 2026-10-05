@@ -27,7 +27,7 @@ export function Onboarding() {
   }
   return (
     <Modal open title="PLAYER 1, ENTER YOUR NAME" color="var(--color-yellow)">
-      <p className="text-dim mb-4">This is what shows on the leaderboard. Keep it school-friendly.</p>
+      <p className="text-dim mb-4">This is the name on your profile. Keep it school-friendly.</p>
       <form
         onSubmit={(e) => {
           e.preventDefault()

@@ -14,7 +14,6 @@ export interface GameMeta {
   color2: string
   howTo: string[]
   controls: string
-  /** Lower-is-better scores (none currently; reaction leaderboard uses its own stat). */
   scoreLabel: string
   /** Turns a final score into XP + tokens. */
   reward: (score: number) => Rewards
@@ -154,7 +153,7 @@ export const GAMES: GameMeta[] = [
     difficulty: 'HARD',
     color: '#ff4d5e',
     color2: '#f2a900',
-    howTo: ['Tap SLAP to attack. Fast taps build combo.', 'New attacks unlock as the fight goes on.', 'When the boss winds up — hit BLOCK!', 'Beat it in 75 seconds for a huge bonus.'],
+    howTo: ['Tap SLAP to attack. Fast taps build combo.', 'New attacks unlock as the fight goes on.', 'When the boss winds up, hit BLOCK!', 'Beat it in 75 seconds for a huge bonus.'],
     controls: 'Tap / click · keys 1–4 + SPACE to block',
     scoreLabel: 'DAMAGE',
     reward: scaled(180),

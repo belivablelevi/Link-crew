@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react'
 
 /**
  * Minimal hash router (#/games/catch-the-duck). Hash routing works on any static host
- * with zero server config — handy for a school deployment.
+ * with zero server config, handy for a school deployment.
  */
 function current(): string {
   const h = window.location.hash.replace(/^#/, '')
