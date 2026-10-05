@@ -37,7 +37,7 @@ function Logo() {
         }
       }}
     >
-      <SchoolLogo size={40} />
+      <SchoolLogo size={46} />
       <span className="leading-none hidden min-[380px]:block">
         <span className="block font-display text-sm text-yellow">LINK CREW</span>
         <span className="block font-pixel text-[0.7rem] text-pink mt-1">FALL FEST</span>

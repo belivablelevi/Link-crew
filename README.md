@@ -21,7 +21,7 @@ Everything in the **ABOUT FALL FEST** section on the home page comes from `src/l
 
 ## School logo
 
-Put the Lisgar logo in `public/` named `lisgar-logo.png` (`.svg`, `.webp` or `.jpg` also work). It appears in the top bar and above the home title. Until it's added, an "LC" badge shows instead.
+The Lisgar crest lives at `public/lisgar-logo.webp`. To swap it, replace that file (or add `lisgar-logo.png` / `.svg` / `.jpg`). It appears in the top bar and above the home title.
 
 ## Colours & fonts
 

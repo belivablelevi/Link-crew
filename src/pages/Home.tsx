@@ -50,7 +50,7 @@ function Hero() {
       </div>
 
       <div className="flex justify-center mb-4">
-        <SchoolLogo size={88} />
+        <SchoolLogo size={140} className="anim-float" />
       </div>
       <div className="inline-block font-pixel text-[0.75rem] sm:text-xs bg-pink text-bg px-3 py-2 rounded-lg sticker -rotate-2 mb-4">{played ? 'WELCOME BACK. YOU’RE IN.' : 'YOU’RE IN.'}</div>
       <h1 className="font-display leading-[0.85] select-none">
