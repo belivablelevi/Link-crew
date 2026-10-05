@@ -1,6 +1,6 @@
 # Link Crew Fall Fest Arcade
 
-PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 10 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, random events, leaderboards and hidden secrets.
+PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 10 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, leaderboards and hidden secrets.
 
 Built with React, TypeScript, Vite and Tailwind CSS v4. There are no image assets: everything is CSS, SVG, Canvas or emoji. Sounds are generated with the Web Audio API.
 
@@ -28,7 +28,7 @@ The theme is set at the top of `src/index.css` in the `@theme { … }` block:
 
 ## Effects intensity
 
-Confetti, screen flashes and screen shakes all go through one dial, `INTENSITY` in `src/lib/fx.ts`. Turn it up or down to taste. Random events are spaced a few minutes apart (`src/components/RandomEvents.tsx`).
+Confetti, screen flashes and screen shakes all go through one dial, `INTENSITY` in `src/lib/fx.ts`. Turn it up or down to taste.
 
 ## The games (`src/games/`)
 
@@ -57,14 +57,14 @@ Every game is a component that receives `{ onEnd(result) }` (see `src/games/type
 src/
   state/store.ts        player state (localStorage), XP/levels, tokens, achievements, daily, boosts
   lib/progression.ts    level curve (L2 = 100 XP, L3 = 250, L4 = 500, L5 = 900, …)
-  lib/achievements.ts   34 achievements (5 are secret)
+  lib/achievements.ts   33 achievements (5 are secret)
   lib/daily.ts          daily challenge pool (same challenge for everyone on a given day)
   lib/cosmetics.ts      avatars, titles, backdrops, name FX, confetti styles
   lib/leaderboard.ts    leaderboard service interface + local implementation
   lib/sound.ts          generated sound effects
   lib/fx.ts             event bus for toasts, confetti, flashes, shakes, level-up and achievement overlays
   components/           Button, Modal, ProgressBar, XPBar, GameCard, Leaderboard, Achievement, Toast,
-                        Confetti, Profile, Navigation, GameShell, ScoreDisplay, RandomEvents, …
+                        Confetti, Profile, Navigation, GameShell, ScoreDisplay, …
   pages/                Home, Games, GamePage, Leaderboard, Profile, Achievements
 ```
 

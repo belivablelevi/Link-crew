@@ -75,7 +75,6 @@ export interface LifetimeStats {
   bestStack: number
   bestMemoryRound: number
   secretsFound: string[]
-  eventsCaught: number
   dailiesCompleted: number
 }
 

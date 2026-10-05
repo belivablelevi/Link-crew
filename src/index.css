@@ -650,38 +650,3 @@ html.reduce-motion.secret-mode body {
   }
 }
 
-/* random-event ducks */
-@keyframes duck-ltr {
-  0% {
-    transform: translate(-80px, 0);
-  }
-  25% {
-    transform: translate(25vw, -14px);
-  }
-  50% {
-    transform: translate(50vw, 0);
-  }
-  75% {
-    transform: translate(75vw, -14px);
-  }
-  100% {
-    transform: translate(calc(100vw + 80px), 0);
-  }
-}
-@keyframes duck-rtl {
-  0% {
-    transform: translate(calc(100vw + 80px), 0);
-  }
-  25% {
-    transform: translate(75vw, -14px);
-  }
-  50% {
-    transform: translate(50vw, 0);
-  }
-  75% {
-    transform: translate(25vw, -14px);
-  }
-  100% {
-    transform: translate(-80px, 0);
-  }
-}

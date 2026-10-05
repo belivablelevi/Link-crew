@@ -5,7 +5,6 @@ import { Confetti } from './components/Confetti'
 import { ToastHost } from './components/Toast'
 import { FxLayer } from './components/FxLayer'
 import { Particles } from './components/Particles'
-import { RandomEvents } from './components/RandomEvents'
 import { Onboarding } from './components/Onboarding'
 import { startSession, useStore } from './state/store'
 import { motion } from './lib/fx'
@@ -91,7 +90,6 @@ export default function App() {
         </main>
         {!inGame && <Footer />}
       </div>
-      <RandomEvents />
       <Onboarding />
       <ToastHost />
       <FxLayer />

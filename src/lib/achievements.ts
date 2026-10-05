@@ -40,7 +40,6 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   { id: 'escape-artist', name: 'ESCAPE ARTIST', desc: 'Score 1,500+ in Dodge the Principal.', icon: '🏃', tokens: 100, check: (s) => (s.highScores['dodge-the-principal'] ?? 0) >= 1500 },
   { id: 'streak-3', name: 'ON A ROLL', desc: 'Visit 3 days in a row.', icon: '📅', tokens: 75, check: (s) => s.streak.count >= 3, progress: (s) => [s.streak.count, 3] },
   { id: 'daily-1', name: 'DAILY GRINDER', desc: 'Complete a Daily Challenge.', icon: '🎯', tokens: 40, check: (s) => s.stats.dailiesCompleted >= 1 },
-  { id: 'event-hunter', name: 'EVENT HUNTER', desc: 'Catch 5 random events.', icon: '🎪', tokens: 80, check: (s) => s.stats.eventsCaught >= 5, progress: (s) => [s.stats.eventsCaught, 5] },
   { id: 'shopper', name: 'DRIP CHECK', desc: 'Own 10 cosmetics.', icon: '🛍️', tokens: 60, check: (s) => s.cosmetics.owned.length >= 10, progress: (s) => [s.cosmetics.owned.length, 10] },
   { id: 'level-5', name: 'WARMED UP', desc: 'Reach level 5.', icon: '⭐', tokens: 50, check: (s) => levelFromXp(s.xp) >= 5 },
   { id: 'level-10', name: 'DOUBLE DIGITS', desc: 'Reach level 10.', icon: '🌟', tokens: 150, check: (s) => levelFromXp(s.xp) >= 10 },

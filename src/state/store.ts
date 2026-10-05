@@ -45,7 +45,6 @@ function defaults(): PlayerState {
       bestStack: 0,
       bestMemoryRound: 0,
       secretsFound: [],
-      eventsCaught: 0,
       dailiesCompleted: 0,
     },
     streak: { count: 0, lastDay: '' },
@@ -324,13 +323,6 @@ export function registerSecret(key: string): boolean {
     if (d.stats.secretsFound.length >= 4 && !d.cosmetics.owned.includes('ti-secret')) d.cosmetics.owned.push('ti-secret')
   })
   return true
-}
-
-export function registerEventCaught(tokens: number) {
-  mutate((d) => {
-    d.stats.eventsCaught += 1
-    d.tokens += tokens
-  })
 }
 
 /** Called once on app start: rolls the daily challenge and updates the visit streak. */
