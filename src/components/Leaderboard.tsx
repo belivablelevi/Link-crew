@@ -40,7 +40,17 @@ export function Leaderboard({ initial = 'overall', compact }: { initial?: BoardC
 
       {!rows && <div className="font-pixel text-xs text-dim p-8 text-center anim-blink">LOADING…</div>}
 
-      {rows && !compact && (
+      {rows && rows.length === 0 && (
+        <div className="text-center py-10">
+          <div className="text-5xl" aria-hidden>
+            {def.icon}
+          </div>
+          <p className="font-display text-lg mt-3">NO SCORES YET</p>
+          <p className="text-dim text-sm mt-1">Play a game and your score shows up here.</p>
+        </div>
+      )}
+
+      {rows && rows.length > 0 && !compact && (
         <div className="grid grid-cols-3 gap-2 sm:gap-4 items-end mt-6 mb-6 max-w-xl mx-auto" aria-hidden>
           {[1, 0, 2].map((i) => {
             const r = top3[i]
@@ -78,7 +88,6 @@ export function Leaderboard({ initial = 'overall', compact }: { initial?: BoardC
                 </span>
                 <span className="block font-pixel text-[0.45rem] text-dim mt-0.5">
                   LVL {r.level}
-                  {r.isDemo ? ' · DEMO RIVAL' : ''}
                 </span>
               </span>
               <span className="font-display text-sm sm:text-base tabular-nums text-yellow shrink-0">{fmt(r.value)}</span>
@@ -86,7 +95,7 @@ export function Leaderboard({ initial = 'overall', compact }: { initial?: BoardC
           ))}
         </ol>
       )}
-      {rows && !rows.some((r) => r.isYou) && <p className="text-sm text-dim mt-3 text-center">You&apos;re not on this board yet. Play to get ranked!</p>}
+      {rows && rows.length > 0 && !rows.some((r) => r.isYou) && <p className="text-sm text-dim mt-3 text-center">You&apos;re not on this board yet. Play to get ranked!</p>}
       <p className="font-pixel text-[0.5rem] leading-relaxed text-dim mt-4 text-center">ⓘ {leaderboard.syncNote}</p>
     </div>
   )

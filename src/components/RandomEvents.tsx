@@ -22,8 +22,9 @@ interface Duck {
   caught?: boolean
 }
 
-const FIRST_DELAY = [20_000, 35_000]
-const NEXT_DELAY = [55_000, 110_000]
+// Rare on purpose: a nice surprise every few minutes, not a constant interruption.
+const FIRST_DELAY = [90_000, 150_000]
+const NEXT_DELAY = [240_000, 420_000]
 const rand = ([a, b]: number[]) => a + Math.random() * (b - a)
 
 /**
@@ -84,7 +85,6 @@ export function RandomEvents() {
           setBoost('xp', 60_000)
           setBoost('tokens', 60_000)
           registerEventCaught(0)
-          fx.flash('rgba(255,232,61,.35)')
           show({ icon: '👑', title: 'GOLDEN MINUTE!', body: '2X XP + 2X TOKENS for 60 seconds!', color: 'var(--color-orange)' })
           break
       }

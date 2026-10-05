@@ -17,7 +17,11 @@ npm run preview    # serve the production build
 
 ## Edit the event details
 
-Open `src/lib/eventInfo.ts` and fill in the date, time and location. They currently say `TBA`.
+Everything in the **ABOUT FALL FEST** section on the home page comes from `src/lib/eventInfo.ts`: date, time, location, the about text, the "What's happening" list and the Q&A. Some of it is still general wording or `TBA`, so update it as plans are confirmed.
+
+## Effects intensity
+
+Confetti, screen flashes and screen shakes all go through one dial, `INTENSITY` in `src/lib/fx.ts`. Turn it up or down to taste. Random events are spaced a few minutes apart (`src/components/RandomEvents.tsx`).
 
 ## The games (`src/games/`)
 
@@ -36,7 +40,7 @@ Open `src/lib/eventInfo.ts` and fill in the date, time and location. They curren
 
 Every game is a component that receives `{ onEnd(result) }` (see `src/games/types.ts`). `components/GameShell.tsx` handles the intro screen, the 3-2-1 countdown, the game-over screen, rewards and replay. To add a game:
 
-1. Add its metadata (name, colours, how-to, reward curve, record) in `src/games/meta.ts`.
+1. Add its metadata (name, colours, how-to, reward curve) in `src/games/meta.ts`.
 2. Register the component in `src/games/registry.ts`.
 3. Optionally add card art in `components/GameArt.tsx`.
 
@@ -59,7 +63,7 @@ src/
 
 ## Leaderboard: going global later
 
-Right now the board ranks **you** (from this device's localStorage) against fixed **demo rivals**. The UI labels it that way, and nothing is synced. To make it global, implement `LeaderboardBackend` in `src/lib/leaderboard.ts` (`getTop` + `submitRun`) against a real API or database such as Supabase, Firebase or a small server, then swap the exported `leaderboard`. `submitRun` is already called after every game with the score and stats. Validate scores server-side.
+Right now the board only shows **real scores from players on the same device/browser**. For example, friends taking turns on one computer under different names will all appear. There are no made-up players, and nothing is synced between devices. To make it global, implement `LeaderboardBackend` in `src/lib/leaderboard.ts` (`getTop` + `submitRun`) against a real API or database such as Supabase, Firebase or a small server, then swap the exported `leaderboard`. `submitRun` is already called after every game with the score and stats. Validate scores server-side.
 
 ## Secrets (spoilers)
 

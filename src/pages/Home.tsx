@@ -71,6 +71,9 @@ function Hero() {
       <a href={href('/games')} className="inline-block mt-6 font-pixel text-[0.55rem] text-dim hover:text-yellow">
         OR BROWSE ALL {GAMES.length} GAMES ↓
       </a>
+      <a href="#event" onClick={(e) => (e.preventDefault(), document.getElementById('event')?.scrollIntoView({ behavior: 'smooth' }))} className="block mt-3 font-pixel text-[0.55rem] text-orange hover:text-yellow">
+        WHAT IS FALL FEST? ↓
+      </a>
     </section>
   )
 }
@@ -100,11 +103,7 @@ function Featured() {
             </h3>
           </div>
           <p className="text-dim mt-3 text-lg leading-snug">{g.tagline}</p>
-          <div className="grid grid-cols-3 gap-2 mt-5 text-center">
-            <div className="rounded-xl bg-bg/60 p-2">
-              <div className="font-pixel text-[0.45rem] text-dim">RECORD</div>
-              <div className="font-display text-lg">{g.record.toLocaleString()}</div>
-            </div>
+          <div className="grid grid-cols-2 gap-2 mt-5 text-center">
             <div className="rounded-xl bg-bg/60 p-2">
               <div className="font-pixel text-[0.45rem] text-dim">YOUR BEST</div>
               <div className="font-display text-lg" style={{ color: g.color }}>
@@ -160,24 +159,71 @@ function HowItWorks() {
 
 function EventInfo() {
   return (
-    <section className="panel p-4 sm:p-6 relative overflow-hidden" aria-label="Event info">
-      <h2 className="font-display text-xl mb-4">
-        <span className="text-orange">LINK CREW</span> FALL FEST
+    <section id="event" className="panel p-5 sm:p-8 relative overflow-hidden scroll-mt-20" aria-labelledby="event-title">
+      <div className="font-pixel text-[0.55rem] text-orange">THE EVENT</div>
+      <h2 id="event-title" className="font-display text-3xl sm:text-4xl mt-1">
+        ABOUT <span className="text-orange">FALL FEST</span>
       </h2>
-      <dl className="grid grid-cols-3 gap-2">
+      <p className="text-dim mt-1">{EVENT_INFO.tagline}</p>
+
+      <dl className="grid grid-cols-3 gap-2 mt-5">
         {[
           ['📅', 'DATE', EVENT_INFO.date],
           ['⏰', 'TIME', EVENT_INFO.time],
           ['📍', 'WHERE', EVENT_INFO.location],
         ].map(([icon, k, v]) => (
-          <div key={k} className="rounded-xl bg-bg/60 p-3">
+          <div key={k} className="rounded-xl bg-bg/60 border-2 border-[#3a2766] p-3">
             <dt className="font-pixel text-[0.45rem] text-dim">
               <span aria-hidden>{icon}</span> {k}
             </dt>
-            <dd className="font-display text-sm mt-1 break-words">{v}</dd>
+            <dd className="font-display text-sm sm:text-base mt-1 break-words">{v}</dd>
           </div>
         ))}
       </dl>
+
+      <div className="grid lg:grid-cols-2 gap-6 mt-6">
+        <div className="grid gap-3 content-start">
+          {EVENT_INFO.about.map((p) => (
+            <p key={p} className="leading-relaxed text-ink/90">
+              {p}
+            </p>
+          ))}
+        </div>
+        <div>
+          <h3 className="font-display text-lg mb-3">WHAT&apos;S HAPPENING</h3>
+          <ul className="grid sm:grid-cols-2 gap-2">
+            {EVENT_INFO.happenings.map((h) => (
+              <li key={h.title} className="rounded-xl bg-bg/60 border-2 border-[#3a2766] p-3">
+                <div className="font-display text-sm">
+                  <span aria-hidden className="mr-1.5">
+                    {h.icon}
+                  </span>
+                  {h.title}
+                </div>
+                <p className="text-sm text-dim mt-1 leading-snug">{h.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <h3 className="font-display text-lg mb-3">QUESTIONS</h3>
+        <div className="grid gap-2">
+          {EVENT_INFO.faq.map((f) => (
+            <details key={f.q} className="rounded-xl bg-bg/60 border-2 border-[#3a2766] px-4 py-3 group">
+              <summary className="font-display text-sm cursor-pointer list-none flex justify-between items-center gap-3">
+                {f.q}
+                <span className="text-orange transition-transform group-open:rotate-45" aria-hidden>
+                  +
+                </span>
+              </summary>
+              <p className="text-dim text-sm mt-2">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+
       {/* Easter egg: the chosen duck. It's tiny and just sits there. */}
       <button
         className="absolute right-3 bottom-2 text-base opacity-40 hover:opacity-100 hover:scale-150 transition-transform"
@@ -195,6 +241,9 @@ export default function Home() {
     <div className="max-w-6xl mx-auto px-3 sm:px-5">
       <Hero />
       <Marquee />
+      <div className="mt-8">
+        <EventInfo />
+      </div>
       <div className="grid lg:grid-cols-[1fr_1.1fr] gap-4 mt-8">
         <ProfileCard />
         <DailyChallenge />
@@ -215,9 +264,8 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <div className="grid md:grid-cols-2 gap-4 mt-12">
+      <div className="mt-12">
         <HowItWorks />
-        <EventInfo />
       </div>
     </div>
   )

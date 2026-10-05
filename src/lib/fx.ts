@@ -24,6 +24,16 @@ type Listener = (e: FxEvent) => void
 const listeners = new Set<Listener>()
 let toastId = 1
 
+/**
+ * Global "how intense is the site" dial. Lower confetti, fewer flashes and softer shakes
+ * keep it fun without feeling like a slot machine. Tweak here to taste.
+ */
+export const INTENSITY = {
+  confetti: 0.4,
+  flash: true,
+  softShake: true,
+}
+
 export function onFx(fn: Listener): () => void {
   listeners.add(fn)
   return () => listeners.delete(fn)
@@ -38,13 +48,20 @@ export const fx = {
     emit({ type: 'toast', toast: { ...t, id: toastId++ } })
   },
   confetti(amount = 120, origin?: { x: number; y: number }, style?: string) {
-    emit({ type: 'confetti', amount, origin, style })
+    // Calmer by default: smaller bursts, and tiny ones are skipped entirely.
+    const n = Math.round(amount * INTENSITY.confetti)
+    if (n < 15) return
+    emit({ type: 'confetti', amount: n, origin, style })
   },
   flash(color = 'rgba(255,232,61,.35)') {
+    if (!INTENSITY.flash) return
     emit({ type: 'flash', color })
   },
   shake(intensity: 'sm' | 'md' | 'lg' = 'md') {
-    emit({ type: 'shake', intensity })
+    // Small shakes are dropped; big ones are softened.
+    const map = { sm: null, md: 'sm', lg: 'md' } as const
+    const level = INTENSITY.softShake ? map[intensity] : intensity
+    if (level) emit({ type: 'shake', intensity: level })
   },
   levelUp(level: number, tokens: number, unlocks: string[]) {
     emit({ type: 'levelup', level, tokens, unlocks })

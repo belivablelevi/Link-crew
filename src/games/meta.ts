@@ -16,8 +16,6 @@ export interface GameMeta {
   controls: string
   /** Lower-is-better scores (none currently; reaction leaderboard uses its own stat). */
   scoreLabel: string
-  /** Arcade-style "house record" to chase. Clearly labelled as a target, not a real player's score. */
-  record: number
   /** Turns a final score into XP + tokens. */
   reward: (score: number) => Rewards
   /** Spin to Win runs its own flow instead of the standard intro/countdown/game-over loop. */
@@ -41,7 +39,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Wait for the big button to appear.', 'Tap it as fast as humanly possible.', 'Tap too early and your combo dies.', 'Later rounds: it moves. Good luck.'],
     controls: 'Tap / click / SPACE',
     scoreLabel: 'POINTS',
-    record: 9000,
     reward: scaled(90),
   },
   {
@@ -55,7 +52,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Move with WASD / arrow keys, or drag your finger.', 'Avoid THE PRINCIPAL and flying homework.', 'Grab coins fast to chain combos.', '⭐ = hall pass shield, ⏰ = slow-mo.'],
     controls: 'WASD / Arrows / Touch-drag',
     scoreLabel: 'POINTS',
-    record: 1500,
     reward: scaled(12),
   },
   {
@@ -69,7 +65,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Tap the locker as fast as you can.', 'Each locker type needs a different number of hits.', 'Bigger lockers = bigger loot.', 'Watch for the golden SECRET LOCKER.'],
     controls: 'Tap / click / SPACE',
     scoreLabel: 'POINTS',
-    record: 4000,
     reward: scaled(14),
   },
   {
@@ -83,7 +78,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['A block slides back and forth.', 'Tap to drop it on the tower.', 'Overhang gets sliced off.', 'Line it up perfectly for PERFECT combos.'],
     controls: 'Tap / click / SPACE',
     scoreLabel: 'POINTS',
-    record: 650,
     reward: scaled(4),
   },
   {
@@ -97,7 +91,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Watch the pads light up.', 'Repeat the sequence in order.', 'Every round adds one more step and speeds up.', 'One mistake = meltdown.'],
     controls: 'Tap pads / keys 1–4 (1–6 later)',
     scoreLabel: 'POINTS',
-    record: 1500,
     reward: scaled(6),
   },
   {
@@ -111,7 +104,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Hit buttons before they vanish.', 'Each hit builds your combo.', 'DON’T hit the ☠ fake ones.', 'Gold buttons = big bonus. 3 misses and you’re out.'],
     controls: 'Tap / click',
     scoreLabel: 'POINTS',
-    record: 3000,
     reward: scaled(16),
   },
   {
@@ -125,7 +117,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Type the glowing word.', 'Words auto-advance the moment you finish them.', 'Mistakes break your combo.', 'Clean streaks multiply your score.'],
     controls: 'Keyboard (mobile keyboard works too)',
     scoreLabel: 'POINTS',
-    record: 3500,
     reward: scaled(25),
   },
   {
@@ -139,7 +130,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Tap ducks before they hop away.', 'Normal +1 · Golden +10 · Diamond +50.', 'Fake ducks (purple, with the DECOY tag) are −10!', '30 seconds. Go.'],
     controls: 'Tap / click',
     scoreLabel: 'POINTS',
-    record: 150,
     reward: scaled(0.7),
   },
   {
@@ -153,7 +143,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Hit SPIN.', 'Win tokens, XP boosts, cosmetics or the JACKPOT.', 'One free spin every 15 minutes.', 'Level-ups give bonus spins.'],
     controls: 'Tap / click',
     scoreLabel: 'TOKENS',
-    record: 500,
     reward: () => ({ xp: 0, tokens: 0 }),
     custom: true,
   },
@@ -168,7 +157,6 @@ export const GAMES: GameMeta[] = [
     howTo: ['Tap SLAP to attack. Fast taps build combo.', 'New attacks unlock as the fight goes on.', 'When the boss winds up — hit BLOCK!', 'Beat it in 75 seconds for a huge bonus.'],
     controls: 'Tap / click · keys 1–4 + SPACE to block',
     scoreLabel: 'DAMAGE',
-    record: 60000,
     reward: scaled(180),
   },
 ]

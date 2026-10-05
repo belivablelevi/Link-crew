@@ -22,16 +22,16 @@ export function Particles() {
     }
     resize()
     window.addEventListener('resize', resize)
-    const count = window.innerWidth < 640 ? 16 : 30
+    const count = window.innerWidth < 640 ? 8 : 14
     const ps = Array.from({ length: count }, (_, i) => ({
       x: Math.random() * w,
       y: Math.random() * h,
       s: 8 + Math.random() * 14,
-      vy: 0.15 + Math.random() * 0.45,
+      vy: 0.1 + Math.random() * 0.25,
       ph: Math.random() * Math.PI * 2,
       g: GLYPHS[i % GLYPHS.length],
       c: COLORS[i % COLORS.length],
-      a: 0.25 + Math.random() * 0.45,
+      a: 0.15 + Math.random() * 0.25,
     }))
     let raf = 0
     let t = 0

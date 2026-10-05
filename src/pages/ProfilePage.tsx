@@ -207,10 +207,10 @@ export default function ProfilePage() {
   const bg = COSMETICS.find((c) => c.id === s.cosmetics.equipped.background)?.value
   const fav = Object.entries(s.playsByGame).sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0))[0]
   const favGame = fav ? getGame(fav[0]) : undefined
-  // "Best score" = the game where you're closest to (or furthest past) its record.
+  // "Best score" = your single highest score in any game.
   const bestEntry = GAMES.filter((g) => !g.custom && s.highScores[g.id])
-    .map((g) => ({ g, score: s.highScores[g.id]!, ratio: s.highScores[g.id]! / g.record }))
-    .sort((a, b) => b.ratio - a.ratio)[0]
+    .map((g) => ({ g, score: s.highScores[g.id]! }))
+    .sort((a, b) => b.score - a.score)[0]
   const unlocked = ACHIEVEMENTS.filter((a) => s.achievements[a.id])
 
   const stats: [string, string, string][] = [

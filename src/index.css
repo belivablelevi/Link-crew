@@ -90,7 +90,7 @@ button:disabled {
   transform: perspective(500px) rotateX(62deg);
   transform-origin: bottom;
   mask-image: linear-gradient(to top, #000 10%, transparent 85%);
-  animation: grid-scroll 3.5s linear infinite;
+  animation: grid-scroll 9s linear infinite;
 }
 @keyframes grid-scroll {
   to {
@@ -133,7 +133,7 @@ button:disabled {
 }
 .card-game:hover,
 .card-game:focus-within {
-  transform: translateY(-5px) rotate(-0.6deg);
+  transform: translateY(-4px);
   box-shadow: 0 12px 0 #05020a, 0 0 0 3px var(--c), 0 0 40px color-mix(in srgb, var(--c) 45%, transparent);
 }
 
@@ -204,7 +204,7 @@ button:disabled {
     0 0 60px rgba(255, 159, 26, 0.55),
     inset 0 -8px 0 rgba(0, 0, 0, 0.18),
     inset 0 4px 0 rgba(255, 255, 255, 0.6);
-  animation: mega-pulse 1.6s ease-in-out infinite;
+  animation: mega-pulse 3s ease-in-out infinite;
 }
 .btn-mega:active:not(:disabled) {
   transform: translateY(8px) scale(0.98);
@@ -215,10 +215,10 @@ button:disabled {
 @keyframes mega-pulse {
   0%,
   100% {
-    transform: scale(1) rotate(-1deg);
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.05) rotate(1deg);
+    transform: scale(1.025);
   }
 }
 
@@ -239,7 +239,7 @@ button:disabled {
   background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.18) 0 8px, transparent 8px 16px), var(--fill, var(--color-lime));
   background-size: 22px 22px, auto;
   transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: bar-stripes 0.8s linear infinite;
+  animation: bar-stripes 2s linear infinite;
 }
 @keyframes bar-stripes {
   to {
@@ -329,7 +329,7 @@ button:disabled {
   }
 }
 .anim-float {
-  animation: float 3.2s ease-in-out infinite;
+  animation: float 5s ease-in-out infinite;
 }
 @keyframes wobble {
   0%,
@@ -341,7 +341,7 @@ button:disabled {
   }
 }
 .anim-wobble {
-  animation: wobble 2.4s ease-in-out infinite;
+  animation: wobble 3.5s ease-in-out infinite;
 }
 @keyframes pop-in {
   0% {
@@ -414,7 +414,7 @@ button:disabled {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 28s linear infinite;
+  animation: marquee 60s linear infinite;
 }
 @keyframes blink {
   50% {
@@ -534,12 +534,7 @@ html.secret-mode h1,
 html.secret-mode h2 {
   font-family: var(--font-pixel) !important;
 }
-html.secret-mode .card-game {
-  transform: rotate(-2deg);
-}
-html.secret-mode .card-game:nth-child(even) {
-  transform: rotate(2deg);
-}
+
 @keyframes secret-hue {
   to {
     filter: hue-rotate(360deg);

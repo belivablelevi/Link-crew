@@ -64,7 +64,7 @@ export function FxLayer() {
 
   return (
     <>
-      {flash && <div key={flash.id} className="fixed inset-0 z-[95] pointer-events-none" style={{ background: flash.color, transition: 'opacity .18s' }} aria-hidden />}
+      {flash && <div key={flash.id} className="fixed inset-0 z-[95] pointer-events-none" style={{ background: flash.color, opacity: 0.5, transition: 'opacity .18s' }} aria-hidden />}
 
       {achDef && (
         <div className="fixed z-[96] top-3 left-1/2 -translate-x-1/2 w-[min(94vw,440px)] pointer-events-none" role="status" aria-live="assertive">

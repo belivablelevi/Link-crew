@@ -1,9 +1,34 @@
 /**
- * Fall Fest event details — edit these when the date/time/location are confirmed.
- * They show in the EVENT INFO panel on the home screen.
+ * Fall Fest event details — EDIT THIS FILE as plans are confirmed.
+ * Everything in the "ABOUT FALL FEST" section of the home page comes from here.
+ * Anything still "TBA" shows as "TBA" on the site.
  */
 export const EVENT_INFO = {
   date: 'TBA',
   time: 'TBA',
   location: 'TBA',
+
+  /** Short line under the section title. */
+  tagline: 'A Link Crew event for Lisgar students.',
+
+  /** A few short paragraphs about the event. */
+  about: [
+    'Link Crew is the student mentorship program where senior students — Link Leaders — help grade 9s settle into high school.',
+    'Fall Fest is a Link Crew get-together to celebrate the season, hang out with your crew and meet people outside your classes. This arcade is part of the fun: play before and during the event and see who tops the board.',
+  ],
+
+  /** What's happening at the event. Replace with the real plan. */
+  happenings: [
+    { icon: '🤝', title: 'Meet your crew', text: 'Hang out with your Link Leaders and other students in your group.' },
+    { icon: '🎮', title: 'Games & challenges', text: 'Activities run by Link Crew — details coming soon.' },
+    { icon: '🍂', title: 'Fall vibes', text: 'Seasonal fun. More details as plans are confirmed.' },
+    { icon: '🏆', title: 'Arcade showdown', text: 'Play the games on this site and compare scores with your friends.' },
+  ],
+
+  /** Quick questions & answers. */
+  faq: [
+    { q: 'Who can come?', a: 'Details coming soon — ask your Link Leader.' },
+    { q: 'Do I need to sign up?', a: 'Details coming soon — watch for announcements.' },
+    { q: 'Do I need to play the games to come?', a: 'Nope. The arcade is just for fun — it’s free and optional.' },
+  ],
 }

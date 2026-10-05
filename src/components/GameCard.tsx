@@ -16,7 +16,6 @@ const DIFF_COLOR: Record<string, string> = {
 export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }) {
   const best = useStore((s) => s.highScores[game.id] ?? 0)
   const plays = useStore((s) => s.playsByGame[game.id] ?? 0)
-  const beaten = best >= game.record
   return (
     <a
       href={href(`/games/${game.id}`)}
@@ -31,11 +30,6 @@ export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }
         <span className="tag absolute top-3 left-3" style={{ '--c': DIFF_COLOR[game.difficulty] } as CSSProperties}>
           {game.difficulty}
         </span>
-        {beaten && (
-          <span className="tag absolute top-3 right-3" style={{ '--c': 'var(--color-yellow)' } as CSSProperties}>
-            ★ RECORD
-          </span>
-        )}
       </div>
       <div className="p-4">
         <div className="flex items-center gap-3">
@@ -45,10 +39,9 @@ export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }
           <h3 className="font-display text-lg leading-tight">{game.name}</h3>
         </div>
         <p className="text-dim text-sm mt-2 leading-snug min-h-[2.5em]">{game.tagline}</p>
-        <div className="grid grid-cols-3 gap-2 mt-3 text-center">
+        <div className="grid grid-cols-2 gap-2 mt-3 text-center">
           <Stat label="YOUR BEST" value={best ? best.toLocaleString() : '—'} color={game.color} />
-          <Stat label="RECORD" value={game.record.toLocaleString()} />
-          <Stat label="PLAYS" value={plays.toString()} />
+          <Stat label="TIMES PLAYED" value={plays.toString()} />
         </div>
         <div className="btn w-full mt-4 text-base" style={{ '--c': game.color, '--ct': '#0b0614' } as CSSProperties} aria-hidden>
           ▶ {game.custom ? 'SPIN' : best ? 'BEAT IT' : 'PLAY'}
