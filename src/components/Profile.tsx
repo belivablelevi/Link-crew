@@ -19,7 +19,7 @@ export function PlayerBadge({ size = 'md' }: { size?: 'md' | 'lg' }) {
       </div>
       <div className="min-w-0">
         <div className={`font-display leading-tight truncate ${big ? 'text-3xl' : 'text-xl'} ${effect}`}>{s.username}</div>
-        <div className="font-pixel text-[0.5rem] text-pink mt-1 truncate">{title}</div>
+        <div className="font-pixel text-[0.7rem] text-pink mt-1 truncate">{title}</div>
       </div>
     </div>
   )
@@ -42,8 +42,8 @@ export function ProfileCard() {
   return (
     <section className="panel p-4 sm:p-5" aria-label="Your profile">
       <div className="flex items-center justify-between gap-3 mb-4">
-        <h2 className="font-pixel text-[0.6rem] text-dim">YOUR PROFILE</h2>
-        <a href="#/profile" className="font-pixel text-[0.55rem] text-blue hover:underline">
+        <h2 className="font-pixel text-[0.75rem] text-dim">YOUR PROFILE</h2>
+        <a href="#/profile" className="font-pixel text-[0.72rem] text-blue hover:underline">
           CUSTOMIZE →
         </a>
       </div>
@@ -52,13 +52,13 @@ export function ProfileCard() {
         <XPBar xp={xp} />
       </div>
       <div className="grid grid-cols-2 gap-2 mt-4">
-        <div className="rounded-2xl bg-bg/60 border-2 border-[#3a2766] p-3">
+        <div className="rounded-2xl bg-bg/60 border-2 border-[#2a4180] p-3">
           <div className="font-display text-2xl text-orange">🔥 {streak}</div>
-          <div className="font-pixel text-[0.5rem] text-dim mt-1">DAY STREAK</div>
+          <div className="font-pixel text-[0.7rem] text-dim mt-1">DAY STREAK</div>
         </div>
-        <div className="rounded-2xl bg-bg/60 border-2 border-[#3a2766] p-3">
+        <div className="rounded-2xl bg-bg/60 border-2 border-[#2a4180] p-3">
           <div className="font-display text-2xl text-yellow tabular-nums">🪙 {tokens.toLocaleString()}</div>
-          <div className="font-pixel text-[0.5rem] text-dim mt-1">FEST TOKENS</div>
+          <div className="font-pixel text-[0.7rem] text-dim mt-1">FEST TOKENS</div>
         </div>
       </div>
       {(isBoostActive(xpUntil) || isBoostActive(tkUntil)) && (

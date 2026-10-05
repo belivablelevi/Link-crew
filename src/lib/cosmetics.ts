@@ -43,13 +43,13 @@ export const COSMETICS: Cosmetic[] = [
   { id: 'ti-secret', kind: 'title', name: 'Secret', value: 'KNOWS THE SECRETS', cost: 0, special: 'secret' },
 
   // Profile backgrounds
-  { id: 'bg-night', kind: 'background', name: 'Midnight', value: 'linear-gradient(135deg,#2b1055,#120826)', cost: 0 },
+  { id: 'bg-night', kind: 'background', name: 'Midnight', value: 'linear-gradient(135deg,#14306b,#0d1a3a)', cost: 0 },
   { id: 'bg-harvest', kind: 'background', name: 'Harvest', value: 'linear-gradient(135deg,#ff7a1a,#c2185b)', cost: 0, level: 4 },
-  { id: 'bg-lime', kind: 'background', name: 'Slime', value: 'linear-gradient(135deg,#3cff6e,#0f7c6b)', cost: 180 },
-  { id: 'bg-ocean', kind: 'background', name: 'Neon Sea', value: 'linear-gradient(135deg,#00e1ff,#3b2bff)', cost: 220 },
-  { id: 'bg-arcade', kind: 'background', name: 'Arcade Grid', value: 'repeating-linear-gradient(0deg,#ff2bd6 0 2px,transparent 2px 22px),repeating-linear-gradient(90deg,#ff2bd6 0 2px,transparent 2px 22px),#1a0633', cost: 350 },
-  { id: 'bg-gold', kind: 'background', name: 'Gold Rush', value: 'linear-gradient(135deg,#ffe83d,#ff9f1a,#ffe83d)', cost: 0, level: 9 },
-  { id: 'bg-rainbow', kind: 'background', name: 'Rainbow', value: 'linear-gradient(135deg,#ff2bd6,#ff9f1a,#ffe83d,#3cff6e,#00e1ff,#8b5cff)', cost: 0, special: 'rare' },
+  { id: 'bg-lime', kind: 'background', name: 'Slime', value: 'linear-gradient(135deg,#3ddc84,#0f7c6b)', cost: 180 },
+  { id: 'bg-ocean', kind: 'background', name: 'Neon Sea', value: 'linear-gradient(135deg,#4fb3ff,#3b2bff)', cost: 220 },
+  { id: 'bg-arcade', kind: 'background', name: 'Arcade Grid', value: 'repeating-linear-gradient(0deg,#8ec2ff 0 2px,transparent 2px 22px),repeating-linear-gradient(90deg,#8ec2ff 0 2px,transparent 2px 22px),#1a0633', cost: 350 },
+  { id: 'bg-gold', kind: 'background', name: 'Gold Rush', value: 'linear-gradient(135deg,#ffc72c,#f2a900,#ffc72c)', cost: 0, level: 9 },
+  { id: 'bg-rainbow', kind: 'background', name: 'Rainbow', value: 'linear-gradient(135deg,#8ec2ff,#f2a900,#ffc72c,#3ddc84,#4fb3ff,#2f6bff)', cost: 0, special: 'rare' },
 
   // Name effects
   { id: 'ne-none', kind: 'nameEffect', name: 'Plain', value: '', cost: 0 },

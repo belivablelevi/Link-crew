@@ -60,7 +60,7 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
       if (sum.newHigh) {
         play('victory')
         fx.confetti(180)
-        fx.flash('rgba(255,232,61,.35)')
+        fx.flash('rgba(255,199,44,.35)')
       } else {
         play('gameover')
       }
@@ -107,7 +107,7 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
         <div className="ml-auto flex items-center gap-2">
           {xpBoost && <span className="tag anim-blink" style={{ '--c': 'var(--color-lime)' } as CSSProperties}>2X XP</span>}
           <div className="sticker rounded-xl bg-panel px-3 h-11 grid content-center text-right">
-            <div className="font-pixel text-[0.45rem] text-dim">BEST</div>
+            <div className="font-pixel text-[0.65rem] text-dim">BEST</div>
             <div className="font-display text-sm tabular-nums" style={{ color: meta.color }}>
               {best.toLocaleString()}
             </div>
@@ -120,8 +120,8 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
         style={{
           height: 'max(440px, calc(100dvh - 64px - 64px - 80px - env(safe-area-inset-bottom)))',
           maxHeight: 820,
-          background: `radial-gradient(circle at 50% 0%, ${meta.color}22, transparent 55%), linear-gradient(180deg,#160c2a,#0d0719)`,
-          boxShadow: `0 8px 0 #05020a, 0 0 0 3px ${meta.color}66`,
+          background: `radial-gradient(circle at 50% 0%, ${meta.color}22, transparent 55%), linear-gradient(180deg,#0e1c3d,#081329)`,
+          boxShadow: `0 8px 0 #030814, 0 0 0 3px ${meta.color}66`,
         }}
       >
         {phase === 'playing' && (
@@ -150,11 +150,11 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
                   </li>
                 ))}
               </ul>
-              <div className="font-pixel text-[0.55rem] text-dim">CONTROLS: {meta.controls}</div>
+              <div className="font-pixel text-[0.72rem] text-dim">CONTROLS: {meta.controls}</div>
               <Button mega onClick={start} autoFocus>
                 PLAY
               </Button>
-              <div className="font-pixel text-[0.5rem] text-dim hidden sm:block">or press ENTER</div>
+              <div className="font-pixel text-[0.7rem] text-dim hidden sm:block">or press ENTER</div>
             </div>
           </div>
         )}
@@ -175,20 +175,20 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
                 {result.headline ?? 'NICE RUN!'}
               </h2>
               {summary.newHigh && (
-                <div className="anim-pop sticker rounded-2xl px-4 py-2 font-display text-lg text-bg" style={{ background: 'linear-gradient(90deg,#ffe83d,#ff9f1a)', animationDelay: '.2s' }}>
+                <div className="anim-pop sticker rounded-2xl px-4 py-2 font-display text-lg text-bg" style={{ background: 'linear-gradient(90deg,#ffc72c,#f2a900)', animationDelay: '.2s' }}>
                   🏆 NEW HIGH SCORE!
                 </div>
               )}
               <div className="mt-1">
-                <div className="font-pixel text-[0.55rem] text-dim">{meta.scoreLabel}</div>
+                <div className="font-pixel text-[0.72rem] text-dim">{meta.scoreLabel}</div>
                 <div className="font-display text-6xl sm:text-7xl text-ink tabular-nums anim-pop">{Math.round(result.score).toLocaleString()}</div>
                 {!summary.newHigh && summary.prevHigh > 0 && <div className="text-sm text-dim">Best: {summary.prevHigh.toLocaleString()} · {Math.max(0, summary.prevHigh - Math.round(result.score)).toLocaleString()} to beat it</div>}
               </div>
               {result.details && (
                 <div className="flex flex-wrap justify-center gap-2 max-w-md">
                   {result.details.map((d) => (
-                    <div key={d.label} className="rounded-xl bg-panel border-2 border-[#3a2766] px-3 py-1.5">
-                      <div className="font-pixel text-[0.45rem] text-dim">{d.label}</div>
+                    <div key={d.label} className="rounded-xl bg-panel border-2 border-[#2a4180] px-3 py-1.5">
+                      <div className="font-pixel text-[0.65rem] text-dim">{d.label}</div>
                       <div className="font-display text-base">{d.value}</div>
                     </div>
                   ))}

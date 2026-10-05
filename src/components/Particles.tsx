@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from '../lib/fx'
 
 const GLYPHS = ['🍁', '🍂', '✦', '✦', '★', '•', '•']
-const COLORS = ['#ff2bd6', '#ffe83d', '#3cff6e', '#00e1ff', '#ff9f1a', '#8b5cff']
+const COLORS = ['#8ec2ff', '#ffc72c', '#3ddc84', '#4fb3ff', '#f2a900', '#2f6bff']
 
 /** Lightweight drifting background particles. Pauses when hidden or with reduced motion. */
 export function Particles() {

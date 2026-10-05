@@ -11,7 +11,7 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
     case 'reaction-rush':
       return (
         <div className={wrap}>
-          <div className="rounded-full grid place-items-center sticker" style={{ width: 84 * s, height: 84 * s, background: 'radial-gradient(circle at 35% 30%,#ff8fa3,#ff3b5c 60%,#a3001c)', ...a('heartbeat', 1.1) }}>
+          <div className="rounded-full grid place-items-center sticker" style={{ width: 84 * s, height: 84 * s, background: 'radial-gradient(circle at 35% 30%,#ff8fa3,#ff4d5e 60%,#a3001c)', ...a('heartbeat', 1.1) }}>
             <span style={{ fontSize: 38 * s }}>⚡</span>
           </div>
         </div>
@@ -22,7 +22,7 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
           <div className="flex items-center gap-6" style={{ fontSize: 40 * s }}>
             <span style={a('chase', 2.2)}>🏃</span>
             <span style={a('chase', 2.2, 0.35)} className="relative">
-              👔<span className="absolute -top-3 left-1/2 -translate-x-1/2 font-pixel text-[0.4rem] text-red whitespace-nowrap">PRINCIPAL</span>
+              👔<span className="absolute -top-3 left-1/2 -translate-x-1/2 font-pixel text-[0.65rem] text-red whitespace-nowrap">PRINCIPAL</span>
             </span>
           </div>
         </div>
@@ -42,8 +42,8 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
       return (
         <div className={wrap}>
           <div className="flex flex-col items-center gap-0.5">
-            <div className="sticker rounded-md h-4" style={{ width: 70 * s, background: '#ff2bd6', ...a('slide-block', 1.4) }} />
-            {['#ff9f1a', '#ffe83d', '#3cff6e', '#00e1ff'].map((c, i) => (
+            <div className="sticker rounded-md h-4" style={{ width: 70 * s, background: '#8ec2ff', ...a('slide-block', 1.4) }} />
+            {['#f2a900', '#ffc72c', '#3ddc84', '#4fb3ff'].map((c, i) => (
               <div key={c} className="sticker rounded-md h-4" style={{ width: (70 + i * 4) * s, background: c, marginLeft: i % 2 ? 8 : -6 }} />
             ))}
           </div>
@@ -53,7 +53,7 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
       return (
         <div className={wrap}>
           <div className="grid grid-cols-2 gap-2">
-            {['#ff2bd6', '#00e1ff', '#3cff6e', '#ffe83d'].map((c, i) => (
+            {['#8ec2ff', '#4fb3ff', '#3ddc84', '#ffc72c'].map((c, i) => (
               <div key={c} className="sticker rounded-xl grid place-items-center font-display text-bg" style={{ width: 38 * s, height: 38 * s, background: c, ...a('pad', 2.4, i * 0.6, 'linear') }}>
                 {['★', '●', '▲', '◆'][i]}
               </div>
@@ -65,11 +65,11 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
       return (
         <div className={wrap}>
           {[
-            [20, 25, '#ff3b5c', 0],
-            [62, 18, '#ffe83d', 0.4],
-            [40, 60, '#3cff6e', 0.8],
-            [75, 62, '#00e1ff', 1.2],
-            [12, 68, '#ff2bd6', 1.6],
+            [20, 25, '#ff4d5e', 0],
+            [62, 18, '#ffc72c', 0.4],
+            [40, 60, '#3ddc84', 0.8],
+            [75, 62, '#4fb3ff', 1.2],
+            [12, 68, '#8ec2ff', 1.6],
           ].map(([x, y, c, d], i) => (
             <div key={i} className="absolute sticker rounded-full" style={{ left: `${x}%`, top: `${y}%`, width: 30 * s, height: 30 * s, background: c as string, ...a('popcycle', 2, d as number) }} />
           ))}
@@ -98,7 +98,7 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
         <div className={wrap}>
           <div
             className="rounded-full sticker anim-spin-slow"
-            style={{ width: 96 * s, height: 96 * s, animationDuration: '4s', background: 'conic-gradient(#ff2bd6 0 45deg,#ffe83d 0 90deg,#3cff6e 0 135deg,#00e1ff 0 180deg,#ff9f1a 0 225deg,#8b5cff 0 270deg,#ff3b5c 0 315deg,#fff 0)' }}
+            style={{ width: 96 * s, height: 96 * s, animationDuration: '4s', background: 'conic-gradient(#8ec2ff 0 45deg,#ffc72c 0 90deg,#3ddc84 0 135deg,#4fb3ff 0 180deg,#f2a900 0 225deg,#2f6bff 0 270deg,#ff4d5e 0 315deg,#fff 0)' }}
           />
         </div>
       )

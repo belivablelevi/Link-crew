@@ -15,7 +15,7 @@ export default function AchievementsPage() {
   )
   return (
     <div className="max-w-5xl mx-auto px-3 sm:px-5 pt-8">
-      <div className="font-pixel text-[0.6rem] text-lime">GOTTA CATCH &apos;EM ALL</div>
+      <div className="font-pixel text-[0.75rem] text-lime">GOTTA CATCH &apos;EM ALL</div>
       <h1 className="font-display title-outline text-[clamp(2.1rem,11vw,3.75rem)] break-words text-yellow mt-1">ACHIEVEMENTS</h1>
       <div className="panel p-4 mt-6 flex flex-wrap items-center gap-4">
         <div className="font-display text-4xl">

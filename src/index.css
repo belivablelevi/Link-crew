@@ -1,21 +1,21 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-bg: #0b0614;
-  --color-panel: #1a0f2e;
-  --color-panel2: #251643;
-  --color-ink: #fff8e7;
-  --color-dim: #b9a9d9;
-  --color-purple: #8b5cff;
-  --color-blue: #00e1ff;
-  --color-orange: #ff9f1a;
-  --color-lime: #3cff6e;
-  --color-pink: #ff2bd6;
-  --color-yellow: #ffe83d;
-  --color-red: #ff3b5c;
-  --font-display: 'Bungee', 'Arial Black', Impact, system-ui, sans-serif;
-  --font-pixel: 'Press Start 2P', ui-monospace, monospace;
-  --font-body: 'Rubik', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --color-bg: #071022;
+  --color-panel: #13214a;
+  --color-panel2: #1a2c5e;
+  --color-ink: #f4f7ff;
+  --color-dim: #a9b9de;
+  --color-purple: #2f6bff;
+  --color-blue: #4fb3ff;
+  --color-orange: #f2a900;
+  --color-lime: #3ddc84;
+  --color-pink: #8ec2ff;
+  --color-yellow: #ffc72c;
+  --color-red: #ff4d5e;
+  --font-display: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-pixel: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
 @layer base {
@@ -56,11 +56,15 @@ button:disabled {
 @layer components {
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: 0.01em;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 .font-pixel {
+  /* small uppercase labels */
   font-family: var(--font-pixel);
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 /* ------------------------------------------------------------- backgrounds */
@@ -71,9 +75,9 @@ button:disabled {
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(60vmax 50vmax at 10% -10%, rgba(139, 92, 255, 0.35), transparent 60%),
-    radial-gradient(50vmax 40vmax at 110% 10%, rgba(255, 43, 214, 0.22), transparent 60%),
-    radial-gradient(60vmax 50vmax at 50% 120%, rgba(255, 159, 26, 0.22), transparent 60%),
+    radial-gradient(60vmax 50vmax at 10% -10%, rgba(47,107,255, 0.35), transparent 60%),
+    radial-gradient(50vmax 40vmax at 110% 10%, rgba(110,180,255, 0.22), transparent 60%),
+    radial-gradient(60vmax 50vmax at 50% 120%, rgba(242,169,0, 0.22), transparent 60%),
     var(--color-bg);
 }
 .bg-stage::before {
@@ -85,8 +89,8 @@ button:disabled {
   bottom: -10%;
   height: 55%;
   background:
-    repeating-linear-gradient(90deg, rgba(0, 225, 255, 0.18) 0 2px, transparent 2px 70px),
-    repeating-linear-gradient(0deg, rgba(255, 43, 214, 0.16) 0 2px, transparent 2px 70px);
+    repeating-linear-gradient(90deg, rgba(79,179,255, 0.18) 0 2px, transparent 2px 70px),
+    repeating-linear-gradient(0deg, rgba(110,180,255, 0.16) 0 2px, transparent 2px 70px);
   transform: perspective(500px) rotateX(62deg);
   transform-origin: bottom;
   mask-image: linear-gradient(to top, #000 10%, transparent 85%);
@@ -110,22 +114,22 @@ button:disabled {
 /* ------------------------------------------------------------- panels/cards */
 .panel {
   background: var(--color-panel);
-  border: 3px solid #3a2766;
+  border: 3px solid #2a4180;
   border-radius: 24px;
-  box-shadow: 0 6px 0 #05020a;
+  box-shadow: 0 6px 0 #030814;
 }
 .sticker {
-  border: 3px solid #0b0614;
-  box-shadow: 4px 4px 0 #0b0614;
+  border: 3px solid #071022;
+  box-shadow: 4px 4px 0 #071022;
 }
 .card-game {
   --c: var(--color-pink);
   --c2: var(--color-purple);
   position: relative;
   border-radius: 26px;
-  border: 3px solid #0b0614;
+  border: 3px solid #071022;
   background: var(--color-panel);
-  box-shadow: 0 7px 0 #05020a, 0 0 0 3px color-mix(in srgb, var(--c) 55%, transparent);
+  box-shadow: 0 7px 0 #030814, 0 0 0 3px color-mix(in srgb, var(--c) 55%, transparent);
   transition:
     transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 0.18s;
@@ -134,28 +138,30 @@ button:disabled {
 .card-game:hover,
 .card-game:focus-within {
   transform: translateY(-4px);
-  box-shadow: 0 12px 0 #05020a, 0 0 0 3px var(--c), 0 0 40px color-mix(in srgb, var(--c) 45%, transparent);
+  box-shadow: 0 12px 0 #030814, 0 0 0 3px var(--c), 0 0 40px color-mix(in srgb, var(--c) 45%, transparent);
 }
 
 /* ------------------------------------------------------------- arcade buttons */
 .btn {
   --c: var(--color-yellow);
-  --ct: #160b26;
+  --ct: #0c1730;
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5em;
   font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: var(--ct);
   background: var(--c);
-  border: 3px solid #0b0614;
+  border: 3px solid #071022;
   border-radius: 16px;
   padding: 0.7em 1.3em;
   min-height: 48px;
   box-shadow:
-    0 6px 0 #0b0614,
+    0 6px 0 #071022,
     inset 0 -6px 0 rgba(0, 0, 0, 0.18),
     inset 0 3px 0 rgba(255, 255, 255, 0.45);
   transition:
@@ -169,14 +175,14 @@ button:disabled {
   filter: brightness(1.08) saturate(1.1);
   transform: translateY(-2px);
   box-shadow:
-    0 8px 0 #0b0614,
+    0 8px 0 #071022,
     inset 0 -6px 0 rgba(0, 0, 0, 0.18),
     inset 0 3px 0 rgba(255, 255, 255, 0.45);
 }
 .btn:active:not(:disabled) {
   transform: translateY(5px);
   box-shadow:
-    0 1px 0 #0b0614,
+    0 1px 0 #071022,
     inset 0 -3px 0 rgba(0, 0, 0, 0.18),
     inset 0 3px 0 rgba(255, 255, 255, 0.35);
 }
@@ -187,7 +193,7 @@ button:disabled {
   --c: var(--color-panel2);
   --ct: var(--color-ink);
   box-shadow:
-    0 6px 0 #05020a,
+    0 6px 0 #030814,
     inset 0 2px 0 rgba(255, 255, 255, 0.08);
 }
 
@@ -197,11 +203,11 @@ button:disabled {
   padding: 0.35em 1.1em;
   border-radius: 26px;
   border-width: 4px;
-  background: linear-gradient(180deg, #fff36b, var(--color-yellow) 45%, var(--color-orange));
+  background: linear-gradient(180deg, #ffe08a, var(--color-yellow) 45%, var(--color-orange));
   box-shadow:
-    0 10px 0 #0b0614,
-    0 0 0 6px rgba(255, 232, 61, 0.15),
-    0 0 60px rgba(255, 159, 26, 0.55),
+    0 10px 0 #071022,
+    0 0 0 6px rgba(255,199,44, 0.15),
+    0 0 60px rgba(242,169,0, 0.55),
     inset 0 -8px 0 rgba(0, 0, 0, 0.18),
     inset 0 4px 0 rgba(255, 255, 255, 0.6);
   animation: mega-pulse 3s ease-in-out infinite;
@@ -209,8 +215,8 @@ button:disabled {
 .btn-mega:active:not(:disabled) {
   transform: translateY(8px) scale(0.98);
   box-shadow:
-    0 2px 0 #0b0614,
-    0 0 30px rgba(255, 159, 26, 0.6);
+    0 2px 0 #071022,
+    0 0 30px rgba(242,169,0, 0.6);
 }
 @keyframes mega-pulse {
   0%,
@@ -227,9 +233,9 @@ button:disabled {
   position: relative;
   height: 22px;
   border-radius: 999px;
-  background: #0b0614;
-  border: 3px solid #0b0614;
-  box-shadow: inset 0 0 0 2px #3a2766;
+  background: #071022;
+  border: 3px solid #071022;
+  box-shadow: inset 0 0 0 2px #2a4180;
   overflow: hidden;
 }
 .bar > .fill {
@@ -249,11 +255,11 @@ button:disabled {
 
 /* ------------------------------------------------------------- text fx */
 .title-outline {
-  -webkit-text-stroke: 2px #0b0614;
+  -webkit-text-stroke: 2px #071022;
   paint-order: stroke fill;
   text-shadow:
-    4px 4px 0 #0b0614,
-    0 0 30px rgba(255, 43, 214, 0.45);
+    4px 4px 0 #071022,
+    0 0 30px rgba(110,180,255, 0.45);
 }
 .fx-glow {
   color: #fff;
@@ -263,7 +269,7 @@ button:disabled {
     0 0 30px var(--color-purple);
 }
 .fx-fire {
-  background: linear-gradient(0deg, #ff3b5c, #ff9f1a, #ffe83d);
+  background: linear-gradient(0deg, #ff4d5e, #f2a900, #ffc72c);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -271,7 +277,7 @@ button:disabled {
   animation: flicker 1.2s infinite alternate;
 }
 .fx-rainbow {
-  background: linear-gradient(90deg, #ff2bd6, #ff9f1a, #ffe83d, #3cff6e, #00e1ff, #8b5cff, #ff2bd6);
+  background: linear-gradient(90deg, #8ec2ff, #f2a900, #ffc72c, #3ddc84, #4fb3ff, #2f6bff, #8ec2ff);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -279,7 +285,7 @@ button:disabled {
   animation: gradient-pan 2.5s linear infinite;
 }
 .fx-gold {
-  background: linear-gradient(100deg, #b8860b, #ffe83d 40%, #fff7c2 50%, #ffe83d 60%, #b8860b);
+  background: linear-gradient(100deg, #b8860b, #ffc72c 40%, #fff7c2 50%, #ffc72c 60%, #b8860b);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -391,10 +397,11 @@ button:disabled {
   transform: translate(-50%, 0);
   pointer-events: none;
   font-family: var(--font-display);
+  font-weight: 900;
   white-space: nowrap;
-  -webkit-text-stroke: 1.5px #0b0614;
+  -webkit-text-stroke: 1.5px #071022;
   paint-order: stroke fill;
-  text-shadow: 3px 3px 0 #0b0614;
+  text-shadow: 3px 3px 0 #071022;
   animation: fly-up 0.9s ease-out forwards;
   z-index: 30;
 }
@@ -497,10 +504,10 @@ button:disabled {
   line-height: 1;
   padding: 0.55em 0.7em;
   border-radius: 8px;
-  border: 2px solid #0b0614;
-  color: #0b0614;
+  border: 2px solid #071022;
+  color: #071022;
   background: var(--c, var(--color-lime));
-  box-shadow: 2px 2px 0 #0b0614;
+  box-shadow: 2px 2px 0 #071022;
   text-transform: uppercase;
   white-space: nowrap;
 }

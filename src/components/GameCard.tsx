@@ -24,7 +24,7 @@ export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }
       style={{ '--c': game.color, '--c2': game.color2, animationDelay: `${index * 50}ms` } as CSSProperties}
       aria-label={`Play ${game.name}. Difficulty ${game.difficulty}. Your best ${best}.`}
     >
-      <div className="relative h-36 border-b-[3px] border-bg" style={{ background: `radial-gradient(circle at 30% 20%, ${game.color}55, transparent 60%), linear-gradient(135deg, ${game.color2}33, #120826)` }}>
+      <div className="relative h-36 border-b-[3px] border-bg" style={{ background: `radial-gradient(circle at 30% 20%, ${game.color}55, transparent 60%), linear-gradient(135deg, ${game.color2}33, #0d1a3a)` }}>
         <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
         <GameArt id={game.id} />
         <span className="tag absolute top-3 left-3" style={{ '--c': DIFF_COLOR[game.difficulty] } as CSSProperties}>
@@ -43,7 +43,7 @@ export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }
           <Stat label="YOUR BEST" value={best ? best.toLocaleString() : '—'} color={game.color} />
           <Stat label="TIMES PLAYED" value={plays.toString()} />
         </div>
-        <div className="btn w-full mt-4 text-base" style={{ '--c': game.color, '--ct': '#0b0614' } as CSSProperties} aria-hidden>
+        <div className="btn w-full mt-4 text-base" style={{ '--c': game.color, '--ct': '#071022' } as CSSProperties} aria-hidden>
           ▶ {game.custom ? 'SPIN' : best ? 'BEAT IT' : 'PLAY'}
         </div>
       </div>
@@ -54,7 +54,7 @@ export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }
 function Stat({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
     <div className="rounded-xl bg-bg/60 py-1.5 px-1">
-      <div className="font-pixel text-[0.42rem] text-dim">{label}</div>
+      <div className="font-pixel text-[0.65rem] text-dim">{label}</div>
       <div className="font-display text-sm mt-0.5 truncate" style={{ color: color ?? 'var(--color-ink)' }}>
         {value}
       </div>

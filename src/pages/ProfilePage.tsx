@@ -20,7 +20,7 @@ function Preview({ c }: { c: Cosmetic }) {
     case 'avatar':
       return <span className="text-4xl">{c.value}</span>
     case 'title':
-      return <span className="font-pixel text-[0.45rem] text-pink text-center leading-relaxed px-1">{c.value}</span>
+      return <span className="font-pixel text-[0.65rem] text-pink text-center leading-relaxed px-1">{c.value}</span>
     case 'background':
       return <span className="block w-full h-full rounded-lg" style={{ background: c.value }} />
     case 'nameEffect':
@@ -59,7 +59,7 @@ function Shop() {
       </div>
       <div className="flex gap-2 scroll-x pb-2" role="tablist" aria-label="Cosmetic type">
         {KINDS.map((k) => (
-          <button key={k} role="tab" aria-selected={kind === k} onClick={() => setKind(k)} className={`sticker shrink-0 rounded-xl px-3 h-10 font-display text-xs ${kind === k ? 'bg-pink text-white -rotate-2' : 'bg-panel2 text-dim hover:text-ink'}`}>
+          <button key={k} role="tab" aria-selected={kind === k} onClick={() => setKind(k)} className={`sticker shrink-0 rounded-xl px-3 h-10 font-display text-xs ${kind === k ? 'bg-pink text-bg -rotate-2' : 'bg-panel2 text-dim hover:text-ink'}`}>
             {COSMETIC_KIND_LABEL[k]}
           </button>
         ))}
@@ -84,13 +84,13 @@ function Shop() {
               disabled={disabled && !on}
               aria-pressed={on}
               aria-label={`${c.name}. ${label}`}
-              className={`rounded-2xl border-[3px] p-2 flex flex-col items-center gap-2 transition-transform ${on ? 'border-lime bg-lime/10' : 'border-[#3a2766] bg-bg/50 hover:-translate-y-1 hover:border-yellow'} ${disabled && !on ? 'opacity-55 hover:translate-y-0 hover:border-[#3a2766]' : ''}`}
+              className={`rounded-2xl border-[3px] p-2 flex flex-col items-center gap-2 transition-transform ${on ? 'border-lime bg-lime/10' : 'border-[#2a4180] bg-bg/50 hover:-translate-y-1 hover:border-yellow'} ${disabled && !on ? 'opacity-55 hover:translate-y-0 hover:border-[#2a4180]' : ''}`}
             >
               <span className="h-16 w-full grid place-items-center rounded-xl bg-panel2 overflow-hidden p-1">
                 <Preview c={c} />
               </span>
               <span className="font-display text-xs">{c.name}</span>
-              <span className={`font-pixel text-[0.45rem] ${on ? 'text-lime' : has ? 'text-blue' : afford && !levelLocked && !special ? 'text-yellow' : 'text-dim'}`}>{label}</span>
+              <span className={`font-pixel text-[0.65rem] ${on ? 'text-lime' : has ? 'text-blue' : afford && !levelLocked && !special ? 'text-yellow' : 'text-dim'}`}>{label}</span>
             </button>
           )
         })}
@@ -124,7 +124,7 @@ function Settings() {
             value={settings.volume}
             onChange={(e) => updateSettings({ volume: Number(e.target.value) })}
             onPointerUp={() => play('coin')}
-            className="w-full accent-[#ff2bd6] h-8"
+            className="w-full accent-[#8ec2ff] h-8"
             disabled={!settings.sound}
           />
         </label>
@@ -230,7 +230,7 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-5xl mx-auto px-3 sm:px-5 pt-8 grid grid-cols-[minmax(0,1fr)] gap-5">
-      <section className="relative rounded-[28px] border-[3px] border-bg overflow-hidden shadow-[0_8px_0_#05020a]" style={{ background: bg }}>
+      <section className="relative rounded-[28px] border-[3px] border-bg overflow-hidden shadow-[0_8px_0_#030814]" style={{ background: bg }}>
         <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/50 to-transparent" />
         <div className="relative p-5 sm:p-8 grid gap-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -244,7 +244,7 @@ export default function ProfilePage() {
       <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3" aria-label="Stats">
         {stats.map(([k, v, c]) => (
           <div key={k} className="panel p-3 sm:p-4">
-            <div className="font-pixel text-[0.45rem] text-dim">{k}</div>
+            <div className="font-pixel text-[0.65rem] text-dim">{k}</div>
             <div className="font-display text-base sm:text-xl mt-1 truncate" style={{ color: c } as CSSProperties} title={v}>
               {v}
             </div>
@@ -255,7 +255,7 @@ export default function ProfilePage() {
       <section className="panel p-4 sm:p-6" aria-label="Recent achievements">
         <div className="flex justify-between items-center mb-3">
           <h2 className="font-display text-2xl">BADGES</h2>
-          <a href="#/achievements" className="font-pixel text-[0.55rem] text-blue hover:underline">
+          <a href="#/achievements" className="font-pixel text-[0.72rem] text-blue hover:underline">
             SEE ALL →
           </a>
         </div>

@@ -6,12 +6,12 @@ import { fx } from '../lib/fx'
 import { play } from '../lib/sound'
 
 const PADS = [
-  { color: '#ff2bd6', symbol: '★', pitch: 1 },
-  { color: '#00e1ff', symbol: '●', pitch: 1.26 },
-  { color: '#3cff6e', symbol: '▲', pitch: 1.5 },
-  { color: '#ffe83d', symbol: '◆', pitch: 1.68 },
-  { color: '#ff9f1a', symbol: '✚', pitch: 2 },
-  { color: '#8b5cff', symbol: '■', pitch: 2.25 },
+  { color: '#ffc72c', symbol: '★', pitch: 1 },
+  { color: '#2f6bff', symbol: '●', pitch: 1.26 },
+  { color: '#3ddc84', symbol: '▲', pitch: 1.5 },
+  { color: '#ff4d5e', symbol: '◆', pitch: 1.68 },
+  { color: '#f4f7ff', symbol: '✚', pitch: 2 },
+  { color: '#b07cff', symbol: '■', pitch: 2.25 },
 ]
 const SIX_PADS_FROM = 7
 

@@ -23,43 +23,43 @@ interface Attack {
 }
 
 const ATTACKS: Attack[] = [
-  { id: 'slap', name: 'SLAP', icon: '👋', min: 22, max: 34, cooldown: 0, color: '#ffe83d', unlock: '', isUnlocked: () => true },
-  { id: 'pizza', name: 'PIZZA TOSS', icon: '🍕', min: 450, max: 650, cooldown: 3000, color: '#ff9f1a', unlock: '10 COMBO', isUnlocked: (_p, c, t) => c >= 10 || t > 12 },
-  { id: 'spirit', name: 'SPIRIT BLAST', icon: '🔥', min: 1500, max: 2100, cooldown: 7000, color: '#ff2bd6', unlock: 'BOSS < 70%', isUnlocked: (p) => p < 0.7 },
-  { id: 'duck', name: 'DUCK STORM', icon: '🦆', min: 3500, max: 4600, cooldown: 14000, color: '#00e1ff', unlock: 'BOSS < 35%', isUnlocked: (p) => p < 0.35 },
+  { id: 'slap', name: 'SLAP', icon: '👋', min: 22, max: 34, cooldown: 0, color: '#ffc72c', unlock: '', isUnlocked: () => true },
+  { id: 'pizza', name: 'PIZZA TOSS', icon: '🍕', min: 450, max: 650, cooldown: 3000, color: '#f2a900', unlock: '10 COMBO', isUnlocked: (_p, c, t) => c >= 10 || t > 12 },
+  { id: 'spirit', name: 'SPIRIT BLAST', icon: '🔥', min: 1500, max: 2100, cooldown: 7000, color: '#8ec2ff', unlock: 'BOSS < 70%', isUnlocked: (p) => p < 0.7 },
+  { id: 'duck', name: 'DUCK STORM', icon: '🦆', min: 3500, max: 4600, cooldown: 14000, color: '#4fb3ff', unlock: 'BOSS < 35%', isUnlocked: (p) => p < 0.35 },
 ]
 
 const BOSS_TAUNTS = ['YOU CALL THAT A SLAP?', 'I AM INEVITABLE (AND SEASONAL)', 'PREPARE FOR POP QUIZ DAMAGE', 'MY SPICE IS ETERNAL', 'HOMEWORK INCOMING!']
 const BOSS_MOVES = ['HOMEWORK TSUNAMI', 'POP QUIZ BARRAGE', 'GOURD SLAM', 'PUMPKIN SPICE BREATH', 'DETENTION BEAM']
 
 function Gourdzilla({ phase, hitKey, winding, dead }: { phase: number; hitKey: number; winding: boolean; dead: boolean }) {
-  const body = phase === 1 ? '#ff9f1a' : phase === 2 ? '#ff6a1a' : '#ff3b5c'
+  const body = phase === 1 ? '#f2a900' : phase === 2 ? '#ff6a1a' : '#ff4d5e'
   return (
-    <div key={hitKey} className={hitKey ? 'anim-jiggle' : ''} style={{ filter: winding ? 'drop-shadow(0 0 30px #ff3b5c)' : undefined }}>
+    <div key={hitKey} className={hitKey ? 'anim-jiggle' : ''} style={{ filter: winding ? 'drop-shadow(0 0 30px #ff4d5e)' : undefined }}>
       <svg viewBox="0 0 200 200" className="w-full h-full" aria-hidden style={{ transform: dead ? 'rotate(90deg) translateY(40px)' : phase === 3 ? 'scale(1.08)' : undefined, transition: 'transform .6s', opacity: dead ? 0.6 : 1 }}>
         {/* horns (phase 3) */}
         {phase === 3 && (
           <>
-            <path d="M50 50 L30 5 L70 40 Z" fill="#2a0a12" stroke="#0b0614" strokeWidth="4" />
-            <path d="M150 50 L170 5 L130 40 Z" fill="#2a0a12" stroke="#0b0614" strokeWidth="4" />
+            <path d="M50 50 L30 5 L70 40 Z" fill="#2a0a12" stroke="#071022" strokeWidth="4" />
+            <path d="M150 50 L170 5 L130 40 Z" fill="#2a0a12" stroke="#071022" strokeWidth="4" />
           </>
         )}
-        <rect x="90" y="18" width="20" height="28" rx="6" fill="#3a7d1a" stroke="#0b0614" strokeWidth="4" />
-        <ellipse cx="100" cy="115" rx="86" ry="72" fill={body} stroke="#0b0614" strokeWidth="6" />
-        <ellipse cx="62" cy="115" rx="26" ry="68" fill="none" stroke="#0b0614" strokeOpacity=".25" strokeWidth="4" />
-        <ellipse cx="138" cy="115" rx="26" ry="68" fill="none" stroke="#0b0614" strokeOpacity=".25" strokeWidth="4" />
+        <rect x="90" y="18" width="20" height="28" rx="6" fill="#3a7d1a" stroke="#071022" strokeWidth="4" />
+        <ellipse cx="100" cy="115" rx="86" ry="72" fill={body} stroke="#071022" strokeWidth="6" />
+        <ellipse cx="62" cy="115" rx="26" ry="68" fill="none" stroke="#071022" strokeOpacity=".25" strokeWidth="4" />
+        <ellipse cx="138" cy="115" rx="26" ry="68" fill="none" stroke="#071022" strokeOpacity=".25" strokeWidth="4" />
         {/* angry eyes */}
-        <path d={dead ? 'M50 85 l20 20 m0 -20 l-20 20' : 'M45 80 L85 98 L50 110 Z'} fill="#ffe83d" stroke="#0b0614" strokeWidth="5" strokeLinejoin="round" />
-        <path d={dead ? 'M130 85 l20 20 m0 -20 l-20 20' : 'M155 80 L115 98 L150 110 Z'} fill="#ffe83d" stroke="#0b0614" strokeWidth="5" strokeLinejoin="round" />
+        <path d={dead ? 'M50 85 l20 20 m0 -20 l-20 20' : 'M45 80 L85 98 L50 110 Z'} fill="#ffc72c" stroke="#071022" strokeWidth="5" strokeLinejoin="round" />
+        <path d={dead ? 'M130 85 l20 20 m0 -20 l-20 20' : 'M155 80 L115 98 L150 110 Z'} fill="#ffc72c" stroke="#071022" strokeWidth="5" strokeLinejoin="round" />
         {/* mouth */}
         <path
           d={winding ? 'M45 135 Q100 190 155 135 Q100 160 45 135Z' : 'M50 140 L65 130 L80 145 L100 130 L120 145 L135 130 L150 140 Q100 175 50 140Z'}
           fill="#2a0a12"
-          stroke="#0b0614"
+          stroke="#071022"
           strokeWidth="5"
           strokeLinejoin="round"
         />
-        {phase >= 2 && <path d="M150 60 l10 18 l-14 -6 l6 16" stroke="#0b0614" strokeWidth="3" fill="none" />}
+        {phase >= 2 && <path d="M150 60 l10 18 l-14 -6 l6 16" stroke="#071022" strokeWidth="3" fill="none" />}
       </svg>
     </div>
   )
@@ -139,7 +139,7 @@ export default function FallFestBoss({ onEnd }: GameProps) {
         setTimeout(() => setBanner(null), 1800)
         play('levelup')
         fx.shake('lg')
-        fx.flash('rgba(255,59,92,.35)')
+        fx.flash('rgba(255,77,94,.35)')
       }
 
       if (!s.windupUntil && now >= s.nextAttack) {
@@ -157,7 +157,7 @@ export default function FallFestBoss({ onEnd }: GameProps) {
         s.combo = 0
         play('hit', 0.6)
         fx.shake('lg')
-        fx.flash('rgba(255,59,92,.45)')
+        fx.flash('rgba(255,77,94,.45)')
         const r = stage.current?.getBoundingClientRect()
         spawn(`-${dmg} HP`, (r?.width ?? 300) / 2, (r?.height ?? 400) * 0.7, 'var(--color-red)', 36)
         setTaunt(BOSS_TAUNTS[Math.floor(Math.random() * BOSS_TAUNTS.length)])
@@ -179,7 +179,7 @@ export default function FallFestBoss({ onEnd }: GameProps) {
     s.bossHp = Math.max(0, s.bossHp - counter)
     s.dmg += counter
     play('combo')
-    fx.flash('rgba(0,225,255,.35)')
+    fx.flash('rgba(79,179,255,.35)')
     const r = stage.current?.getBoundingClientRect()
     spawn(`BLOCKED! COUNTER -${counter}`, (r?.width ?? 300) / 2, (r?.height ?? 400) * 0.45, 'var(--color-blue)', 28)
     setTaunt('HOW DARE YOU BLOCK ME')
@@ -252,17 +252,17 @@ export default function FallFestBoss({ onEnd }: GameProps) {
   const mult = Math.min(3, 1 + st.combo * 0.02)
 
   return (
-    <div ref={stage} className="absolute inset-0 flex flex-col overflow-hidden" style={{ background: phase === 3 ? 'radial-gradient(circle at 50% 30%, rgba(255,59,92,.25), transparent 60%)' : undefined }}>
+    <div ref={stage} className="absolute inset-0 flex flex-col overflow-hidden" style={{ background: phase === 3 ? 'radial-gradient(circle at 50% 30%, rgba(255,77,94,.25), transparent 60%)' : undefined }}>
       {layer}
       {/* Boss HP */}
       <div className="px-3 pt-3 z-10">
         <div className="flex items-end justify-between gap-2">
-          <div className="font-display text-sm sm:text-lg text-red leading-tight">GOURDZILLA <span className="font-pixel text-[0.45rem] text-dim align-middle">THE ULTIMATE FALL FEST BOSS</span></div>
+          <div className="font-display text-sm sm:text-lg text-red leading-tight">GOURDZILLA <span className="font-pixel text-[0.65rem] text-dim align-middle">THE ULTIMATE FALL FEST BOSS</span></div>
           <div className="font-display text-sm tabular-nums">{st.bossHp.toLocaleString()}</div>
         </div>
         <div className="mt-1 flex gap-[3px] sticker rounded-lg bg-bg p-1" role="progressbar" aria-label="Boss HP" aria-valuenow={Math.round(bossPct * 100)} aria-valuemin={0} aria-valuemax={100}>
           {Array.from({ length: blocks }).map((_, i) => (
-            <div key={i} className="h-4 flex-1 rounded-sm transition-colors" style={{ background: i < filled ? (phase === 3 ? '#ff3b5c' : phase === 2 ? '#ff6a1a' : '#ff9f1a') : '#2a1a4a' }} />
+            <div key={i} className="h-4 flex-1 rounded-sm transition-colors" style={{ background: i < filled ? (phase === 3 ? '#ff4d5e' : phase === 2 ? '#ff6a1a' : '#f2a900') : '#1b2d5c' }} />
           ))}
         </div>
         <div className="flex flex-wrap gap-2 mt-2">
@@ -271,7 +271,7 @@ export default function FallFestBoss({ onEnd }: GameProps) {
           <ScoreDisplay label="MULT" value={`x${mult.toFixed(2)}`} color="var(--color-lime)" className="hidden sm:block" />
           <ScoreDisplay label="TIME" value={Math.ceil(left)} color={left < 15 ? 'var(--color-red)' : 'var(--color-blue)'} />
           <div className="sticker rounded-xl bg-panel px-3 py-1.5 min-w-[110px] flex-1 max-w-[220px]">
-            <div className="font-pixel text-[0.5rem] text-dim">YOUR HP</div>
+            <div className="font-pixel text-[0.7rem] text-dim">YOUR HP</div>
             <div className="h-3 mt-1.5 rounded-full bg-bg overflow-hidden">
               <div className="h-full transition-all" style={{ width: `${(st.hp / PLAYER_HP) * 100}%`, background: st.hp > 40 ? 'var(--color-lime)' : 'var(--color-red)' }} />
             </div>
@@ -306,11 +306,11 @@ export default function FallFestBoss({ onEnd }: GameProps) {
                   block()
                 }}
                 className="btn mt-3 text-2xl sm:text-3xl"
-                style={{ '--c': 'var(--color-blue)', '--ct': '#0b0614', padding: '.5em 1.4em' } as CSSProperties}
+                style={{ '--c': 'var(--color-blue)', '--ct': '#071022', padding: '.5em 1.4em' } as CSSProperties}
               >
                 🛡 BLOCK!
               </button>
-              <div className="font-pixel text-[0.5rem] text-ink mt-2">TAP OR PRESS SPACE</div>
+              <div className="font-pixel text-[0.7rem] text-ink mt-2">TAP OR PRESS SPACE</div>
             </div>
           </div>
         )}
@@ -338,14 +338,14 @@ export default function FallFestBoss({ onEnd }: GameProps) {
               }}
               disabled={!ready || st.over}
               aria-label={unlocked ? `${a.name}${cdLeft ? `, cooling down` : ''}` : `${a.name} locked: ${a.unlock}`}
-              className="relative overflow-hidden rounded-2xl border-[3px] border-bg h-20 sm:h-24 flex flex-col items-center justify-center font-display text-[0.6rem] sm:text-xs text-bg active:translate-y-1 transition-transform"
-              style={{ background: unlocked ? a.color : '#2a1a4a', boxShadow: '0 5px 0 #0b0614', color: unlocked ? '#0b0614' : '#b9a9d9' }}
+              className="relative overflow-hidden rounded-2xl border-[3px] border-bg h-20 sm:h-24 flex flex-col items-center justify-center font-display text-[0.75rem] sm:text-xs text-bg active:translate-y-1 transition-transform"
+              style={{ background: unlocked ? a.color : '#1b2d5c', boxShadow: '0 5px 0 #071022', color: unlocked ? '#071022' : '#a9b9de' }}
             >
               <span className="text-2xl sm:text-3xl" aria-hidden>
                 {unlocked ? a.icon : '🔒'}
               </span>
               <span className="leading-tight text-center px-1">{unlocked ? a.name : a.unlock}</span>
-              <span className="font-pixel text-[0.4rem] opacity-70 hidden sm:block">KEY {i + 1}</span>
+              <span className="font-pixel text-[0.65rem] opacity-70 hidden sm:block">KEY {i + 1}</span>
               {unlocked && cdLeft > 0 && (
                 <span className="absolute inset-x-0 bottom-0 bg-bg/70 grid place-items-center text-ink font-display text-lg" style={{ height: `${(cdLeft / a.cooldown) * 100}%` }}>
                   {Math.ceil(cdLeft / 1000)}

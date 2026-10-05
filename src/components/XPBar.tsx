@@ -12,13 +12,13 @@ export function XPBar({ xp, compact }: { xp: number; compact?: boolean }) {
         aria-label={`Level ${p.level}`}
       >
         <div className="leading-none text-center">
-          <div className="font-pixel text-[0.45rem] opacity-80">LVL</div>
+          <div className="font-pixel text-[0.65rem] opacity-80">LVL</div>
           <div className={compact ? 'text-lg' : 'text-2xl'}>{p.level}</div>
         </div>
       </div>
       <div className="flex-1 min-w-0">
         {!compact && (
-          <div className="flex justify-between font-pixel text-[0.55rem] text-dim mb-1.5">
+          <div className="flex justify-between font-pixel text-[0.72rem] text-dim mb-1.5">
             <span>XP</span>
             <span>
               {p.intoLevel.toLocaleString()} / {p.needed.toLocaleString()}

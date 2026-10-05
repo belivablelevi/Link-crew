@@ -16,7 +16,7 @@ interface P {
   life: number
 }
 
-const COLORS = ['#ff2bd6', '#ffe83d', '#3cff6e', '#00e1ff', '#ff9f1a', '#8b5cff', '#ff3b5c']
+const COLORS = ['#8ec2ff', '#ffc72c', '#3ddc84', '#4fb3ff', '#f2a900', '#2f6bff', '#ff4d5e']
 const GLYPHS: Record<string, string[]> = {
   leaves: ['🍁', '🍂', '🍃', '🎃'],
   ducks: ['🦆', '🐥', '🦆'],

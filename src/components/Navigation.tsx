@@ -39,7 +39,7 @@ function Logo() {
       <span className="sticker grid place-items-center w-10 h-10 rounded-xl bg-purple font-display text-yellow text-lg -rotate-6">LC</span>
       <span className="leading-none hidden min-[380px]:block">
         <span className="block font-display text-sm text-yellow">LINK CREW</span>
-        <span className="block font-pixel text-[0.5rem] text-pink mt-1">FALL FEST</span>
+        <span className="block font-pixel text-[0.7rem] text-pink mt-1">FALL FEST</span>
       </span>
     </a>
   )
@@ -55,7 +55,7 @@ export function Navigation() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-bg/85 backdrop-blur-md border-b-[3px] border-[#2a1a4a]">
+      <header className="sticky top-0 z-50 bg-bg/85 backdrop-blur-md border-b-[3px] border-[#1b2d5c]">
         <div className="max-w-6xl mx-auto px-3 sm:px-5 h-16 flex items-center gap-3">
           <Logo />
           <nav className="hidden md:flex items-center gap-1 ml-4" aria-label="Main">
@@ -78,7 +78,7 @@ export function Navigation() {
             <a href={href('/profile')} className="sticker h-11 rounded-xl bg-panel flex items-center gap-2 px-2.5" aria-label={`Level ${level}, ${tokens} tokens. Open profile.`}>
               <span className="text-xl" aria-hidden>{avatar}</span>
               <span className="font-display text-xs text-lime">L{level}</span>
-              <span className="w-px h-5 bg-[#3a2766]" />
+              <span className="w-px h-5 bg-[#2a4180]" />
               <span className="font-display text-sm text-yellow tabular-nums">🪙 {tokens.toLocaleString()}</span>
             </a>
             <SoundToggle />
@@ -95,7 +95,7 @@ export function Navigation() {
                 <span className={`text-2xl transition-transform ${active ? '-translate-y-1 scale-125' : 'opacity-70'}`} aria-hidden>
                   {n.icon}
                 </span>
-                <span className={`font-pixel text-[0.45rem] ${active ? 'text-yellow' : 'text-dim'}`}>{n.label}</span>
+                <span className={`font-pixel text-[0.65rem] ${active ? 'text-yellow' : 'text-dim'}`}>{n.label}</span>
                 {active && <span className="absolute top-0 inset-x-4 h-1 rounded-b bg-yellow" />}
               </a>
             )

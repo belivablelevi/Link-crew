@@ -23,7 +23,7 @@ interface Btn {
 
 const LIVES = 3
 const LABELS = ['PRESS', 'CLICK', 'TAP', 'HIT', 'BOOP', 'YES', 'GO', 'NOW']
-const COLORS = ['#3cff6e', '#00e1ff', '#ff2bd6', '#8b5cff', '#ff9f1a']
+const COLORS = ['#3ddc84', '#4fb3ff', '#8ec2ff', '#2f6bff', '#f2a900']
 
 export default function ButtonMayhem({ onEnd }: GameProps) {
   const stage = useRef<HTMLDivElement>(null)
@@ -46,7 +46,7 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
     s.combo = 0
     play('error')
     fx.shake('md')
-    fx.flash('rgba(255,59,92,.3)')
+    fx.flash('rgba(255,77,94,.3)')
     pop(reason, x, y, 'var(--color-red)', 24)
     if (s.lives <= 0) {
       s.over = true
@@ -105,7 +105,7 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
           born: now,
           life: kind === 'bonus' ? 1100 : kind === 'fake' ? lifeBase * 1.3 : kind === 'moving' ? lifeBase * 1.3 : lifeBase,
           label: kind === 'fake' ? '☠ NOPE' : kind === 'bonus' ? '★' : LABELS[Math.floor(Math.random() * LABELS.length)],
-          color: kind === 'fake' ? '#ff3b5c' : kind === 'bonus' ? '#ffe83d' : COLORS[Math.floor(Math.random() * COLORS.length)],
+          color: kind === 'fake' ? '#ff4d5e' : kind === 'bonus' ? '#ffc72c' : COLORS[Math.floor(Math.random() * COLORS.length)],
         })
         play('tick', 0.8 + Math.random() * 0.5)
       }
@@ -146,7 +146,7 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
     pop(`+${pts}`, b.x, b.y, b.kind === 'bonus' ? 'var(--color-yellow)' : 'var(--color-lime)', b.kind === 'bonus' ? 34 : 24)
     if (b.kind === 'bonus') {
       play('jackpot')
-      fx.flash('rgba(255,232,61,.3)')
+      fx.flash('rgba(255,199,44,.3)')
       const r = stage.current?.getBoundingClientRect()
       if (r) fx.confetti(60, { x: r.left + (b.x / 100) * r.width, y: r.top + (b.y / 100) * r.height })
     } else play('pop', 1 + Math.min(s.combo, 30) * 0.02)
@@ -199,12 +199,12 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
                 top: `${b.y}%`,
                 width: b.size,
                 height: b.size,
-                background: b.kind === 'bonus' ? 'radial-gradient(circle at 35% 30%,#fff7c2,#ffe83d 50%,#ff9f1a)' : b.color,
-                color: '#0b0614',
+                background: b.kind === 'bonus' ? 'radial-gradient(circle at 35% 30%,#fff7c2,#ffc72c 50%,#f2a900)' : b.color,
+                color: '#071022',
                 fontSize: b.kind === 'bonus' ? 30 : b.kind === 'tiny' ? 9 : b.kind === 'fake' ? 13 : 14,
-                boxShadow: `0 5px 0 #0b0614, 0 0 ${b.kind === 'bonus' ? 40 : 16}px ${b.color}`,
+                boxShadow: `0 5px 0 #071022, 0 0 ${b.kind === 'bonus' ? 40 : 16}px ${b.color}`,
                 opacity: 1 - Math.max(0, age - 0.75) * 2.5,
-                outline: b.kind === 'fake' ? '3px dashed #0b0614' : undefined,
+                outline: b.kind === 'fake' ? '3px dashed #071022' : undefined,
                 outlineOffset: -9,
               } as CSSProperties
             }

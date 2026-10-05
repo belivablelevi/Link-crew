@@ -153,7 +153,7 @@ export default function ReactionRush({ onEnd }: GameProps) {
       spawn(`+${pts}`, px, py - 30, v.color, 30)
       if (v.big) {
         play('combo', 1 + Math.min(newCombo, 8) * 0.06)
-        fx.flash('rgba(60,255,110,.25)')
+        fx.flash('rgba(61,220,132,.25)')
         fx.shake(ms < 200 ? 'lg' : 'sm')
         if (ms < 230) fx.confetti(50, { x: (rect?.left ?? 0) + px, y: (rect?.top ?? 0) + py })
       } else play('hit')
@@ -201,7 +201,7 @@ export default function ReactionRush({ onEnd }: GameProps) {
           spawn('WHIFF', e.clientX - r.left, e.clientY - r.top, 'var(--color-dim)', 18)
         }
       }}
-      style={{ background: phase === 'waiting' ? 'radial-gradient(circle at 50% 50%, rgba(255,59,92,.15), transparent 70%)' : undefined }}
+      style={{ background: phase === 'waiting' ? 'radial-gradient(circle at 50% 50%, rgba(255,77,94,.15), transparent 70%)' : undefined }}
     >
       {layer}
       <div className="absolute top-3 inset-x-3 flex flex-wrap gap-2 z-20 pointer-events-none">
@@ -216,7 +216,7 @@ export default function ReactionRush({ onEnd }: GameProps) {
         <div className="absolute inset-0 grid place-items-center pointer-events-none text-center">
           <div>
             <div className="font-display text-4xl sm:text-6xl text-red anim-blink">WAIT FOR IT…</div>
-            <div className="font-pixel text-[0.6rem] text-dim mt-3">{round >= 7 ? 'IT WILL MOVE.' : round >= 4 ? 'IT COULD BE ANYWHERE.' : 'DON’T TAP YET'}</div>
+            <div className="font-pixel text-[0.75rem] text-dim mt-3">{round >= 7 ? 'IT WILL MOVE.' : round >= 4 ? 'IT COULD BE ANYWHERE.' : 'DON’T TAP YET'}</div>
           </div>
         </div>
       )}
@@ -236,9 +236,9 @@ export default function ReactionRush({ onEnd }: GameProps) {
             width: size,
             height: size,
             fontSize: size / 5,
-            background: 'radial-gradient(circle at 35% 30%, #a6ffbf, #3cff6e 45%, #0f9e3a)',
-            boxShadow: '0 8px 0 #0b0614, 0 0 60px rgba(60,255,110,.7)',
-            textShadow: '2px 2px 0 #0b0614',
+            background: 'radial-gradient(circle at 35% 30%, #a6ffbf, #3ddc84 45%, #0f9e3a)',
+            boxShadow: '0 8px 0 #071022, 0 0 60px rgba(61,220,132,.7)',
+            textShadow: '2px 2px 0 #071022',
           }}
         >
           TAP!

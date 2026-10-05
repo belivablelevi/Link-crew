@@ -19,6 +19,13 @@ npm run preview    # serve the production build
 
 Everything in the **ABOUT FALL FEST** section on the home page comes from `src/lib/eventInfo.ts`: date, time, location, the about text, the "What's happening" list and the Q&A. Some of it is still general wording or `TBA`, so update it as plans are confirmed.
 
+## Colours & fonts
+
+The theme is set at the top of `src/index.css` in the `@theme { … }` block:
+
+- **Colours:** `--color-bg` (navy background), `--color-panel` (cards), `--color-yellow` (gold, the main accent), `--color-purple` (royal blue), `--color-blue` (sky blue), and a few others. Change a value there and it updates across the site. The names are left over from the first version, so `yellow` is now gold and `purple` is now royal blue.
+- **Fonts:** `--font-display` (headings: Outfit) and `--font-body` / `--font-pixel` (text and small labels: Inter). If you switch fonts, also update the Google Fonts link in `index.html`.
+
 ## Effects intensity
 
 Confetti, screen flashes and screen shakes all go through one dial, `INTENSITY` in `src/lib/fx.ts`. Turn it up or down to taste. Random events are spaced a few minutes apart (`src/components/RandomEvents.tsx`).

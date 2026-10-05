@@ -36,7 +36,7 @@ export function DailyChallenge() {
         <span className="tag" style={{ '--c': daily.completed ? 'var(--color-lime)' : 'var(--color-orange)' } as CSSProperties}>
           {daily.completed ? '✓ CLEARED' : 'TODAY’S CHALLENGE'}
         </span>
-        <span className="font-pixel text-[0.5rem] text-dim ml-auto">NEW IN {untilMidnight(now)}</span>
+        <span className="font-pixel text-[0.7rem] text-dim ml-auto">NEW IN {untilMidnight(now)}</span>
       </div>
       <p className="font-display text-xl sm:text-2xl leading-tight my-3">{ch.text}</p>
       <ProgressBar value={pct} color={daily.completed ? 'var(--color-lime)' : 'var(--color-orange)'} label="Daily challenge progress" />

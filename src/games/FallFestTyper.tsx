@@ -99,7 +99,7 @@ export default function FallFestTyper({ onEnd }: GameProps) {
         if (st.combo % 5 === 0) {
           play('combo')
           spawn(`${st.combo} CLEAN WORDS!`, (r?.width ?? 300) / 2, (r?.height ?? 400) * 0.22, 'var(--color-pink)', 26)
-          fx.flash('rgba(139,92,255,.2)')
+          fx.flash('rgba(47,107,255,.2)')
         } else play('coin', 1.2)
         typedRef.current = ''
         setTyped('')
@@ -135,7 +135,7 @@ export default function FallFestTyper({ onEnd }: GameProps) {
             <span
               key={i}
               className={i < typed.length ? 'text-lime' : i === typed.length ? 'text-yellow underline decoration-4 underline-offset-8' : 'text-ink/50'}
-              style={i < typed.length ? { textShadow: '0 0 20px rgba(60,255,110,.6)' } : undefined}
+              style={i < typed.length ? { textShadow: '0 0 20px rgba(61,220,132,.6)' } : undefined}
             >
               {c === ' ' ? ' ' : c}
             </span>
@@ -168,7 +168,7 @@ export default function FallFestTyper({ onEnd }: GameProps) {
           className="sticker rounded-2xl bg-bg/80 h-14 w-full max-w-sm text-center font-display text-xl text-yellow caret-yellow placeholder:text-dim/60"
           placeholder="TYPE HERE…"
         />
-        <div className="font-pixel text-[0.5rem] text-dim">{Math.ceil(hud.left)}s LEFT · CASE DOESN&apos;T MATTER</div>
+        <div className="font-pixel text-[0.7rem] text-dim">{Math.ceil(hud.left)}s LEFT · CASE DOESN&apos;T MATTER</div>
       </div>
     </div>
   )

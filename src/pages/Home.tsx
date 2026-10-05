@@ -48,15 +48,15 @@ function Hero() {
         🏆
       </div>
 
-      <div className="inline-block font-pixel text-[0.6rem] sm:text-xs bg-pink text-white px-3 py-2 rounded-lg sticker -rotate-2 mb-4">{played ? 'WELCOME BACK. YOU’RE IN.' : 'YOU’RE IN.'}</div>
+      <div className="inline-block font-pixel text-[0.75rem] sm:text-xs bg-pink text-bg px-3 py-2 rounded-lg sticker -rotate-2 mb-4">{played ? 'WELCOME BACK. YOU’RE IN.' : 'YOU’RE IN.'}</div>
       <h1 className="font-display leading-[0.85] select-none">
         <span className="block title-outline text-yellow text-[clamp(3.5rem,15vw,9rem)] -rotate-2">LINK CREW</span>
-        <span className="block title-outline text-[clamp(3rem,13vw,8rem)] rotate-1 fx-rainbow" style={{ WebkitTextStroke: '0' }}>
+        <span className="block title-outline text-[clamp(3rem,13vw,8rem)] rotate-1 text-ink">
           FALL FEST
         </span>
       </h1>
       <p className="font-display text-base sm:text-xl text-blue mt-4 tracking-wide">THE SCHOOL&apos;S BIGGEST GAME HUB</p>
-      <p className="font-pixel text-[0.6rem] sm:text-xs text-dim mt-3">PLAY. COMPETE. DOMINATE.</p>
+      <p className="font-pixel text-[0.75rem] sm:text-xs text-dim mt-3">PLAY. COMPETE. DOMINATE.</p>
       <div className="mt-8">
         <Button
           mega
@@ -68,10 +68,10 @@ function Hero() {
           ▶ PLAY NOW
         </Button>
       </div>
-      <a href={href('/games')} className="inline-block mt-6 font-pixel text-[0.55rem] text-dim hover:text-yellow">
+      <a href={href('/games')} className="inline-block mt-6 font-pixel text-[0.72rem] text-dim hover:text-yellow">
         OR BROWSE ALL {GAMES.length} GAMES ↓
       </a>
-      <a href="#event" onClick={(e) => (e.preventDefault(), document.getElementById('event')?.scrollIntoView({ behavior: 'smooth' }))} className="block mt-3 font-pixel text-[0.55rem] text-orange hover:text-yellow">
+      <a href="#event" onClick={(e) => (e.preventDefault(), document.getElementById('event')?.scrollIntoView({ behavior: 'smooth' }))} className="block mt-3 font-pixel text-[0.72rem] text-orange hover:text-yellow">
         WHAT IS FALL FEST? ↓
       </a>
     </section>
@@ -105,13 +105,13 @@ function Featured() {
           <p className="text-dim mt-3 text-lg leading-snug">{g.tagline}</p>
           <div className="grid grid-cols-2 gap-2 mt-5 text-center">
             <div className="rounded-xl bg-bg/60 p-2">
-              <div className="font-pixel text-[0.45rem] text-dim">YOUR BEST</div>
+              <div className="font-pixel text-[0.65rem] text-dim">YOUR BEST</div>
               <div className="font-display text-lg" style={{ color: g.color }}>
                 {best ? best.toLocaleString() : '—'}
               </div>
             </div>
             <div className="rounded-xl bg-bg/60 p-2">
-              <div className="font-pixel text-[0.45rem] text-dim">YOU PLAYED</div>
+              <div className="font-pixel text-[0.65rem] text-dim">YOU PLAYED</div>
               <div className="font-display text-lg">{plays}×</div>
             </div>
           </div>
@@ -160,7 +160,7 @@ function HowItWorks() {
 function EventInfo() {
   return (
     <section id="event" className="panel p-5 sm:p-8 relative overflow-hidden scroll-mt-20" aria-labelledby="event-title">
-      <div className="font-pixel text-[0.55rem] text-orange">THE EVENT</div>
+      <div className="font-pixel text-[0.72rem] text-orange">THE EVENT</div>
       <h2 id="event-title" className="font-display text-3xl sm:text-4xl mt-1">
         ABOUT <span className="text-orange">FALL FEST</span>
       </h2>
@@ -172,8 +172,8 @@ function EventInfo() {
           ['⏰', 'TIME', EVENT_INFO.time],
           ['📍', 'WHERE', EVENT_INFO.location],
         ].map(([icon, k, v]) => (
-          <div key={k} className="rounded-xl bg-bg/60 border-2 border-[#3a2766] p-3">
-            <dt className="font-pixel text-[0.45rem] text-dim">
+          <div key={k} className="rounded-xl bg-bg/60 border-2 border-[#2a4180] p-3">
+            <dt className="font-pixel text-[0.65rem] text-dim">
               <span aria-hidden>{icon}</span> {k}
             </dt>
             <dd className="font-display text-sm sm:text-base mt-1 break-words">{v}</dd>
@@ -193,7 +193,7 @@ function EventInfo() {
           <h3 className="font-display text-lg mb-3">WHAT&apos;S HAPPENING</h3>
           <ul className="grid sm:grid-cols-2 gap-2">
             {EVENT_INFO.happenings.map((h) => (
-              <li key={h.title} className="rounded-xl bg-bg/60 border-2 border-[#3a2766] p-3">
+              <li key={h.title} className="rounded-xl bg-bg/60 border-2 border-[#2a4180] p-3">
                 <div className="font-display text-sm">
                   <span aria-hidden className="mr-1.5">
                     {h.icon}
@@ -211,7 +211,7 @@ function EventInfo() {
         <h3 className="font-display text-lg mb-3">QUESTIONS</h3>
         <div className="grid gap-2">
           {EVENT_INFO.faq.map((f) => (
-            <details key={f.q} className="rounded-xl bg-bg/60 border-2 border-[#3a2766] px-4 py-3 group">
+            <details key={f.q} className="rounded-xl bg-bg/60 border-2 border-[#2a4180] px-4 py-3 group">
               <summary className="font-display text-sm cursor-pointer list-none flex justify-between items-center gap-3">
                 {f.q}
                 <span className="text-orange transition-transform group-open:rotate-45" aria-hidden>
@@ -254,7 +254,7 @@ export default function Home() {
       <section className="mt-12" aria-label="All games">
         <div className="flex items-end justify-between mb-4">
           <h2 className="font-display text-2xl sm:text-3xl">ALL GAMES</h2>
-          <a href={href('/games')} className="font-pixel text-[0.55rem] text-blue hover:underline">
+          <a href={href('/games')} className="font-pixel text-[0.72rem] text-blue hover:underline">
             ARCADE VIEW →
           </a>
         </div>

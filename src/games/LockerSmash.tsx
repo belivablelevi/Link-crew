@@ -20,9 +20,9 @@ interface LockerType {
 
 const TYPES: LockerType[] = [
   { id: 'basic', name: 'BASIC LOCKER', hp: 8, reward: 100, door: 'linear-gradient(90deg,#1d8fbf,#38c6ff)', trim: '#0b3b55', loot: ['📚', '🧦', '🍎', '✏️', '🧃'] },
-  { id: 'gym', name: 'GYM LOCKER', hp: 14, reward: 220, door: 'linear-gradient(90deg,#14a34a,#3cff6e)', trim: '#0b4d22', loot: ['🏀', '👟', '🏈', '🥤', '🏸'] },
+  { id: 'gym', name: 'GYM LOCKER', hp: 14, reward: 220, door: 'linear-gradient(90deg,#14a34a,#3ddc84)', trim: '#0b4d22', loot: ['🏀', '👟', '🏈', '🥤', '🏸'] },
   { id: 'rusty', name: 'RUSTY LOCKER', hp: 20, reward: 380, door: 'linear-gradient(90deg,#8a4b1c,#c9772f)', trim: '#4a2208', loot: ['🦴', '🧀', '📼', '🕸️', '🪙'] },
-  { id: 'secret', name: 'SECRET LOCKER!', hp: 10, reward: 800, door: 'linear-gradient(90deg,#c99a00,#ffe83d,#fff4a8,#ffe83d)', trim: '#7a5a00', loot: ['💎', '🏆', '👑', '🎟️', '🦆'] },
+  { id: 'secret', name: 'SECRET LOCKER!', hp: 10, reward: 800, door: 'linear-gradient(90deg,#c99a00,#ffc72c,#fff4a8,#ffc72c)', trim: '#7a5a00', loot: ['💎', '🏆', '👑', '🎟️', '🦆'] },
 ]
 
 function pickType(opened: number): LockerType {
@@ -130,7 +130,7 @@ export default function LockerSmash({ onEnd }: GameProps) {
         spawn('+3 SEC!', cx, cy - 110, 'var(--color-blue)', 28)
         play('jackpot')
         fx.confetti(140, rect ? { x: rect.left + cx, y: rect.top + cy } : undefined)
-        fx.flash('rgba(255,232,61,.4)')
+        fx.flash('rgba(255,199,44,.4)')
         fx.shake('lg')
       } else {
         play('coin')
@@ -143,7 +143,7 @@ export default function LockerSmash({ onEnd }: GameProps) {
         openingRef.current = false
         if (t.id === 'secret') {
           play('achievement')
-          fx.flash('rgba(255,232,61,.25)')
+          fx.flash('rgba(255,199,44,.25)')
         }
       }, 550)
     },
@@ -186,7 +186,7 @@ export default function LockerSmash({ onEnd }: GameProps) {
 
         <div className="relative" style={{ perspective: 600 }}>
           {/* inside of the locker */}
-          <div className="sticker rounded-xl relative overflow-hidden grid place-items-center" style={{ width: 'min(46vw, 190px)', height: 'min(52dvh, 320px)', background: '#0b0614' }}>
+          <div className="sticker rounded-xl relative overflow-hidden grid place-items-center" style={{ width: 'min(46vw, 190px)', height: 'min(52dvh, 320px)', background: '#071022' }}>
             {opening && <div className="anim-pop text-7xl">{opening}</div>}
           </div>
           {/* door */}
@@ -198,7 +198,7 @@ export default function LockerSmash({ onEnd }: GameProps) {
               transformOrigin: 'left center',
               transform: opening ? 'rotateY(-105deg)' : undefined,
               transition: 'transform .35s cubic-bezier(.34,1.56,.64,1)',
-              boxShadow: secret ? '0 0 50px rgba(255,232,61,.8), 4px 4px 0 #0b0614' : undefined,
+              boxShadow: secret ? '0 0 50px rgba(255,199,44,.8), 4px 4px 0 #071022' : undefined,
             }}
           >
             <div className="absolute top-4 inset-x-4 grid gap-2">
@@ -206,9 +206,9 @@ export default function LockerSmash({ onEnd }: GameProps) {
                 <div key={i} className="h-2 rounded" style={{ background: t.trim }} />
               ))}
             </div>
-            <div className="absolute top-[38%] left-1/2 -translate-x-1/2 sticker rounded-md px-2 py-0.5 font-pixel text-[0.55rem] bg-ink text-bg">{locker.num}</div>
+            <div className="absolute top-[38%] left-1/2 -translate-x-1/2 sticker rounded-md px-2 py-0.5 font-pixel text-[0.72rem] bg-ink text-bg">{locker.num}</div>
             <div className="absolute right-3 top-1/2 w-3.5 h-12 rounded-md bg-yellow border-2 border-bg" />
-            <div className="absolute right-2 top-[60%] w-8 h-8 rounded-full border-4 border-bg bg-[#ccc] grid place-items-center font-pixel text-[0.4rem] text-bg">◉</div>
+            <div className="absolute right-2 top-[60%] w-8 h-8 rounded-full border-4 border-bg bg-[#ccc] grid place-items-center font-pixel text-[0.65rem] text-bg">◉</div>
             {/* dents / cracks grow with damage */}
             {dmgPct > 0.25 && <div className="absolute left-5 top-[55%] text-3xl opacity-80">💢</div>}
             {dmgPct > 0.5 && <div className="absolute left-[40%] bottom-8 w-16 h-1 bg-bg rotate-[30deg] rounded" />}

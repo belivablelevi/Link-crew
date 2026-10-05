@@ -19,7 +19,7 @@ export function triggerSecret(key: string) {
   clearTimeout(timer)
   timer = setTimeout(() => document.documentElement.classList.remove('secret-mode'), SECRET_MS)
   play('jackpot')
-  fx.flash('rgba(255,43,214,.45)')
+  fx.flash('rgba(110,180,255,.45)')
   fx.shake('lg')
   fx.confetti(220)
   fx.toast({

@@ -13,7 +13,7 @@ export default function Games() {
     <div className="max-w-6xl mx-auto px-3 sm:px-5 pt-8">
       <div className="flex flex-wrap items-end gap-3 justify-between">
         <div>
-          <div className="font-pixel text-[0.6rem] text-lime">PICK YOUR POISON</div>
+          <div className="font-pixel text-[0.75rem] text-lime">PICK YOUR POISON</div>
           <h1 className="font-display title-outline text-[clamp(2.1rem,11vw,3.75rem)] break-words text-yellow mt-1">THE ARCADE</h1>
         </div>
         <div className="sticker rounded-xl bg-panel px-3 py-2 font-display text-sm">
@@ -38,7 +38,7 @@ export default function Games() {
           <GameCard key={g.id} game={g} index={i} />
         ))}
       </div>
-      <p className="text-center font-pixel text-[0.55rem] text-dim mt-10">
+      <p className="text-center font-pixel text-[0.72rem] text-dim mt-10">
         MORE GAMES DROP DURING FALL FEST. MAYBE.
       </p>
     </div>

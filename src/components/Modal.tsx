@@ -51,7 +51,7 @@ export function Modal({ open, onClose, title, children, color = 'var(--color-pin
         aria-modal="true"
         aria-label={title}
         className={`anim-pop panel w-full ${wide ? 'max-w-2xl' : 'max-w-md'} max-h-[90dvh] overflow-y-auto p-5 sm:p-7`}
-        style={{ borderColor: color, boxShadow: `0 8px 0 #05020a, 0 0 60px color-mix(in srgb, ${color} 40%, transparent)` }}
+        style={{ borderColor: color, boxShadow: `0 8px 0 #030814, 0 0 60px color-mix(in srgb, ${color} 40%, transparent)` }}
       >
         {(title || onClose) && (
           <div className="flex items-start justify-between gap-3 mb-4">

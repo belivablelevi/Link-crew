@@ -4,11 +4,11 @@ import { play } from '../lib/sound'
 export type ButtonColor = 'yellow' | 'pink' | 'lime' | 'blue' | 'orange' | 'purple' | 'red' | 'ghost'
 
 const COLORS: Record<ButtonColor, [string, string]> = {
-  yellow: ['var(--color-yellow)', '#160b26'],
-  pink: ['var(--color-pink)', '#fff'],
-  lime: ['var(--color-lime)', '#0b0614'],
-  blue: ['var(--color-blue)', '#0b0614'],
-  orange: ['var(--color-orange)', '#160b26'],
+  yellow: ['var(--color-yellow)', '#0c1730'],
+  pink: ['var(--color-pink)', '#071022'],
+  lime: ['var(--color-lime)', '#071022'],
+  blue: ['var(--color-blue)', '#071022'],
+  orange: ['var(--color-orange)', '#0c1730'],
   purple: ['var(--color-purple)', '#fff'],
   red: ['var(--color-red)', '#fff'],
   ghost: ['var(--color-panel2)', 'var(--color-ink)'],

@@ -133,12 +133,12 @@ export function RandomEvents() {
     <>
       {banner && (
         <div className="fixed z-[86] left-1/2 -translate-x-1/2 top-20 w-[min(94vw,520px)] pointer-events-none" role="status" aria-live="polite">
-          <div key={banner.id} className="anim-pop sticker rounded-3xl bg-panel px-5 py-4 flex items-center gap-4" style={{ boxShadow: `5px 5px 0 #0b0614, 0 0 50px color-mix(in srgb, ${banner.color} 50%, transparent)`, borderColor: banner.color }}>
+          <div key={banner.id} className="anim-pop sticker rounded-3xl bg-panel px-5 py-4 flex items-center gap-4" style={{ boxShadow: `5px 5px 0 #071022, 0 0 50px color-mix(in srgb, ${banner.color} 50%, transparent)`, borderColor: banner.color }}>
             <div className="text-5xl anim-wobble shrink-0" aria-hidden>
               {banner.icon}
             </div>
             <div>
-              <div className="font-pixel text-[0.5rem] text-dim">RANDOM EVENT</div>
+              <div className="font-pixel text-[0.7rem] text-dim">RANDOM EVENT</div>
               <div className="font-display text-2xl leading-tight" style={{ color: banner.color }}>
                 {banner.title}
               </div>
@@ -152,7 +152,7 @@ export function RandomEvents() {
         <button
           key={gift.id}
           className="fixed z-[84] text-6xl anim-pop"
-          style={{ left: `${gift.x}%`, top: `${gift.y}%`, filter: 'drop-shadow(0 0 18px #ffe83d)' }}
+          style={{ left: `${gift.x}%`, top: `${gift.y}%`, filter: 'drop-shadow(0 0 18px #ffc72c)' }}
           aria-label="Mystery gift! Tap to open."
           onClick={(e) => {
             const amount = 25 + Math.floor(Math.random() * 51)

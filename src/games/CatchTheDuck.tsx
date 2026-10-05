@@ -39,20 +39,20 @@ function DuckSprite({ kind }: { kind: DuckKind }) {
   const body = { normal: '#ffd23d', golden: '#ffb800', diamond: '#7ff6ff', fake: '#b48cff' }[kind]
   const shade = { normal: '#e0a800', golden: '#c27c00', diamond: '#22b8d6', fake: '#7a4fd6' }[kind]
   return (
-    <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[3px_4px_0_#0b0614]" aria-hidden>
-      {kind === 'golden' && <circle cx="50" cy="55" r="46" fill="#ffe83d" opacity=".35" />}
-      {kind === 'diamond' && <polygon points="50,2 98,50 50,98 2,50" fill="#00e1ff" opacity=".25" />}
-      <ellipse cx="52" cy="66" rx="36" ry="24" fill={body} stroke="#0b0614" strokeWidth="4" />
-      <path d="M30 62 Q48 50 62 66 Q46 74 30 62Z" fill={shade} stroke="#0b0614" strokeWidth="3" />
-      <circle cx="30" cy="36" r="20" fill={body} stroke="#0b0614" strokeWidth="4" />
-      <path d="M8 36 L-4 41 L8 46 Z" fill="#ff9f1a" stroke="#0b0614" strokeWidth="3" transform="translate(4 0)" />
-      <circle cx="26" cy="32" r="4.5" fill="#0b0614" />
+    <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[3px_4px_0_#071022]" aria-hidden>
+      {kind === 'golden' && <circle cx="50" cy="55" r="46" fill="#ffc72c" opacity=".35" />}
+      {kind === 'diamond' && <polygon points="50,2 98,50 50,98 2,50" fill="#4fb3ff" opacity=".25" />}
+      <ellipse cx="52" cy="66" rx="36" ry="24" fill={body} stroke="#071022" strokeWidth="4" />
+      <path d="M30 62 Q48 50 62 66 Q46 74 30 62Z" fill={shade} stroke="#071022" strokeWidth="3" />
+      <circle cx="30" cy="36" r="20" fill={body} stroke="#071022" strokeWidth="4" />
+      <path d="M8 36 L-4 41 L8 46 Z" fill="#f2a900" stroke="#071022" strokeWidth="3" transform="translate(4 0)" />
+      <circle cx="26" cy="32" r="4.5" fill="#071022" />
       <circle cx="27.5" cy="30.5" r="1.5" fill="#fff" />
       {kind === 'fake' && (
         <>
-          <path d="M17 22 L33 27" stroke="#0b0614" strokeWidth="4" strokeLinecap="round" />
-          <rect x="44" y="76" width="44" height="16" rx="4" fill="#ff3b5c" stroke="#0b0614" strokeWidth="3" />
-          <text x="66" y="88" textAnchor="middle" fontSize="11" fontWeight="900" fill="#fff" fontFamily="Rubik, sans-serif">
+          <path d="M17 22 L33 27" stroke="#071022" strokeWidth="4" strokeLinecap="round" />
+          <rect x="44" y="76" width="44" height="16" rx="4" fill="#ff4d5e" stroke="#071022" strokeWidth="3" />
+          <text x="66" y="88" textAnchor="middle" fontSize="11" fontWeight="900" fill="#fff" fontFamily="Inter, sans-serif">
             DECOY
           </text>
         </>
@@ -145,7 +145,7 @@ export default function CatchTheDuck({ onEnd }: GameProps) {
       st.combo = 0
       play('error')
       fx.shake('md')
-      fx.flash('rgba(180,140,255,.35)')
+      fx.flash('rgba(120,160,255,.35)')
       spawn(`-10 ${line}`, px, py - 20, 'var(--color-red)', 26)
     } else {
       st.caught++
@@ -160,7 +160,7 @@ export default function CatchTheDuck({ onEnd }: GameProps) {
         play(d.kind === 'diamond' ? 'jackpot' : 'coin')
         fx.confetti(d.kind === 'diamond' ? 160 : 60, { x: cx, y: cy }, 'ducks')
         fx.shake(d.kind === 'diamond' ? 'lg' : 'sm')
-        fx.flash(d.kind === 'diamond' ? 'rgba(0,225,255,.35)' : 'rgba(255,232,61,.3)')
+        fx.flash(d.kind === 'diamond' ? 'rgba(79,179,255,.35)' : 'rgba(255,199,44,.3)')
       }
       if (comboBonus) {
         play('combo')
@@ -174,7 +174,7 @@ export default function CatchTheDuck({ onEnd }: GameProps) {
     <div
       ref={stage}
       className="absolute inset-0 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, transparent 60%, rgba(0,225,255,.12) 60%, rgba(0,120,200,.25))' }}
+      style={{ background: 'linear-gradient(180deg, transparent 60%, rgba(79,179,255,.12) 60%, rgba(0,120,200,.25))' }}
       onPointerDown={(e) => {
         if (e.target !== e.currentTarget) return
         const st = g.current

@@ -22,7 +22,7 @@ interface Chunk {
   color: string
 }
 
-const COLORS = ['#ff9f1a', '#ffe83d', '#3cff6e', '#00e1ff', '#8b5cff', '#ff2bd6', '#ff3b5c']
+const COLORS = ['#f2a900', '#ffc72c', '#3ddc84', '#4fb3ff', '#2f6bff', '#8ec2ff', '#ff4d5e']
 const WORLD_W = 400 // world is 400 units wide, scaled to the canvas
 const BLOCK_H = 34
 const START_W = 220
@@ -45,7 +45,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
       H = h
     })
 
-    const tower: Block[] = [{ x: (WORLD_W - START_W) / 2, w: START_W, y: 0, color: '#8b5cff' }]
+    const tower: Block[] = [{ x: (WORLD_W - START_W) / 2, w: START_W, y: 0, color: '#2f6bff' }]
     const chunks: Chunk[] = []
     let moving = { x: 0, w: START_W, dir: 1, speed: 140 }
     let score = 0
@@ -113,7 +113,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
         tower.push({ x, w, y, color })
         const pts = 10 + 15 * combo
         score += pts
-        banner = { text: combo > 1 ? `PERFECT x${combo}!` : 'PERFECT!', t: 0, color: '#3cff6e' }
+        banner = { text: combo > 1 ? `PERFECT x${combo}!` : 'PERFECT!', t: 0, color: '#3ddc84' }
         play('combo', 1 + Math.min(combo, 10) * 0.08)
         flashT = 1
         if (combo % 5 === 0) fx.confetti(50)
@@ -125,7 +125,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
         else chunks.push({ x: right, y: y * BLOCK_H, w: moving.x + moving.w - right, vx: 40, vy: 0, rot: 0, vr: 1.5, color })
         score += 10
         play('hit')
-        if (overlap < 25) banner = { text: 'CLOSE ONE!', t: 0, color: '#ff9f1a' }
+        if (overlap < 25) banner = { text: 'CLOSE ONE!', t: 0, color: '#f2a900' }
       }
       setHud({ score, height: tower.length - 1, combo })
       spawnNext()
@@ -167,8 +167,8 @@ export default function FallFestStacker({ onEnd }: GameProps) {
       // sky gets darker/starrier the higher you go
       const hgt = tower.length
       const g = ctx.createLinearGradient(0, 0, 0, H)
-      g.addColorStop(0, hgt > 25 ? '#05020f' : '#1b0b3a')
-      g.addColorStop(1, hgt > 25 ? '#1b0b3a' : '#3a1450')
+      g.addColorStop(0, hgt > 25 ? '#05020f' : '#0d1d45')
+      g.addColorStop(1, hgt > 25 ? '#0d1d45' : '#1a3570')
       ctx.fillStyle = g
       ctx.fillRect(0, 0, W, H)
       if (hgt > 10) {
@@ -185,7 +185,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
       // ground
       ctx.fillStyle = '#2a7d2e'
       ctx.fillRect(0, toScreenY(0) + 0, W, H)
-      ctx.fillStyle = '#3cff6e'
+      ctx.fillStyle = '#3ddc84'
       ctx.fillRect(0, toScreenY(0), W, 4)
 
       const drawBlock = (x: number, yTopWorld: number, w: number, color: string) => {
@@ -193,7 +193,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
         const sy = toScreenY(yTopWorld + BLOCK_H)
         const sw = w * scale
         const sh = BLOCK_H * scale
-        ctx.fillStyle = '#0b0614'
+        ctx.fillStyle = '#071022'
         ctx.beginPath()
         ctx.roundRect(sx, sy + 3, sw, sh, 6 * scale)
         ctx.fill()
@@ -203,7 +203,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
         ctx.fill()
         ctx.fillStyle = 'rgba(255,255,255,.3)'
         ctx.fillRect(sx + 4 * scale, sy + 4 * scale, Math.max(0, sw - 8 * scale), 4 * scale)
-        ctx.strokeStyle = '#0b0614'
+        ctx.strokeStyle = '#071022'
         ctx.lineWidth = 2
         ctx.beginPath()
         ctx.roundRect(sx, sy, sw, sh - 2, 6 * scale)
@@ -231,7 +231,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
         ctx.translate(sx, sy)
         ctx.rotate(c.rot)
         ctx.fillStyle = c.color
-        ctx.strokeStyle = '#0b0614'
+        ctx.strokeStyle = '#071022'
         ctx.lineWidth = 2
         ctx.fillRect((-c.w / 2) * scale, (-BLOCK_H / 2) * scale, c.w * scale, BLOCK_H * scale)
         ctx.strokeRect((-c.w / 2) * scale, (-BLOCK_H / 2) * scale, c.w * scale, BLOCK_H * scale)
@@ -240,15 +240,15 @@ export default function FallFestStacker({ onEnd }: GameProps) {
       ctx.restore()
 
       if (flashT > 0) {
-        ctx.fillStyle = `rgba(60,255,110,${flashT * 0.15})`
+        ctx.fillStyle = `rgba(61,220,132,${flashT * 0.15})`
         ctx.fillRect(0, 0, W, H)
       }
       if (banner) {
         ctx.globalAlpha = 1 - banner.t
-        ctx.font = `${30 + (1 - banner.t) * 8}px Bungee, sans-serif`
+        ctx.font = `800 ${30 + (1 - banner.t) * 8}px Outfit, sans-serif`
         ctx.textAlign = 'center'
         ctx.lineWidth = 6
-        ctx.strokeStyle = '#0b0614'
+        ctx.strokeStyle = '#071022'
         ctx.strokeText(banner.text, W / 2, H * 0.3 - banner.t * 30)
         ctx.fillStyle = banner.color
         ctx.fillText(banner.text, W / 2, H * 0.3 - banner.t * 30)
@@ -278,7 +278,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
         <ScoreDisplay label="HEIGHT" value={hud.height} color="var(--color-blue)" bump={hud.height} />
         <ScoreDisplay label="PERFECT" value={`${hud.combo}x`} color="var(--color-lime)" bump={hud.combo} />
       </div>
-      <div className="absolute bottom-3 inset-x-0 text-center font-pixel text-[0.5rem] text-ink/70 pointer-events-none">TAP / SPACE TO DROP</div>
+      <div className="absolute bottom-3 inset-x-0 text-center font-pixel text-[0.7rem] text-ink/70 pointer-events-none">TAP / SPACE TO DROP</div>
     </div>
   )
 }

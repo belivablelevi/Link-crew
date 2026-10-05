@@ -53,7 +53,7 @@ export const fx = {
     if (n < 15) return
     emit({ type: 'confetti', amount: n, origin, style })
   },
-  flash(color = 'rgba(255,232,61,.35)') {
+  flash(color = 'rgba(255,199,44,.35)') {
     if (!INTENSITY.flash) return
     emit({ type: 'flash', color })
   },

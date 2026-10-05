@@ -76,7 +76,7 @@ export function Leaderboard({ initial = 'overall', compact }: { initial?: BoardC
           {rows.map((r) => (
             <li
               key={`${r.rank}-${r.name}`}
-              className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 border-[3px] ${r.isYou ? 'bg-lime/15 border-lime' : 'bg-panel border-[#3a2766]'}`}
+              className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 border-[3px] ${r.isYou ? 'bg-lime/15 border-lime' : 'bg-panel border-[#2a4180]'}`}
             >
               <span className="w-9 text-center font-display text-lg shrink-0">{r.rank <= 3 ? MEDAL[r.rank - 1] : r.rank}</span>
               <span className="text-2xl shrink-0" aria-hidden>
@@ -84,9 +84,9 @@ export function Leaderboard({ initial = 'overall', compact }: { initial?: BoardC
               </span>
               <span className="min-w-0 flex-1">
                 <span className={`block font-display text-sm truncate ${r.isYou ? 'text-lime' : ''}`}>
-                  {r.name} {r.isYou && <span className="font-pixel text-[0.5rem] align-middle">(YOU)</span>}
+                  {r.name} {r.isYou && <span className="font-pixel text-[0.7rem] align-middle">(YOU)</span>}
                 </span>
-                <span className="block font-pixel text-[0.45rem] text-dim mt-0.5">
+                <span className="block font-pixel text-[0.65rem] text-dim mt-0.5">
                   LVL {r.level}
                 </span>
               </span>
@@ -96,7 +96,7 @@ export function Leaderboard({ initial = 'overall', compact }: { initial?: BoardC
         </ol>
       )}
       {rows && rows.length > 0 && !rows.some((r) => r.isYou) && <p className="text-sm text-dim mt-3 text-center">You&apos;re not on this board yet. Play to get ranked!</p>}
-      <p className="font-pixel text-[0.5rem] leading-relaxed text-dim mt-4 text-center">ⓘ {leaderboard.syncNote}</p>
+      <p className="font-pixel text-[0.7rem] leading-relaxed text-dim mt-4 text-center">ⓘ {leaderboard.syncNote}</p>
     </div>
   )
 }

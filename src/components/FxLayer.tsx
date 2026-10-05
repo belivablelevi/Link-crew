@@ -68,12 +68,12 @@ export function FxLayer() {
 
       {achDef && (
         <div className="fixed z-[96] top-3 left-1/2 -translate-x-1/2 w-[min(94vw,440px)] pointer-events-none" role="status" aria-live="assertive">
-          <div key={ach} className="anim-pop sticker rounded-3xl px-4 py-3 flex items-center gap-4" style={{ background: 'linear-gradient(135deg,#ffe83d,#ff9f1a)', color: '#160b26' }}>
+          <div key={ach} className="anim-pop sticker rounded-3xl px-4 py-3 flex items-center gap-4" style={{ background: 'linear-gradient(135deg,#ffc72c,#f2a900)', color: '#0c1730' }}>
             <div className="text-5xl anim-wobble shrink-0" aria-hidden>
               {achDef.icon}
             </div>
             <div className="min-w-0">
-              <div className="font-pixel text-[0.55rem]">ACHIEVEMENT UNLOCKED</div>
+              <div className="font-pixel text-[0.72rem]">ACHIEVEMENT UNLOCKED</div>
               <div className="font-display text-xl leading-tight">{achDef.name}</div>
               <div className="text-sm font-bold opacity-80">
                 {achDef.desc} {achDef.tokens > 0 && `· +${achDef.tokens} 🪙`}
@@ -86,7 +86,7 @@ export function FxLayer() {
       {lvl && (
         <div className="fixed inset-0 z-[97] grid place-items-center p-4 bg-black/75" role="dialog" aria-modal="true" aria-label={`Level up! You are now level ${lvl.level}`}>
           <div className="relative text-center anim-pop">
-            <div className="absolute inset-0 -z-10 anim-spin-slow opacity-60" aria-hidden style={{ background: 'repeating-conic-gradient(from 0deg, rgba(255,232,61,.35) 0 10deg, transparent 10deg 20deg)', borderRadius: '50%', transform: 'scale(1.6)' }} />
+            <div className="absolute inset-0 -z-10 anim-spin-slow opacity-60" aria-hidden style={{ background: 'repeating-conic-gradient(from 0deg, rgba(255,199,44,.35) 0 10deg, transparent 10deg 20deg)', borderRadius: '50%', transform: 'scale(1.6)' }} />
             <div className="font-pixel text-sm text-lime mb-2 anim-blink">★ ★ ★</div>
             <h2 className="font-display title-outline text-6xl sm:text-8xl text-yellow leading-none">LEVEL UP!</h2>
             <p className="font-display text-2xl sm:text-3xl mt-3">

@@ -89,7 +89,7 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
       over = true
       play('gameover')
       fx.shake('lg')
-      fx.flash('rgba(255,59,92,.45)')
+      fx.flash('rgba(255,77,94,.45)')
       setTimeout(() => {
         const sec = Math.floor(time)
         onEndRef.current({
@@ -164,7 +164,7 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
         spawnedVice = true
         const p = spawnEdge()
         enemies.push({ ...p, vx: 0, vy: 0, r: 18, speed: 120, label: 'VICE PRINCIPAL', emoji: '🧐' })
-        float('VICE PRINCIPAL INCOMING!', W / 2, 70, '#ff3b5c')
+        float('VICE PRINCIPAL INCOMING!', W / 2, 70, '#ff4d5e')
         play('error')
       }
       for (const e of enemies) {
@@ -248,21 +248,21 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
             const pts = 25 * combo
             coinScore += pts
             coins++
-            float(`+${pts}${combo > 1 ? ` x${combo}` : ''}`, p.x, p.y, '#ffe83d')
+            float(`+${pts}${combo > 1 ? ` x${combo}` : ''}`, p.x, p.y, '#ffc72c')
             play('coin', 1 + Math.min(combo, 10) * 0.04)
           } else {
             play('levelup')
             if (p.kind === 'shield') {
               shieldUntil = time + 10
-              float('HALL PASS!', p.x, p.y, '#ffe83d')
+              float('HALL PASS!', p.x, p.y, '#ffc72c')
             } else if (p.kind === 'slow') {
               slowUntil = time + 5
-              float('SLOW-MO!', p.x, p.y, '#00e1ff')
+              float('SLOW-MO!', p.x, p.y, '#4fb3ff')
             } else {
               magnetUntil = time + 7
-              float('COIN MAGNET!', p.x, p.y, '#ff2bd6')
+              float('COIN MAGNET!', p.x, p.y, '#8ec2ff')
             }
-            fx.flash('rgba(0,225,255,.18)')
+            fx.flash('rgba(79,179,255,.18)')
           }
         }
       }
@@ -285,7 +285,7 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
             invulnUntil = time + 1.2
             fx.shake('md')
             play('hit')
-            float('PASS USED!', player.x, player.y - 20, '#ffe83d')
+            float('PASS USED!', player.x, player.y - 20, '#ffc72c')
             // knock chasers back
             for (const e of enemies) {
               const dx = e.x - player.x
@@ -314,9 +314,9 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
 
     const draw = (now: number) => {
       // hallway floor
-      ctx.fillStyle = '#140b26'
+      ctx.fillStyle = '#0b1834'
       ctx.fillRect(0, 0, W, H)
-      ctx.strokeStyle = 'rgba(139,92,255,.16)'
+      ctx.strokeStyle = 'rgba(47,107,255,.16)'
       ctx.lineWidth = 2
       for (let x = 0; x < W; x += 48) {
         ctx.beginPath()
@@ -342,7 +342,7 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
       for (const p of pickups) {
         const bob = Math.sin(now / 200 + p.x) * 3
         if (p.kind !== 'coin') {
-          ctx.fillStyle = 'rgba(255,232,61,.18)'
+          ctx.fillStyle = 'rgba(255,199,44,.18)'
           ctx.beginPath()
           ctx.arc(p.x, p.y, 22 + Math.sin(now / 150) * 3, 0, Math.PI * 2)
           ctx.fill()
@@ -352,24 +352,24 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
       for (const b of bullets) drawSprite(ctx, b.emoji, b.x, b.y, 22, b.rot)
 
       for (const e of enemies) {
-        ctx.fillStyle = 'rgba(255,59,92,.18)'
+        ctx.fillStyle = 'rgba(255,77,94,.18)'
         ctx.beginPath()
         ctx.arc(e.x, e.y, e.r + 8, 0, Math.PI * 2)
         ctx.fill()
         drawSprite(ctx, e.emoji, e.x, e.y, e.r * 2, 0, e.vx < 0)
-        ctx.font = '700 10px Rubik, sans-serif'
+        ctx.font = '700 10px Inter, sans-serif'
         ctx.textAlign = 'center'
         ctx.lineWidth = 3
-        ctx.strokeStyle = '#0b0614'
+        ctx.strokeStyle = '#071022'
         ctx.strokeText(e.label, e.x, e.y - e.r - 8)
-        ctx.fillStyle = '#ff3b5c'
+        ctx.fillStyle = '#ff4d5e'
         ctx.fillText(e.label, e.x, e.y - e.r - 8)
       }
 
       const blink = time < invulnUntil && Math.floor(now / 80) % 2 === 0
       if (!blink) {
         if (time < shieldUntil) {
-          ctx.strokeStyle = '#ffe83d'
+          ctx.strokeStyle = '#ffc72c'
           ctx.lineWidth = 3
           ctx.beginPath()
           ctx.arc(player.x, player.y, player.r + 8 + Math.sin(now / 100) * 2, 0, Math.PI * 2)
@@ -380,17 +380,17 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
 
       for (const t of texts) {
         ctx.globalAlpha = 1 - t.t
-        ctx.font = '20px Bungee, sans-serif'
+        ctx.font = '800 20px Outfit, sans-serif'
         ctx.textAlign = 'center'
         ctx.lineWidth = 4
-        ctx.strokeStyle = '#0b0614'
+        ctx.strokeStyle = '#071022'
         ctx.strokeText(t.text, t.x, t.y - t.t * 40)
         ctx.fillStyle = t.color
         ctx.fillText(t.text, t.x, t.y - t.t * 40)
         ctx.globalAlpha = 1
       }
       if (time < slowUntil) {
-        ctx.fillStyle = 'rgba(0,225,255,.08)'
+        ctx.fillStyle = 'rgba(79,179,255,.08)'
         ctx.fillRect(0, 0, W, H)
       }
     }
@@ -473,7 +473,7 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
           />
         </div>
       )}
-      <div className="absolute bottom-2 inset-x-0 text-center font-pixel text-[0.5rem] text-dim pointer-events-none">WASD / ARROWS · OR DRAG ANYWHERE TO MOVE</div>
+      <div className="absolute bottom-2 inset-x-0 text-center font-pixel text-[0.7rem] text-dim pointer-events-none">WASD / ARROWS · OR DRAG ANYWHERE TO MOVE</div>
     </div>
   )
 }
