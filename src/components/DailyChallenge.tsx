@@ -29,12 +29,9 @@ export function DailyChallenge() {
       style={{ borderColor: daily.completed ? 'var(--color-lime)' : 'var(--color-orange)' }}
       aria-label="Daily challenge"
     >
-      <div className="absolute -right-6 -top-6 text-[7rem] opacity-15 rotate-12 select-none" aria-hidden>
-        🎯
-      </div>
       <div className="flex items-center gap-2 mb-2">
         <span className="tag" style={{ '--c': daily.completed ? 'var(--color-lime)' : 'var(--color-orange)' } as CSSProperties}>
-          {daily.completed ? '✓ CLEARED' : 'TODAY’S CHALLENGE'}
+          {daily.completed ? 'CLEARED' : 'TODAY’S CHALLENGE'}
         </span>
         <span className="font-pixel text-[0.7rem] text-dim ml-auto">NEW IN {untilMidnight(now)}</span>
       </div>
@@ -46,7 +43,7 @@ export function DailyChallenge() {
         </span>
         <span className="ml-auto flex gap-2">
           <span className="tag" style={{ '--c': 'var(--color-lime)' } as CSSProperties}>+{ch.xp} XP</span>
-          <span className="tag" style={{ '--c': 'var(--color-yellow)' } as CSSProperties}>+{ch.tokens} 🪙</span>
+          <span className="tag" style={{ '--c': 'var(--color-yellow)' } as CSSProperties}>+{ch.tokens} TOKENS</span>
         </span>
       </div>
       {!daily.completed && (
@@ -54,7 +51,7 @@ export function DailyChallenge() {
           {game ? `GO: ${game.name}` : 'PICK A GAME'}
         </LinkButton>
       )}
-      {daily.completed && <div className="mt-4 font-display text-lime text-center">DONE. COME BACK TOMORROW. 😎</div>}
+      {daily.completed && <div className="mt-4 font-display text-lime text-center">DONE. COME BACK TOMORROW.</div>}
     </section>
   )
 }

@@ -3,6 +3,7 @@ import { useStore, isBoostActive } from '../state/store'
 import { cosmeticValue } from '../lib/cosmetics'
 import { XPBar } from './XPBar'
 import { useNow } from '../lib/useNow'
+import { Icon } from './Icon'
 
 /** Avatar + name (with equipped name effect) + title. */
 export function PlayerBadge({ size = 'md' }: { size?: 'md' | 'lg' }) {
@@ -53,11 +54,11 @@ export function ProfileCard() {
       </div>
       <div className="grid grid-cols-2 gap-2 mt-4">
         <div className="rounded-2xl bg-bg/60 border-2 border-[#2a4180] p-3">
-          <div className="font-display text-2xl text-orange">🔥 {streak}</div>
+          <div className="font-display text-2xl text-orange flex items-center gap-1.5"><Icon name="flame" size={22} /> {streak}</div>
           <div className="font-pixel text-[0.7rem] text-dim mt-1">DAY STREAK</div>
         </div>
         <div className="rounded-2xl bg-bg/60 border-2 border-[#2a4180] p-3">
-          <div className="font-display text-2xl text-yellow tabular-nums">🪙 {tokens.toLocaleString()}</div>
+          <div className="font-display text-2xl text-yellow tabular-nums flex items-center gap-1.5"><Icon name="coin" size={22} /> {tokens.toLocaleString()}</div>
           <div className="font-pixel text-[0.7rem] text-dim mt-1">FEST TOKENS</div>
         </div>
       </div>

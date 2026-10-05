@@ -12,6 +12,7 @@ import { triggerSecret } from '../lib/secrets'
 import { play } from '../lib/sound'
 import { EVENT_INFO } from '../lib/eventInfo'
 import { SchoolLogo } from '../components/SchoolLogo'
+import { Icon, type IconName } from '../components/Icon'
 
 const MARQUEE = ['PLAY.', 'COMPETE.', 'DOMINATE.', '★', 'ONE MORE GAME.', '★', 'BEAT THE HIGH SCORE.', '★', 'YOU’RE IN.', '★']
 
@@ -35,20 +36,6 @@ function Hero() {
   const played = useStore((s) => s.gamesPlayed)
   return (
     <section className="relative text-center pt-8 sm:pt-14 pb-8">
-      {/* sticker decorations */}
-      <div className="absolute left-0 sm:left-6 top-6 text-5xl sm:text-6xl anim-float" style={{ '--r': '-12deg' } as CSSProperties} aria-hidden>
-        🎃
-      </div>
-      <div className="absolute right-0 sm:right-8 top-10 text-5xl sm:text-6xl anim-float" style={{ '--r': '10deg', animationDelay: '.6s' } as CSSProperties} aria-hidden>
-        🕹️
-      </div>
-      <div className="absolute left-[8%] bottom-10 text-4xl anim-float hidden sm:block" style={{ '--r': '8deg', animationDelay: '1.1s' } as CSSProperties} aria-hidden>
-        🍁
-      </div>
-      <div className="absolute right-[10%] bottom-16 text-4xl anim-float hidden sm:block" style={{ '--r': '-6deg', animationDelay: '.3s' } as CSSProperties} aria-hidden>
-        🏆
-      </div>
-
       <div className="flex justify-center mb-4">
         <SchoolLogo size={140} className="anim-float" />
       </div>
@@ -99,9 +86,6 @@ function Featured() {
         </div>
         <div className="p-5 sm:p-7 flex flex-col">
           <div className="flex items-center gap-3">
-            <span className="sticker grid place-items-center w-14 h-14 rounded-2xl text-3xl -rotate-6" style={{ background: g.color }} aria-hidden>
-              {g.icon}
-            </span>
             <h3 className="font-display text-3xl sm:text-4xl leading-none" style={{ color: g.color }}>
               {g.name}
             </h3>
@@ -129,22 +113,16 @@ function Featured() {
 }
 
 function HowItWorks() {
-  const steps = [
-    ['🎮', 'PLAY GAMES'],
-    ['⭐', 'EARN XP'],
-    ['🪙', 'EARN TOKENS'],
-    ['🏅', 'UNLOCK BADGES'],
-    ['🏆', 'CLIMB THE BOARD'],
-  ]
+  const steps = ['PLAY GAMES', 'EARN XP', 'EARN TOKENS', 'UNLOCK BADGES', 'CLIMB THE BOARD']
   return (
     <section className="panel p-4 sm:p-6" aria-label="How it works">
       <h2 className="font-display text-xl mb-4">HOW IT WORKS</h2>
       <ol className="flex flex-wrap items-center gap-2">
-        {steps.map(([icon, label], i) => (
+        {steps.map((label, i) => (
           <li key={label} className="flex items-center gap-2">
             <span className="sticker rounded-xl bg-panel2 px-3 py-2 font-display text-xs sm:text-sm flex items-center gap-2">
-              <span className="text-xl" aria-hidden>
-                {icon}
+              <span className="grid place-items-center w-6 h-6 rounded-full bg-yellow text-bg text-xs" aria-hidden>
+                {i + 1}
               </span>
               {label}
             </span>
@@ -172,13 +150,13 @@ function EventInfo() {
 
       <dl className="grid grid-cols-3 gap-2 mt-5">
         {[
-          ['📅', 'DATE', EVENT_INFO.date],
-          ['⏰', 'TIME', EVENT_INFO.time],
-          ['📍', 'WHERE', EVENT_INFO.location],
+          ['calendar', 'DATE', EVENT_INFO.date],
+          ['clock', 'TIME', EVENT_INFO.time],
+          ['pin', 'WHERE', EVENT_INFO.location],
         ].map(([icon, k, v]) => (
           <div key={k} className="rounded-xl bg-bg/60 border-2 border-[#2a4180] p-3">
-            <dt className="font-pixel text-[0.65rem] text-dim">
-              <span aria-hidden>{icon}</span> {k}
+            <dt className="font-pixel text-[0.65rem] text-dim flex items-center gap-1.5">
+              <Icon name={icon as IconName} size={14} className="text-orange" /> {k}
             </dt>
             <dd className="font-display text-sm sm:text-base mt-1 break-words">{v}</dd>
           </div>
@@ -198,12 +176,7 @@ function EventInfo() {
           <ul className="grid sm:grid-cols-2 gap-2">
             {EVENT_INFO.happenings.map((h) => (
               <li key={h.title} className="rounded-xl bg-bg/60 border-2 border-[#2a4180] p-3">
-                <div className="font-display text-sm">
-                  <span aria-hidden className="mr-1.5">
-                    {h.icon}
-                  </span>
-                  {h.title}
-                </div>
+                <div className="font-display text-sm">{h.title}</div>
                 <p className="text-sm text-dim mt-1 leading-snug">{h.text}</p>
               </li>
             ))}

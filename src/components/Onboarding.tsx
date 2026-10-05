@@ -23,7 +23,7 @@ export function Onboarding() {
     setUsername(res.name)
     play('levelup')
     fx.confetti(160)
-    fx.toast({ title: `YOU'RE IN, ${res.name.toUpperCase()}!`, body: '100 starter tokens loaded. Go play.', icon: '🎟️', tone: 'token' })
+    fx.toast({ title: `YOU'RE IN, ${res.name.toUpperCase()}!`, body: '100 starter tokens loaded. Go play.', tone: 'token' })
   }
   return (
     <Modal open title="PLAYER 1, ENTER YOUR NAME" color="var(--color-yellow)">

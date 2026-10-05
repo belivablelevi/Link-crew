@@ -12,6 +12,7 @@ import { Modal } from '../components/Modal'
 import { fx } from '../lib/fx'
 import { play } from '../lib/sound'
 import { cleanName } from '../lib/names'
+import { Icon } from '../components/Icon'
 
 const KINDS: CosmeticKind[] = ['avatar', 'title', 'background', 'nameEffect', 'confetti']
 
@@ -46,7 +47,7 @@ function Shop() {
     }
     if (buyCosmetic(c.id)) {
       play('coin')
-      fx.toast({ title: 'UNLOCKED!', body: `${c.name} equipped.`, icon: '🛍️', tone: 'token' })
+      fx.toast({ title: 'UNLOCKED!', body: `${c.name} equipped.`, tone: 'token' })
       fx.confetti(80)
     } else play('error')
   }
@@ -55,7 +56,7 @@ function Shop() {
     <section className="panel p-4 sm:p-6" aria-label="Cosmetics locker">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <h2 className="font-display text-2xl">YOUR LOCKER</h2>
-        <span className="font-display text-yellow">🪙 {tokens.toLocaleString()}</span>
+        <span className="font-display text-yellow flex items-center gap-1.5"><Icon name="coin" size={18} /> {tokens.toLocaleString()}</span>
       </div>
       <div className="flex gap-2 scroll-x pb-2" role="tablist" aria-label="Cosmetic type">
         {KINDS.map((k) => (
@@ -72,10 +73,10 @@ function Shop() {
           const special = !has && !!c.special
           const afford = tokens >= c.cost
           let label = 'EQUIP'
-          if (on) label = '✓ EQUIPPED'
-          else if (levelLocked) label = `🔒 LVL ${c.level}`
-          else if (special) label = c.special === 'secret' ? '🔒 SECRET' : c.special === 'jackpot' ? '🔒 JACKPOT' : '🔒 SPIN RARE'
-          else if (!has) label = `🪙 ${c.cost}`
+          if (on) label = 'EQUIPPED'
+          else if (levelLocked) label = `UNLOCKS AT LVL ${c.level}`
+          else if (special) label = c.special === 'secret' ? 'SECRET' : c.special === 'jackpot' ? 'JACKPOT PRIZE' : 'SPIN PRIZE'
+          else if (!has) label = `${c.cost} TOKENS`
           const disabled = on || levelLocked || special || (!has && !afford)
           return (
             <button
@@ -109,7 +110,7 @@ function Settings() {
         <div className="flex items-center justify-between gap-3">
           <span className="font-display text-sm">SOUND</span>
           <Button size="sm" color={settings.sound ? 'lime' : 'ghost'} aria-pressed={settings.sound} onClick={() => updateSettings({ sound: !settings.sound })}>
-            {settings.sound ? '🔊 ON' : '🔇 OFF'}
+            {settings.sound ? 'ON' : 'OFF'}
           </Button>
         </div>
         <label className="grid gap-2">
@@ -152,7 +153,7 @@ function Settings() {
       <Modal open={confirm} onClose={() => setConfirm(false)} title="WIPE EVERYTHING?" color="var(--color-red)">
         <p className="text-dim">Level, XP, tokens, high scores, achievements and cosmetics on this device will be deleted. This can&apos;t be undone.</p>
         <div className="flex gap-3 mt-5">
-          <Button color="red" onClick={() => (resetProgress(), setConfirm(false), fx.toast({ title: 'FRESH START', body: 'All progress reset.', icon: '🧹', tone: 'warn' }))}>
+          <Button color="red" onClick={() => (resetProgress(), setConfirm(false), fx.toast({ title: 'FRESH START', body: 'All progress reset.', tone: 'warn' }))}>
             YES, RESET
           </Button>
           <Button color="ghost" onClick={() => setConfirm(false)}>
@@ -172,7 +173,7 @@ function NameEditor() {
   if (!editing)
     return (
       <Button size="sm" color="ghost" onClick={() => (setValue(name), setEditing(true))}>
-        ✏️ RENAME
+        RENAME
       </Button>
     )
   return (
@@ -216,13 +217,13 @@ export default function ProfilePage() {
   const stats: [string, string, string][] = [
     ['LEVEL', String(levelFromXp(s.xp)), 'var(--color-purple)'],
     ['TOTAL XP', s.xp.toLocaleString(), 'var(--color-lime)'],
-    ['TOKENS', `🪙 ${s.tokens.toLocaleString()}`, 'var(--color-yellow)'],
+    ['TOKENS', s.tokens.toLocaleString(), 'var(--color-yellow)'],
     ['GAMES PLAYED', s.gamesPlayed.toLocaleString(), 'var(--color-blue)'],
     ['TOTAL SCORE', s.totalScore.toLocaleString(), 'var(--color-pink)'],
-    ['BEST SCORE', bestEntry ? `${bestEntry.score.toLocaleString()} ${bestEntry.g.icon}` : '—', 'var(--color-orange)'],
+    ['BEST SCORE', bestEntry ? `${bestEntry.score.toLocaleString()} (${bestEntry.g.name})` : '—', 'var(--color-orange)'],
     ['BADGES', `${unlocked.length}/${ACHIEVEMENTS.length}`, 'var(--color-yellow)'],
-    ['FAVORITE', favGame ? `${favGame.icon} ${favGame.name}` : '—', 'var(--color-pink)'],
-    ['STREAK', `🔥 ${s.streak.count} DAY${s.streak.count === 1 ? '' : 'S'}`, 'var(--color-orange)'],
+    ['FAVORITE', favGame ? favGame.name : '—', 'var(--color-pink)'],
+    ['STREAK', `${s.streak.count} DAY${s.streak.count === 1 ? '' : 'S'}`, 'var(--color-orange)'],
     ['BEST REACTION', s.stats.bestReactionMs ? `${s.stats.bestReactionMs}ms` : '—', 'var(--color-lime)'],
     ['DUCKS CAUGHT', s.stats.ducksCaught.toLocaleString(), 'var(--color-yellow)'],
     ['MAX COMBO', `${s.stats.maxCombo}x`, 'var(--color-pink)'],

@@ -97,9 +97,6 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
           ← <span className="hidden sm:inline ml-1">ARCADE</span>
         </a>
         <div className="flex items-center gap-2 min-w-0">
-          <span className="text-2xl" aria-hidden>
-            {meta.icon}
-          </span>
           <h1 className="font-display text-lg sm:text-2xl truncate" style={{ color: meta.color }}>
             {meta.name}
           </h1>
@@ -176,7 +173,7 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
               </h2>
               {summary.newHigh && (
                 <div className="anim-pop sticker rounded-2xl px-4 py-2 font-display text-lg text-bg" style={{ background: 'linear-gradient(90deg,#ffc72c,#f2a900)', animationDelay: '.2s' }}>
-                  🏆 NEW HIGH SCORE!
+                  NEW HIGH SCORE!
                 </div>
               )}
               <div className="mt-1">
@@ -199,7 +196,7 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
                   +{summary.rewards.xp} XP{summary.boosted.xp && ' (2X!)'}
                 </span>
                 <span className="tag text-xs" style={{ '--c': 'var(--color-yellow)' } as CSSProperties}>
-                  +{summary.rewards.tokens} 🪙{summary.boosted.tokens && ' (2X!)'}
+                  +{summary.rewards.tokens} TOKENS{summary.boosted.tokens && ' (2X!)'}
                 </span>
               </div>
               <div className="font-display text-xl text-pink mt-2">{HYPE[(run + Math.round(result.score)) % HYPE.length]}</div>
@@ -212,7 +209,7 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
                 </LinkButton>
               </div>
               <button className="text-sm text-dim underline underline-offset-4 hover:text-ink mt-1" onClick={() => navigate(`/games/${suggestion.id}`)}>
-                or try {suggestion.icon} {suggestion.name} →
+                or try {suggestion.name} →
               </button>
             </div>
           </div>

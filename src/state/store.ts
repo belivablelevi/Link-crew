@@ -224,7 +224,7 @@ export function recordGame(id: GameId, result: GameResult): GameSummary {
         dailyJustCompleted = true
         grantXp(d, ch.xp)
         pendingEffects.push(() => {
-          fx.toast({ title: 'DAILY CHALLENGE CLEARED!', body: `+${ch.xp} XP · +${ch.tokens} TOKENS`, icon: '🎯', tone: 'achievement' })
+          fx.toast({ title: 'DAILY CHALLENGE CLEARED!', body: `+${ch.xp} XP · +${ch.tokens} TOKENS`, tone: 'achievement' })
           fx.confetti(160)
           play('victory')
         })
@@ -241,7 +241,7 @@ export function addTokens(amount: number, reason?: string) {
   mutate((d) => {
     d.tokens += amount
   })
-  if (reason) fx.toast({ title: `+${amount} TOKENS`, body: reason, icon: '🪙', tone: 'token' })
+  if (reason) fx.toast({ title: `+${amount} TOKENS`, body: reason, tone: 'token' })
 }
 
 export function addXp(amount: number) {

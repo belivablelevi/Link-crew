@@ -13,7 +13,7 @@ export function AchievementCard({ a, state }: { a: AchievementDef; state: Player
       aria-label={`${hidden ? 'Secret achievement' : a.name}: ${unlocked ? 'unlocked' : 'locked'}`}
     >
       <div className={`sticker rounded-xl w-14 h-14 grid place-items-center text-3xl shrink-0 ${unlocked ? 'bg-yellow' : 'bg-bg grayscale opacity-60'}`} aria-hidden>
-        {hidden ? '❓' : a.icon}
+        {hidden ? '?' : a.icon}
       </div>
       <div className="min-w-0 flex-1">
         <div className={`font-display text-sm leading-tight ${unlocked ? 'text-yellow' : ''}`}>{hidden ? '???' : a.name}</div>
@@ -27,9 +27,9 @@ export function AchievementCard({ a, state }: { a: AchievementDef; state: Player
           </div>
         )}
         <div className="flex items-center gap-2 mt-2">
-          {a.tokens > 0 && <span className="font-pixel text-[0.65rem] text-yellow">+{a.tokens} 🪙</span>}
-          {unlocked && <span className="font-pixel text-[0.65rem] text-lime ml-auto">✓ {new Date(at).toLocaleDateString()}</span>}
-          {!unlocked && <span className="font-pixel text-[0.65rem] text-dim ml-auto">🔒 LOCKED</span>}
+          {a.tokens > 0 && <span className="font-pixel text-[0.65rem] text-yellow">+{a.tokens} tokens</span>}
+          {unlocked && <span className="font-pixel text-[0.65rem] text-lime ml-auto">{new Date(at).toLocaleDateString()}</span>}
+          {!unlocked && <span className="font-pixel text-[0.65rem] text-dim ml-auto">LOCKED</span>}
         </div>
       </div>
     </div>

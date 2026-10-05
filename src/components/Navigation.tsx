@@ -7,13 +7,14 @@ import { SoundToggle } from './SoundToggle'
 import { triggerSecret } from '../lib/secrets'
 import { play } from '../lib/sound'
 import { SchoolLogo } from './SchoolLogo'
+import { Icon, type IconName } from './Icon'
 
-export const NAV = [
-  { path: '/', label: 'HOME', icon: '🏠' },
-  { path: '/games', label: 'GAMES', icon: '🎮' },
-  { path: '/leaderboard', label: 'RANKS', icon: '🏆' },
-  { path: '/profile', label: 'PROFILE', icon: '👤' },
-  { path: '/achievements', label: 'BADGES', icon: '🏅' },
+export const NAV: { path: string; label: string; icon: IconName }[] = [
+  { path: '/', label: 'HOME', icon: 'home' },
+  { path: '/games', label: 'GAMES', icon: 'gamepad' },
+  { path: '/leaderboard', label: 'RANKS', icon: 'trophy' },
+  { path: '/profile', label: 'PROFILE', icon: 'user' },
+  { path: '/achievements', label: 'BADGES', icon: 'medal' },
 ]
 
 function isActive(route: string, path: string) {
@@ -69,7 +70,7 @@ export function Navigation() {
                   aria-current={active ? 'page' : undefined}
                   className={`font-display text-xs px-3 py-2 rounded-xl border-[3px] transition-all ${active ? 'bg-yellow text-bg border-bg shadow-[3px_3px_0_#000]' : 'border-transparent text-dim hover:text-ink hover:bg-panel2'}`}
                 >
-                  <span aria-hidden className="mr-1">{n.icon}</span>
+                  <Icon name={n.icon} size={15} className="mr-1.5" />
                   {n.label}
                 </a>
               )
@@ -80,7 +81,9 @@ export function Navigation() {
               <span className="text-xl" aria-hidden>{avatar}</span>
               <span className="font-display text-xs text-lime">L{level}</span>
               <span className="w-px h-5 bg-[#2a4180]" />
-              <span className="font-display text-sm text-yellow tabular-nums">🪙 {tokens.toLocaleString()}</span>
+              <span className="font-display text-sm text-yellow tabular-nums flex items-center gap-1">
+                <Icon name="coin" size={16} /> {tokens.toLocaleString()}
+              </span>
             </a>
             <SoundToggle />
           </div>
@@ -93,8 +96,8 @@ export function Navigation() {
             const active = isActive(route, n.path)
             return (
               <a key={n.path} href={href(n.path)} aria-current={active ? 'page' : undefined} className="flex flex-col items-center justify-center gap-0.5 h-16 relative">
-                <span className={`text-2xl transition-transform ${active ? '-translate-y-1 scale-125' : 'opacity-70'}`} aria-hidden>
-                  {n.icon}
+                <span className={`transition-transform ${active ? '-translate-y-0.5 text-yellow' : 'text-dim'}`}>
+                  <Icon name={n.icon} size={24} />
                 </span>
                 <span className={`font-pixel text-[0.65rem] ${active ? 'text-yellow' : 'text-dim'}`}>{n.label}</span>
                 {active && <span className="absolute top-0 inset-x-4 h-1 rounded-b bg-yellow" />}

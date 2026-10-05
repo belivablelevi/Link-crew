@@ -76,7 +76,7 @@ export function FxLayer() {
               <div className="font-pixel text-[0.72rem]">ACHIEVEMENT UNLOCKED</div>
               <div className="font-display text-xl leading-tight">{achDef.name}</div>
               <div className="text-sm font-bold opacity-80">
-                {achDef.desc} {achDef.tokens > 0 && `· +${achDef.tokens} 🪙`}
+                {achDef.desc} {achDef.tokens > 0 && `· +${achDef.tokens} tokens`}
               </div>
             </div>
           </div>

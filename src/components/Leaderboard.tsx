@@ -2,7 +2,6 @@ import { useEffect, useState, type CSSProperties } from 'react'
 import { BOARD_CATEGORIES, leaderboard, type BoardCategory, type BoardEntry } from '../lib/leaderboard'
 import { useStore } from '../state/store'
 
-const MEDAL = ['🥇', '🥈', '🥉']
 const PODIUM_COLOR = ['var(--color-yellow)', '#d6dbe8', 'var(--color-orange)']
 
 export function Leaderboard({ initial = 'overall', compact }: { initial?: BoardCategory; compact?: boolean }) {
@@ -78,7 +77,12 @@ export function Leaderboard({ initial = 'overall', compact }: { initial?: BoardC
               key={`${r.rank}-${r.name}`}
               className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 border-[3px] ${r.isYou ? 'bg-lime/15 border-lime' : 'bg-panel border-[#2a4180]'}`}
             >
-              <span className="w-9 text-center font-display text-lg shrink-0">{r.rank <= 3 ? MEDAL[r.rank - 1] : r.rank}</span>
+              <span
+                className="w-8 h-8 grid place-items-center rounded-full font-display text-sm shrink-0"
+                style={r.rank <= 3 ? { background: PODIUM_COLOR[r.rank - 1], color: '#071022' } : { color: 'var(--color-dim)' }}
+              >
+                {r.rank}
+              </span>
               <span className="text-2xl shrink-0" aria-hidden>
                 {r.avatar}
               </span>

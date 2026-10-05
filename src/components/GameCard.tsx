@@ -33,9 +33,6 @@ export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }
       </div>
       <div className="p-4">
         <div className="flex items-center gap-3">
-          <span className="sticker grid place-items-center w-12 h-12 rounded-xl text-2xl shrink-0 -rotate-3 group-hover:rotate-6 transition-transform" style={{ background: game.color }} aria-hidden>
-            {game.icon}
-          </span>
           <h3 className="font-display text-lg leading-tight">{game.name}</h3>
         </div>
         <p className="text-dim text-sm mt-2 leading-snug min-h-[2.5em]">{game.tagline}</p>

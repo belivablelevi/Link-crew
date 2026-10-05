@@ -25,7 +25,6 @@ export function triggerSecret(key: string) {
   fx.toast({
     title: 'YOU FOUND A SECRET!',
     body: `${NAMES[key] ?? 'SECRET'} — SECRET MODE ON for 30s${first ? '' : ' (already found)'}`,
-    icon: '🕵️',
     tone: 'event',
   })
 }
