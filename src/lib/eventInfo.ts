@@ -5,8 +5,8 @@
  */
 export const EVENT_INFO = {
   date: 'TBA',
-  time: 'TBA',
-  location: 'TBA',
+  time: 'Lunch',
+  location: 'The field',
 
   /** Short line under the section title. */
   tagline: 'Open to everyone. No sign-up needed, just show up.',
