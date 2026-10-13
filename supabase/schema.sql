@@ -116,5 +116,37 @@ select game, max(score) as score
 from public.scores
 group by game;
 
+-- All-time points: every run counts. Each run is converted to points with the same formula the
+-- site uses for XP (src/games/meta.ts, reward: scaled(...)), so every game is worth 10 to 260
+-- points per run no matter how big its raw scores are. Keep the numbers in sync with meta.ts.
+create or replace view public.all_time with (security_invoker = true) as
+select t.player_id, latest.name, t.points, t.games
+from (
+  select
+    player_id,
+    sum(greatest(10, least(260, round(15 + score::numeric / case game
+      when 'reaction-rush' then 90
+      when 'dodge-the-principal' then 12
+      when 'locker-smash' then 14
+      when 'fall-fest-stacker' then 4
+      when 'memory-meltdown' then 6
+      when 'button-mayhem' then 16
+      when 'fall-fest-typer' then 25
+      when 'catch-the-duck' then 0.7
+      when 'fall-fest-boss' then 180
+      when 'leaf-catcher' then 22
+      when 'goose-flight' then 2
+      else 1000000 end))))::int as points,
+    count(*)::int as games
+  from public.scores
+  group by player_id
+) t
+cross join lateral (
+  select s.name from public.scores s
+  where s.player_id = t.player_id
+  order by s.created_at desc
+  limit 1
+) latest;
+
 grant select, insert on public.scores to anon;
-grant select on public.leaderboard, public.game_records to anon;
+grant select on public.leaderboard, public.game_records, public.all_time to anon;

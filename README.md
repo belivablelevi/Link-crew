@@ -25,7 +25,9 @@ The Lisgar crest lives at `public/lisgar-logo.webp`. To swap it, replace that fi
 
 ## Leaderboard (school-wide, Supabase)
 
-Each player's best score per game goes to a free [Supabase](https://supabase.com) database, so everyone sees the same leaderboard and school bests. If the connection is ever removed, the leaderboard falls back to scores from the current device.
+Each player's best score per game goes to a free [Supabase](https://supabase.com) database, so everyone sees the same leaderboard and school bests.
+
+The **ALL-TIME** board adds up every game a player has finished. Each run is converted to points with the same formula as XP (`reward: scaled(...)` in `src/games/meta.ts`, 10 to 260 points per run), so big-number games like the boss fight don't drown out the others. The database does this math itself in the `all_time` view, so if you change a game's reward scale, update the matching number in `supabase/schema.sql` too. If the connection is ever removed, the leaderboard falls back to scores from the current device.
 
 The site is connected to the Supabase project in `src/lib/supabaseConfig.ts` (project URL + publishable key, both safe to be public). The database itself is set up by running `supabase/schema.sql` once in Supabase > **SQL Editor > New query > Run**. Run it again after changing the word filter; that's safe.
 

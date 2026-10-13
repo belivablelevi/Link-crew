@@ -1,5 +1,6 @@
 import type { GameId } from './types'
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './supabaseConfig'
+import { getGame } from '../games/meta'
 
 /**
  * Leaderboard service
@@ -16,6 +17,13 @@ export interface BoardRow {
   name: string
   score: number
   isYou: boolean
+  /** All-time board only: how many games this player has finished. */
+  games?: number
+}
+
+/** Points a single run is worth on the all-time board (same formula as XP; 10 to 260 per run). */
+export function runPoints(game: GameId, score: number): number {
+  return getGame(game)?.reward(score).xp ?? 0
 }
 
 export interface LeaderboardService {
@@ -24,6 +32,8 @@ export interface LeaderboardService {
   submit(game: GameId, score: number, name: string): Promise<void>
   /** Top players for a game (best score per player), plus your row if you're outside the top. */
   top(game: GameId, yourName: string, limit?: number): Promise<BoardRow[]>
+  /** All-time points: every finished run adds points (see runPoints). */
+  allTime(yourName: string, limit?: number): Promise<BoardRow[]>
   /** Best score ever for each game. */
   records(): Promise<Partial<Record<GameId, number>>>
 }
@@ -103,6 +113,24 @@ class OnlineLeaderboard implements LeaderboardService {
     return rows
   }
 
+  async allTime(_yourName: string, limit = 10): Promise<BoardRow[]> {
+    const me = playerId()
+    const { data } = await this.get<{ name: string; points: number; games: number; player_id: string }[]>(
+      `all_time?select=name,points,games,player_id&order=points.desc&limit=${limit}`,
+    )
+    const rows: BoardRow[] = data.map((r, i) => ({ rank: i + 1, name: r.name, score: r.points, games: r.games, isYou: r.player_id === me }))
+    if (!rows.some((r) => r.isYou)) {
+      const mine = await this.get<{ name: string; points: number; games: number }[]>(`all_time?select=name,points,games&player_id=eq.${me}`)
+      const you = mine.data[0]
+      if (you) {
+        const { res } = await this.get<unknown[]>(`all_time?select=player_id&points=gt.${you.points}&limit=1`, { Prefer: 'count=exact' })
+        const ahead = Number(res.headers.get('content-range')?.split('/')[1] ?? rows.length)
+        rows.push({ rank: ahead + 1, name: you.name, score: you.points, games: you.games, isYou: true })
+      }
+    }
+    return rows
+  }
+
   async records() {
     const { data } = await this.get<{ game: GameId; score: number }[]>('game_records?select=game,score')
     return Object.fromEntries(data.map((r) => [r.game, r.score])) as Partial<Record<GameId, number>>
@@ -113,6 +141,8 @@ class OnlineLeaderboard implements LeaderboardService {
 // Local fallback: real scores from players on this device only.
 // ---------------------------------------------------------------------------
 const LOCAL_KEY = 'lcff:board:v2'
+const LOCAL_ALLTIME_KEY = 'lcff:alltime:v1'
+type LocalAllTime = Record<string, { points: number; games: number }> // name -> totals
 type LocalBoard = Record<string, Partial<Record<GameId, number>>> // name -> game -> best
 
 class LocalLeaderboard implements LeaderboardService {
@@ -126,7 +156,24 @@ class LocalLeaderboard implements LeaderboardService {
     }
   }
 
+  private readAllTime(): LocalAllTime {
+    try {
+      return JSON.parse(localStorage.getItem(LOCAL_ALLTIME_KEY) || '{}')
+    } catch {
+      return {}
+    }
+  }
+
   async submit(game: GameId, score: number, name: string) {
+    const totals = this.readAllTime()
+    const t = (totals[name] ??= { points: 0, games: 0 })
+    t.points += runPoints(game, score)
+    t.games += 1
+    try {
+      localStorage.setItem(LOCAL_ALLTIME_KEY, JSON.stringify(totals))
+    } catch {
+      /* storage blocked */
+    }
     const all = this.read()
     const mine = (all[name] ??= {})
     if (score > (mine[game] ?? 0)) mine[game] = Math.round(score)
@@ -144,6 +191,13 @@ class LocalLeaderboard implements LeaderboardService {
       .sort((a, b) => b.score - a.score)
       .slice(0, limit)
       .map((r, i) => ({ rank: i + 1, name: r.name, score: r.score, isYou: r.name === yourName }))
+  }
+
+  async allTime(yourName: string, limit = 10): Promise<BoardRow[]> {
+    return Object.entries(this.readAllTime())
+      .sort((a, b) => b[1].points - a[1].points)
+      .slice(0, limit)
+      .map(([name, t], i) => ({ rank: i + 1, name, score: t.points, games: t.games, isYou: name === yourName }))
   }
 
   async records() {

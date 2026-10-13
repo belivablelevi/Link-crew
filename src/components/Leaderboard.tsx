@@ -7,23 +7,24 @@ import { navigate } from '../lib/router'
 import { displayName } from '../lib/names'
 
 export const RANKED_GAMES = GAMES.filter((g) => !g.custom)
+export type BoardId = GameId | 'all-time'
 const PODIUM_COLOR = ['var(--color-yellow)', '#d6dbe8', 'var(--color-orange)']
 
-export function Leaderboard({ game }: { game: GameId }) {
+export function Leaderboard({ board }: { board: BoardId }) {
   const [rows, setRows] = useState<BoardRow[] | null>(null)
   const [error, setError] = useState(false)
   const name = useStore((s) => s.username)
-  const meta = GAMES.find((g) => g.id === game)!
+  const allTime = board === 'all-time'
+  const meta = allTime ? { name: 'ALL-TIME POINTS', color: 'var(--color-yellow)' } : GAMES.find((g) => g.id === board)!
   const activeTab = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     activeTab.current?.scrollIntoView({ inline: 'center', block: 'nearest' })
-  }, [game])
+  }, [board])
 
   useEffect(() => {
     let alive = true
     const load = () =>
-      leaderboard
-        .top(game, name, 10)
+      (allTime ? leaderboard.allTime(name, 10) : leaderboard.top(board as GameId, name, 10))
         .then((r) => {
           if (!alive) return
           setRows(r)
@@ -37,21 +38,30 @@ export function Leaderboard({ game }: { game: GameId }) {
       alive = false
       clearInterval(id)
     }
-  }, [game, name])
+  }, [board, allTime, name])
 
   const top3 = rows?.filter((r) => r.rank <= 3) ?? []
 
   return (
     <div>
       <div className="flex gap-2 scroll-x pb-2 -mx-1 px-1" role="tablist" aria-label="Choose a game">
+        <button
+          ref={allTime ? activeTab : undefined}
+          role="tab"
+          aria-selected={allTime}
+          onClick={() => navigate('/leaderboard/all-time')}
+          className={`sticker shrink-0 rounded-xl px-3 h-11 font-display text-xs transition-transform ${allTime ? 'bg-yellow text-bg -rotate-2' : 'bg-panel2 text-dim hover:text-ink'}`}
+        >
+          ALL-TIME
+        </button>
         {RANKED_GAMES.map((g) => (
           <button
             key={g.id}
-            ref={g.id === game ? activeTab : undefined}
+            ref={g.id === board ? activeTab : undefined}
             role="tab"
-            aria-selected={g.id === game}
+            aria-selected={g.id === board}
             onClick={() => navigate(`/leaderboard/${g.id}`)}
-            className={`sticker shrink-0 rounded-xl px-3 h-11 font-display text-xs transition-transform ${g.id === game ? 'bg-yellow text-bg -rotate-2' : 'bg-panel2 text-dim hover:text-ink'}`}
+            className={`sticker shrink-0 rounded-xl px-3 h-11 font-display text-xs transition-transform ${g.id === board ? 'bg-yellow text-bg -rotate-2' : 'bg-panel2 text-dim hover:text-ink'}`}
           >
             {g.name}
           </button>
@@ -61,6 +71,7 @@ export function Leaderboard({ game }: { game: GameId }) {
       <h2 className="font-display text-2xl mt-5" style={{ color: meta.color }}>
         {meta.name}
       </h2>
+      {allTime && <p className="text-sm text-dim mt-1">Every game you finish adds points (10 to 260 per game, based on how well you did), so every game counts the same.</p>}
 
       {error && (
         <div className="text-center py-10">
@@ -74,7 +85,7 @@ export function Leaderboard({ game }: { game: GameId }) {
       {!error && rows && rows.length === 0 && (
         <div className="text-center py-10">
           <p className="font-display text-lg">NO SCORES YET</p>
-          <p className="text-dim text-sm mt-1">Be the first. Play {meta.name} and your score shows up here.</p>
+          <p className="text-dim text-sm mt-1">{allTime ? 'Play any game and your points show up here.' : `Be the first. Play ${meta.name} and your score shows up here.`}</p>
         </div>
       )}
 
@@ -107,8 +118,12 @@ export function Leaderboard({ game }: { game: GameId }) {
                 </span>
                 <span className={`flex-1 min-w-0 font-display text-sm truncate ${r.isYou ? 'text-lime' : ''}`}>
                   {displayName(r.name)} {r.isYou && <span className="font-pixel text-[0.7rem] align-middle">(YOU)</span>}
+                  {r.games !== undefined && <span className="block font-pixel text-[0.65rem] text-dim mt-0.5">{r.games} {r.games === 1 ? 'GAME' : 'GAMES'}</span>}
                 </span>
-                <span className="font-display text-base tabular-nums text-yellow shrink-0">{r.score.toLocaleString()}</span>
+                <span className="font-display text-base tabular-nums text-yellow shrink-0">
+                  {r.score.toLocaleString()}
+                  {allTime && <span className="text-xs text-dim ml-1">PTS</span>}
+                </span>
               </li>
             ))}
           </ol>
@@ -118,7 +133,9 @@ export function Leaderboard({ game }: { game: GameId }) {
 
       <p className="font-pixel text-[0.7rem] leading-relaxed text-dim mt-5 text-center">
         {leaderboard.mode === 'online'
-          ? 'SCHOOL-WIDE LEADERBOARD. YOUR BEST SCORE IN EACH GAME COUNTS. UPDATES EVERY 30 SECONDS.'
+          ? allTime
+            ? 'SCHOOL-WIDE LEADERBOARD. EVERY GAME YOU FINISH ADDS UP. UPDATES EVERY 30 SECONDS.'
+            : 'SCHOOL-WIDE LEADERBOARD. YOUR BEST SCORE IN EACH GAME COUNTS. UPDATES EVERY 30 SECONDS.'
           : 'SHOWING SCORES FROM THIS DEVICE ONLY. THE SCHOOL-WIDE BOARD TURNS ON ONCE THE DATABASE IS CONNECTED.'}
       </p>
     </div>
