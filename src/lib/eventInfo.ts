@@ -4,7 +4,7 @@
  * Anything still "TBA" shows as "TBA" on the site.
  */
 export const EVENT_INFO = {
-  date: 'TBA',
+  date: 'October 21',
   time: 'Lunch',
   location: 'The field',
 
