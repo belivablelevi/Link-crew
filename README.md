@@ -25,21 +25,15 @@ The Lisgar crest lives at `public/lisgar-logo.webp`. To swap it, replace that fi
 
 ## Leaderboard (school-wide, Supabase)
 
-Each player's best score per game goes to a free [Supabase](https://supabase.com) database, so everyone sees the same leaderboard and school bests. Until it's connected, the leaderboard shows only scores from the current device.
+Each player's best score per game goes to a free [Supabase](https://supabase.com) database, so everyone sees the same leaderboard and school bests. If the connection is ever removed, the leaderboard falls back to scores from the current device.
 
-One-time setup:
+The site is connected to the Supabase project in `src/lib/supabaseConfig.ts` (project URL + publishable key, both safe to be public). The database itself is set up by running `supabase/schema.sql` once in Supabase > **SQL Editor > New query > Run**. Run it again after changing the word filter; that's safe.
 
-1. Create a free account at supabase.com and click **New project**.
-2. In the project, open **SQL Editor > New query**, paste all of `supabase/schema.sql`, and click **Run**.
-3. Open **Project Settings > API**. Copy the **Project URL** and the **anon public** key. The anon key is meant to be public, and the database rules only let it add and read scores.
-4. In GitHub, go to **Settings > Secrets and variables > Actions > Variables** and add two repository variables:
-   - `SUPABASE_URL`: the Project URL
-   - `SUPABASE_ANON_KEY`: the anon public key
-5. Re-run the "Deploy to GitHub Pages" workflow (or push any change).
+**Never** put the `service_role` / secret key in this repo or the website. It bypasses every database rule.
 
 Moderation: names go through a profanity filter in the app (`src/lib/names.ts`) **and** in the database (`is_clean_name` in `supabase/schema.sql`), so a bad name can't be saved even by bypassing the site. It catches look-alike tricks (`5h1t`, `f.u.c.k`, `BigAssDuck`) without blocking names like Cassie or Dickens. To add a word, add it to both lists and re-run the SQL file. To remove a name or score anyway, open **Table Editor > scores** in Supabase and delete the row. The database rejects impossible scores, but this isn't cheat-proof, since anyone tech-savvy can send their own scores.
 
-To run it locally with the online board, create `.env.local` with `VITE_SUPABASE_URL=...` and `VITE_SUPABASE_ANON_KEY=...`.
+To point a build at a different Supabase project, set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (for example in `.env.local`, or as GitHub repo variables `SUPABASE_URL` / `SUPABASE_ANON_KEY`).
 
 ## Colours & fonts
 

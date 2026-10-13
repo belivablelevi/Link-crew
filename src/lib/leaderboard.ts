@@ -1,10 +1,11 @@
 import type { GameId } from './types'
+import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './supabaseConfig'
 
 /**
  * Leaderboard service
  * -------------------
- * ONLINE mode (school-wide): set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY at build time
- * (GitHub repo variables SUPABASE_URL / SUPABASE_ANON_KEY, see README). Scores are stored in a
+ * ONLINE mode (school-wide): connection details live in supabaseConfig.ts (env vars
+ * VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY override them). Scores are stored in a
  * Supabase database (schema in supabase/schema.sql) and everyone sees the same board.
  *
  * LOCAL mode (fallback): if those aren't set, the board shows scores from this device only.
@@ -58,7 +59,10 @@ class OnlineLeaderboard implements LeaderboardService {
   ) {}
 
   private headers(extra: Record<string, string> = {}) {
-    return { apikey: this.key, Authorization: `Bearer ${this.key}`, ...extra }
+    // New-style publishable keys (sb_publishable_...) go in the apikey header only;
+    // legacy anon keys (JWTs) also go in Authorization.
+    const auth: Record<string, string> = this.key.startsWith('sb_') ? {} : { Authorization: `Bearer ${this.key}` }
+    return { apikey: this.key, ...auth, ...extra }
   }
 
   private async get<T>(path: string, extra?: Record<string, string>): Promise<{ data: T; res: Response }> {
@@ -149,7 +153,7 @@ class LocalLeaderboard implements LeaderboardService {
   }
 }
 
-const URL_ = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.replace(/\/+$/, '')
-const KEY_ = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
+const URL_ = ((import.meta.env.VITE_SUPABASE_URL as string | undefined) || SUPABASE_URL)?.replace(/\/+$/, '')
+const KEY_ = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) || SUPABASE_PUBLISHABLE_KEY
 
 export const leaderboard: LeaderboardService = URL_ && KEY_ ? new OnlineLeaderboard(URL_, KEY_) : new LocalLeaderboard()
