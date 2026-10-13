@@ -7,6 +7,8 @@ import { challengeForDay, dayOffsetKey, getChallenge, todayKey } from '../lib/da
 import { getGame } from '../games/meta'
 import { fx } from '../lib/fx'
 import { configureSound, play } from '../lib/sound'
+import { leaderboard } from '../lib/leaderboard'
+import { invalidateRecords } from '../lib/useRecords'
 
 const STORAGE_KEY = 'lcff:player:v1'
 export const SPIN_COOLDOWN_MS = 15 * 60 * 1000
@@ -232,6 +234,10 @@ export function recordGame(id: GameId, result: GameResult): GameSummary {
     grantXp(d, rewards.xp)
   })
 
+  if (score > 0 && !meta.custom) {
+    invalidateRecords()
+    void leaderboard.submit(id, score, state.username)
+  }
   return { rewards, baseRewards: base, newHigh: newHigh && score > 0, prevHigh, dailyJustCompleted, boosted: { xp: xp2, tokens: tk2 } }
 }
 

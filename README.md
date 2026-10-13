@@ -1,6 +1,6 @@
 # Link Crew Fall Fest Arcade
 
-PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 10 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges and hidden secrets.
+PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 10 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, a school-wide leaderboard and hidden secrets.
 
 Built with React, TypeScript, Vite and Tailwind CSS v4. There are no image assets: everything is CSS, SVG, Canvas or emoji. Sounds are generated with the Web Audio API.
 
@@ -22,6 +22,24 @@ Everything in the **ABOUT FALL FEST** section on the home page comes from `src/l
 ## School logo
 
 The Lisgar crest lives at `public/lisgar-logo.webp`. To swap it, replace that file (or add `lisgar-logo.png` / `.svg` / `.jpg`). It appears in the top bar and above the home title.
+
+## Leaderboard (school-wide, Supabase)
+
+Each player's best score per game goes to a free [Supabase](https://supabase.com) database, so everyone sees the same leaderboard and school bests. Until it's connected, the leaderboard shows only scores from the current device.
+
+One-time setup:
+
+1. Create a free account at supabase.com and click **New project**.
+2. In the project, open **SQL Editor > New query**, paste all of `supabase/schema.sql`, and click **Run**.
+3. Open **Project Settings > API**. Copy the **Project URL** and the **anon public** key. The anon key is meant to be public, and the database rules only let it add and read scores.
+4. In GitHub, go to **Settings > Secrets and variables > Actions > Variables** and add two repository variables:
+   - `SUPABASE_URL`: the Project URL
+   - `SUPABASE_ANON_KEY`: the anon public key
+5. Re-run the "Deploy to GitHub Pages" workflow (or push any change).
+
+Moderation: to remove an inappropriate name or score, open **Table Editor > scores** in Supabase and delete the row. Names are also filtered for bad words in the app. The database rejects impossible scores, but this isn't cheat-proof, since anyone tech-savvy can send their own scores.
+
+To run it locally with the online board, create `.env.local` with `VITE_SUPABASE_URL=...` and `VITE_SUPABASE_ANON_KEY=...`.
 
 ## Colours & fonts
 
@@ -61,14 +79,15 @@ Every game is a component that receives `{ onEnd(result) }` (see `src/games/type
 src/
   state/store.ts        player state (localStorage), XP/levels, tokens, achievements, daily, boosts
   lib/progression.ts    level curve (L2 = 100 XP, L3 = 250, L4 = 500, L5 = 900, …)
+  lib/leaderboard.ts    leaderboard: Supabase (online) or this-device fallback
   lib/achievements.ts   33 achievements (5 are secret)
   lib/daily.ts          daily challenge pool (same challenge for everyone on a given day)
   lib/cosmetics.ts      avatars, titles, backdrops, name FX, confetti styles
   lib/sound.ts          generated sound effects
   lib/fx.ts             event bus for toasts, confetti, flashes, shakes, level-up and achievement overlays
-  components/           Button, Modal, ProgressBar, XPBar, GameCard, Achievement, Toast,
+  components/           Button, Modal, ProgressBar, XPBar, GameCard, Leaderboard, Achievement, Toast,
                         Confetti, Profile, Navigation, GameShell, ScoreDisplay, …
-  pages/                Home, Games, GamePage, Profile, Achievements
+  pages/                Home, Games, GamePage, Leaderboard, Profile, Achievements
 ```
 
 ## Secrets (spoilers)

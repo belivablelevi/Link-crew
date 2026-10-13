@@ -204,6 +204,9 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
                 <Button color="lime" size="lg" onClick={start} autoFocus>
                   ↻ PLAY AGAIN
                 </Button>
+                <LinkButton href={href(`/leaderboard/${meta.id}`)} color="yellow" size="lg">
+                  LEADERBOARD
+                </LinkButton>
                 <LinkButton href={href('/games')} color="ghost" size="lg">
                   ARCADE
                 </LinkButton>

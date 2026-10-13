@@ -4,6 +4,10 @@ import { href } from '../lib/router'
 import { useStore } from '../state/store'
 import { GameArt } from './GameArt'
 import { play } from '../lib/sound'
+import { useRecords } from '../lib/useRecords'
+import { leaderboard } from '../lib/leaderboard'
+
+const RECORD_LABEL = leaderboard.mode === 'online' ? 'SCHOOL BEST' : 'TOP SCORE'
 
 const DIFF_COLOR: Record<string, string> = {
   EASY: 'var(--color-lime)',
@@ -16,6 +20,8 @@ const DIFF_COLOR: Record<string, string> = {
 export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }) {
   const best = useStore((s) => s.highScores[game.id] ?? 0)
   const plays = useStore((s) => s.playsByGame[game.id] ?? 0)
+  const records = useRecords()
+  const record = game.custom ? undefined : records?.[game.id]
   return (
     <a
       href={href(`/games/${game.id}`)}
@@ -36,9 +42,10 @@ export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }
           <h3 className="font-display text-lg leading-tight">{game.name}</h3>
         </div>
         <p className="text-dim text-sm mt-2 leading-snug min-h-[2.5em]">{game.tagline}</p>
-        <div className="grid grid-cols-2 gap-2 mt-3 text-center">
+        <div className={`grid ${game.custom ? 'grid-cols-2' : 'grid-cols-3'} gap-2 mt-3 text-center`}>
           <Stat label="YOUR BEST" value={best ? best.toLocaleString() : '-'} color={game.color} />
-          <Stat label="TIMES PLAYED" value={plays.toString()} />
+          {!game.custom && <Stat label={RECORD_LABEL} value={record ? record.toLocaleString() : '-'} />}
+          <Stat label="PLAYS" value={plays.toString()} />
         </div>
         <div className="btn w-full mt-4 text-base" style={{ '--c': game.color, '--ct': '#071022' } as CSSProperties} aria-hidden>
           ▶ {game.custom ? 'SPIN' : best ? 'BEAT IT' : 'PLAY'}

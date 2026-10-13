@@ -12,6 +12,8 @@ import { triggerSecret } from '../lib/secrets'
 import { play } from '../lib/sound'
 import { EVENT_INFO } from '../lib/eventInfo'
 import { SchoolLogo } from '../components/SchoolLogo'
+import { useRecords } from '../lib/useRecords'
+import { leaderboard } from '../lib/leaderboard'
 import { Icon, type IconName } from '../components/Icon'
 
 const MARQUEE = ['PLAY.', 'COMPETE.', 'DOMINATE.', '★', 'ONE MORE GAME.', '★', 'BEAT THE HIGH SCORE.', '★', 'YOU’RE IN.', '★']
@@ -73,6 +75,7 @@ function Featured() {
   const g = featuredGame(todayKey())
   const best = useStore((s) => s.highScores[g.id] ?? 0)
   const plays = useStore((s) => s.playsByGame[g.id] ?? 0)
+  const record = useRecords()?.[g.id]
   return (
     <section aria-label="Featured game">
       <h2 className="font-display text-2xl sm:text-3xl mb-3 flex items-center gap-2">
@@ -91,7 +94,11 @@ function Featured() {
             </h3>
           </div>
           <p className="text-dim mt-3 text-lg leading-snug">{g.tagline}</p>
-          <div className="grid grid-cols-2 gap-2 mt-5 text-center">
+          <div className="grid grid-cols-3 gap-2 mt-5 text-center">
+            <div className="rounded-xl bg-bg/60 p-2">
+              <div className="font-pixel text-[0.65rem] text-dim">{leaderboard.mode === 'online' ? 'SCHOOL BEST' : 'TOP SCORE'}</div>
+              <div className="font-display text-lg">{record ? record.toLocaleString() : '-'}</div>
+            </div>
             <div className="rounded-xl bg-bg/60 p-2">
               <div className="font-pixel text-[0.65rem] text-dim">YOUR BEST</div>
               <div className="font-display text-lg" style={{ color: g.color }}>
@@ -113,7 +120,7 @@ function Featured() {
 }
 
 function HowItWorks() {
-  const steps = ['PLAY GAMES', 'EARN XP', 'EARN TOKENS', 'UNLOCK BADGES', 'CUSTOMIZE YOUR PROFILE']
+  const steps = ['PLAY GAMES', 'EARN XP', 'EARN TOKENS', 'UNLOCK BADGES', 'CLIMB THE LEADERBOARD']
   return (
     <section className="panel p-4 sm:p-6" aria-label="How it works">
       <h2 className="font-display text-xl mb-4">HOW IT WORKS</h2>
