@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { GameProps } from './types'
 import { ScoreDisplay } from '../components/ScoreDisplay'
-import { drawSprite, fitCanvas } from './canvas'
+import { drawSprite, fitCanvas, makeLayer } from './canvas'
 import { fx } from '../lib/fx'
 import { play } from '../lib/sound'
 
@@ -50,9 +50,38 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
     const ctx = canvas.getContext('2d')!
     let W = 600
     let H = 400
+    // static background, painted once per resize (see makeLayer)
+    let bg: HTMLCanvasElement | null = null
     const stopFit = fitCanvas(canvas, (w, h) => {
       W = w
       H = h
+      bg = makeLayer(w, h, (c) => {
+        // hallway floor
+        c.fillStyle = '#0b1834'
+        c.fillRect(0, 0, w, h)
+        c.strokeStyle = 'rgba(47,107,255,.16)'
+        c.lineWidth = 2
+        for (let x = 0; x < w; x += 48) {
+        c.beginPath()
+        c.moveTo(x, 0)
+        c.lineTo(x, h)
+        c.stroke()
+        }
+        for (let y = 30; y < h; y += 48) {
+        c.beginPath()
+        c.moveTo(0, y)
+        c.lineTo(w, y)
+        c.stroke()
+        }
+        // lockers along the top wall
+        for (let x = 0; x < w; x += 34) {
+        c.fillStyle = x % 68 ? '#1d8fbf' : '#2aa7d9'
+        c.fillRect(x + 1, 0, 32, 28)
+        c.fillStyle = '#0b3b55'
+        c.fillRect(x + 6, 6, 22, 3)
+        c.fillRect(x + 6, 12, 22, 3)
+        }
+      })
     })
 
     const player = { x: W / 2, y: H / 2, r: 16, vx: 0, vy: 0, facing: 1 }
@@ -313,31 +342,8 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
     }
 
     const draw = (now: number) => {
-      // hallway floor
-      ctx.fillStyle = '#0b1834'
-      ctx.fillRect(0, 0, W, H)
-      ctx.strokeStyle = 'rgba(47,107,255,.16)'
-      ctx.lineWidth = 2
-      for (let x = 0; x < W; x += 48) {
-        ctx.beginPath()
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, H)
-        ctx.stroke()
-      }
-      for (let y = 30; y < H; y += 48) {
-        ctx.beginPath()
-        ctx.moveTo(0, y)
-        ctx.lineTo(W, y)
-        ctx.stroke()
-      }
-      // lockers along the top wall
-      for (let x = 0; x < W; x += 34) {
-        ctx.fillStyle = x % 68 ? '#1d8fbf' : '#2aa7d9'
-        ctx.fillRect(x + 1, 0, 32, 28)
-        ctx.fillStyle = '#0b3b55'
-        ctx.fillRect(x + 6, 6, 22, 3)
-        ctx.fillRect(x + 6, 12, 22, 3)
-      }
+      if (bg) ctx.drawImage(bg, 0, 0, W, H)
+      
 
       for (const p of pickups) {
         const bob = Math.sin(now / 200 + p.x) * 3

@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { useEffect, useRef, type CSSProperties } from 'react'
 import type { GameMeta } from '../games/meta'
 import { href } from '../lib/router'
 import { useStore } from '../state/store'
@@ -16,14 +16,27 @@ const DIFF_COLOR: Record<string, string> = {
   CHAOS: 'var(--color-red)',
 }
 
+// One shared observer: card art only animates while the card is actually on screen.
+let observer: IntersectionObserver | null = null
+function watchVisibility(el: HTMLElement) {
+  if (typeof IntersectionObserver === 'undefined') return () => {}
+  observer ??= new IntersectionObserver((entries) => entries.forEach((e) => e.target.classList.toggle('offscreen', !e.isIntersecting)), { rootMargin: '100px' })
+  el.classList.add('offscreen')
+  observer.observe(el)
+  return () => observer?.unobserve(el)
+}
+
 /** Big arcade cabinet-style card for the games grid. The whole card is one link. */
 export function GameCard({ game, index = 0 }: { game: GameMeta; index?: number }) {
   const best = useStore((s) => s.highScores[game.id] ?? 0)
   const plays = useStore((s) => s.playsByGame[game.id] ?? 0)
   const records = useRecords()
   const record = game.custom ? undefined : records?.[game.id]
+  const ref = useRef<HTMLAnchorElement>(null)
+  useEffect(() => watchVisibility(ref.current!), [])
   return (
     <a
+      ref={ref}
       href={href(`/games/${game.id}`)}
       onClick={() => play('whoosh')}
       className="card-game anim-up block group"

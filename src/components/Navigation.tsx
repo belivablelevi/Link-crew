@@ -57,7 +57,7 @@ export function Navigation() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-bg/85 backdrop-blur-md border-b-[3px] border-[#1b2d5c]">
+      <header className="sticky top-0 z-50 bg-bg/95 border-b-[3px] border-[#1b2d5c]">
         <div className="max-w-6xl mx-auto px-3 sm:px-5 h-16 flex items-center gap-3">
           <Logo />
           <nav className="hidden md:flex items-center gap-1 ml-4" aria-label="Main">

@@ -34,7 +34,8 @@ export function fitCanvas(canvas: HTMLCanvasElement, onResize: (w: number, h: nu
   const ctx = canvas.getContext('2d')!
   const parent = canvas.parentElement!
   const apply = () => {
-    const dpr = Math.min(2, window.devicePixelRatio || 1)
+    // 1.5x is visually identical at game speed but draws up to 44% fewer pixels than 2x
+    const dpr = Math.min(1.5, window.devicePixelRatio || 1)
     const w = parent.clientWidth
     const h = parent.clientHeight
     canvas.width = Math.round(w * dpr)
@@ -53,4 +54,19 @@ export function fitCanvas(canvas: HTMLCanvasElement, onResize: (w: number, h: nu
 export function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   ctx.beginPath()
   ctx.roundRect(x, y, w, h, r)
+}
+
+/**
+ * Draws a static background once into an off-screen canvas so each frame can copy it with a
+ * single drawImage instead of repainting gradients, grids and shapes 60 times a second.
+ */
+export function makeLayer(w: number, h: number, paint: (ctx: CanvasRenderingContext2D) => void): HTMLCanvasElement {
+  const dpr = Math.min(1.5, window.devicePixelRatio || 1)
+  const c = document.createElement('canvas')
+  c.width = Math.max(1, Math.round(w * dpr))
+  c.height = Math.max(1, Math.round(h * dpr))
+  const ctx = c.getContext('2d')!
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  paint(ctx)
+  return c
 }

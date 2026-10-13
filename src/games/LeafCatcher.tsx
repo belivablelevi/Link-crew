@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { GameProps } from './types'
 import { ScoreDisplay } from '../components/ScoreDisplay'
 import { ProgressBar } from '../components/ProgressBar'
-import { fitCanvas } from './canvas'
+import { fitCanvas, makeLayer } from './canvas'
 import { fx } from '../lib/fx'
 import { play } from '../lib/sound'
 
@@ -42,8 +42,11 @@ function drawLeaf(ctx: CanvasRenderingContext2D, kind: Exclude<Kind, 'acorn'>, s
   const [fill, vein] = LEAF_COLOR[kind]
   const s = size / 2
   if (kind === 'golden') {
-    ctx.shadowColor = '#ffe08a'
-    ctx.shadowBlur = 14 + Math.sin(now / 120) * 6
+    // cheap pulsing halo (canvas shadowBlur is very slow on Chromebooks)
+    ctx.fillStyle = 'rgba(255,224,138,.28)'
+    ctx.beginPath()
+    ctx.arc(0, 0, s * (1.25 + Math.sin(now / 120) * 0.12), 0, Math.PI * 2)
+    ctx.fill()
   }
   ctx.fillStyle = fill
   ctx.strokeStyle = '#071022'
@@ -65,7 +68,6 @@ function drawLeaf(ctx: CanvasRenderingContext2D, kind: Exclude<Kind, 'acorn'>, s
   ctx.lineTo(-s * 0.25, -s * 0.45)
   ctx.closePath()
   ctx.fill()
-  ctx.shadowBlur = 0
   ctx.stroke()
   ctx.strokeStyle = vein
   ctx.lineWidth = 1.5
@@ -110,9 +112,29 @@ export default function LeafCatcher({ onEnd }: GameProps) {
     const ctx = canvas.getContext('2d')!
     let W = 600
     let H = 500
+    // static background, painted once per resize (see makeLayer)
+    let bg: HTMLCanvasElement | null = null
     const stopFit = fitCanvas(canvas, (w, h) => {
       W = w
       H = h
+      bg = makeLayer(w, h, (c) => {
+        const g = c.createLinearGradient(0, 0, 0, h)
+        g.addColorStop(0, '#0d1d45')
+        g.addColorStop(1, '#14306b')
+        c.fillStyle = g
+        c.fillRect(0, 0, w, h)
+        // tree silhouettes + ground
+        c.fillStyle = '#0a1733'
+        for (let x = -20; x < w + 60; x += 110) {
+        c.beginPath()
+        c.arc(x, h - 70, 70, Math.PI, 0)
+        c.fill()
+        }
+        c.fillStyle = '#1f5a2e'
+        c.fillRect(0, h - 30, w, 30)
+        c.fillStyle = '#3ddc84'
+        c.fillRect(0, h - 30, w, 3)
+      })
     })
 
     const basket = { x: W / 2, w: 96, h: 46, target: W / 2 }
@@ -257,22 +279,8 @@ export default function LeafCatcher({ onEnd }: GameProps) {
     }
 
     const draw = (now: number) => {
-      const g = ctx.createLinearGradient(0, 0, 0, H)
-      g.addColorStop(0, '#0d1d45')
-      g.addColorStop(1, '#14306b')
-      ctx.fillStyle = g
-      ctx.fillRect(0, 0, W, H)
-      // tree silhouettes + ground
-      ctx.fillStyle = '#0a1733'
-      for (let x = -20; x < W + 60; x += 110) {
-        ctx.beginPath()
-        ctx.arc(x, H - 70, 70, Math.PI, 0)
-        ctx.fill()
-      }
-      ctx.fillStyle = '#1f5a2e'
-      ctx.fillRect(0, H - 30, W, 30)
-      ctx.fillStyle = '#3ddc84'
-      ctx.fillRect(0, H - 30, W, 3)
+      if (bg) ctx.drawImage(bg, 0, 0, W, H)
+      
 
       for (const it of items) {
         const x = it.x + Math.sin(time * 2 + it.phase) * it.sway

@@ -94,21 +94,6 @@ button:disabled {
   transform: perspective(500px) rotateX(62deg);
   transform-origin: bottom;
   mask-image: linear-gradient(to top, #000 10%, transparent 85%);
-  animation: grid-scroll 9s linear infinite;
-}
-@keyframes grid-scroll {
-  to {
-    background-position: 0 70px, 0 70px;
-  }
-}
-.bg-noise {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: radial-gradient(#fff 1px, transparent 1px);
-  background-size: 4px 4px;
 }
 
 /* ------------------------------------------------------------- panels/cards */
@@ -245,12 +230,6 @@ button:disabled {
   background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.18) 0 8px, transparent 8px 16px), var(--fill, var(--color-lime));
   background-size: 22px 22px, auto;
   transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: bar-stripes 2s linear infinite;
-}
-@keyframes bar-stripes {
-  to {
-    background-position: 22px 0, 0 0;
-  }
 }
 
 /* ------------------------------------------------------------- text fx */
@@ -336,6 +315,7 @@ button:disabled {
 }
 .anim-float {
   animation: float 5s ease-in-out infinite;
+  will-change: transform;
 }
 @keyframes wobble {
   0%,
@@ -421,6 +401,7 @@ button:disabled {
 .marquee-track {
   display: flex;
   width: max-content;
+  will-change: transform;
   animation: marquee 60s linear infinite;
 }
 @keyframes blink {
@@ -650,3 +631,65 @@ html.reduce-motion.secret-mode body {
   }
 }
 
+
+/* Game card art only animates while the card is on screen (GameCard toggles .offscreen) */
+.card-game.offscreen *,
+.card-game.offscreen *::before,
+.card-game.offscreen *::after {
+  animation-play-state: paused !important;
+}
+
+/* Background sparkles (see Particles.tsx): transform-only so the compositor handles them */
+.particle {
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  will-change: transform;
+  animation: particle-fall linear infinite;
+}
+@keyframes particle-fall {
+  0% {
+    transform: translate3d(0, -5vh, 0);
+  }
+  25% {
+    transform: translate3d(var(--sway), 22vh, 0);
+  }
+  50% {
+    transform: translate3d(0, 50vh, 0);
+  }
+  75% {
+    transform: translate3d(calc(var(--sway) * -1), 77vh, 0);
+  }
+  100% {
+    transform: translate3d(0, 105vh, 0);
+  }
+}
+html.reduce-motion .particles {
+  display: none;
+}
+
+/* Button Mayhem: countdown ring + fade-out handled by CSS instead of per-frame re-renders */
+@keyframes ring-drain {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 295;
+  }
+}
+@keyframes btn-fade {
+  0%,
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
+/* These are game timers, not decoration: keep them running in CALM / reduced-motion mode */
+html.reduce-motion .mayhem-btn {
+  animation-duration: 0.001ms, var(--life) !important;
+}
+html.reduce-motion .mayhem-btn circle {
+  animation-duration: var(--life) !important;
+}

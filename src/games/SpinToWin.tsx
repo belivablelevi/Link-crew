@@ -176,7 +176,7 @@ export default function SpinToWin() {
 
       <div className="grid lg:grid-cols-[1.3fr_1fr] gap-5 items-start">
         <div className="panel p-4 sm:p-6 grid place-items-center relative overflow-hidden">
-          <div className="absolute inset-0 opacity-30 anim-spin-slow" style={{ background: 'repeating-conic-gradient(rgba(255,199,44,.25) 0 10deg, transparent 10deg 20deg)' }} aria-hidden />
+          <div className="absolute inset-0 opacity-30" style={{ background: 'repeating-conic-gradient(rgba(255,199,44,.25) 0 10deg, transparent 10deg 20deg)' }} aria-hidden />
           <div className="relative w-[min(86vw,420px)] aspect-square">
             {/* pointer */}
             <div className="absolute left-1/2 -top-1 -translate-x-1/2 z-10" aria-hidden>

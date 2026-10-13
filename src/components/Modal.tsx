@@ -44,7 +44,7 @@ export function Modal({ open, onClose, title, children, color = 'var(--color-pin
 
   if (!open) return null
   return (
-    <div className="fixed inset-0 z-[80] grid place-items-center p-4 bg-black/70 backdrop-blur-[2px]" onMouseDown={(e) => e.target === e.currentTarget && onClose?.()}>
+    <div className="fixed inset-0 z-[80] grid place-items-center p-4 bg-black/75" onMouseDown={(e) => e.target === e.currentTarget && onClose?.()}>
       <div
         ref={ref}
         role="dialog"

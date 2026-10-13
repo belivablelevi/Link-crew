@@ -38,7 +38,7 @@ export function Confetti() {
     let running = false
 
     const resize = () => {
-      const dpr = Math.min(2, window.devicePixelRatio || 1)
+      const dpr = Math.min(1.5, window.devicePixelRatio || 1)
       cv.width = window.innerWidth * dpr
       cv.height = window.innerHeight * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)

@@ -84,7 +84,7 @@ function Featured() {
       </h2>
       <div className="card-game grid md:grid-cols-2" style={{ '--c': g.color, '--c2': g.color2 } as CSSProperties}>
         <div className="relative min-h-[220px] md:min-h-[300px] border-b-[3px] md:border-b-0 md:border-r-[3px] border-bg overflow-hidden" style={{ background: `conic-gradient(from 0deg at 50% 50%, ${g.color}33, ${g.color2}55, ${g.color}33, ${g.color2}55, ${g.color}33)` }}>
-          <div className="absolute inset-[-50%] anim-spin-slow opacity-40" style={{ background: `repeating-conic-gradient(${g.color}44 0 12deg, transparent 12deg 24deg)` }} aria-hidden />
+          <div className="absolute inset-[-50%] opacity-40" style={{ background: `repeating-conic-gradient(${g.color}44 0 12deg, transparent 12deg 24deg)` }} aria-hidden />
           <GameArt id={g.id} big />
         </div>
         <div className="p-5 sm:p-7 flex flex-col">

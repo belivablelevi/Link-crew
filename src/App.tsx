@@ -77,7 +77,6 @@ export default function App() {
   return (
     <>
       <div className="bg-stage" aria-hidden />
-      <div className="bg-noise" aria-hidden />
       {!inGame && <Particles />}
       <div id="app-shell" className="relative z-10 min-h-dvh flex flex-col">
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] btn">

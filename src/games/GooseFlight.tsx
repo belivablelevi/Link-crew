@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { GameProps } from './types'
 import { ScoreDisplay } from '../components/ScoreDisplay'
-import { fitCanvas } from './canvas'
+import { fitCanvas, makeLayer } from './canvas'
 import { fx } from '../lib/fx'
 import { play } from '../lib/sound'
 
@@ -173,9 +173,24 @@ export default function GooseFlight({ onEnd }: GameProps) {
     const ctx = canvas.getContext('2d')!
     let W = 600
     let H = 500
+    // static background, painted once per resize (see makeLayer)
+    let bg: HTMLCanvasElement | null = null
     const stopFit = fitCanvas(canvas, (w, h) => {
       W = w
       H = h
+      bg = makeLayer(w, h, (c) => {
+        const g = c.createLinearGradient(0, 0, 0, h)
+        g.addColorStop(0, '#0d1d45')
+        g.addColorStop(0.7, '#1a3570')
+        g.addColorStop(1, '#f2a900')
+        c.fillStyle = g
+        c.fillRect(0, 0, w, h)
+        // setting sun + distant geese V
+        c.fillStyle = 'rgba(255,199,44,.25)'
+        c.beginPath()
+        c.arc(w * 0.78, h - 40, 70, Math.PI, 0)
+        c.fill()
+      })
     })
 
     const goose = { x: 0, y: 0, vy: 0, r: 15 }
@@ -313,17 +328,8 @@ export default function GooseFlight({ onEnd }: GameProps) {
     }
 
     const draw = (now: number) => {
-      const g = ctx.createLinearGradient(0, 0, 0, H)
-      g.addColorStop(0, '#0d1d45')
-      g.addColorStop(0.7, '#1a3570')
-      g.addColorStop(1, '#f2a900')
-      ctx.fillStyle = g
-      ctx.fillRect(0, 0, W, H)
-      // setting sun + distant geese V
-      ctx.fillStyle = 'rgba(255,199,44,.25)'
-      ctx.beginPath()
-      ctx.arc(W * 0.78, H - 40, 70, Math.PI, 0)
-      ctx.fill()
+      if (bg) ctx.drawImage(bg, 0, 0, W, H)
+      
       ctx.strokeStyle = 'rgba(244,247,255,.25)'
       ctx.lineWidth = 2
       const vx = (W + 100 - ((now / 30) % (W + 200)))

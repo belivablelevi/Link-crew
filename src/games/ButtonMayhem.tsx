@@ -31,6 +31,10 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
   const [btns, setBtns] = useState<Btn[]>([])
   const [hud, setHud] = useState({ score: 0, combo: 0, lives: LIVES, time: 0 })
   const g = useRef({ btns: [] as Btn[], score: 0, combo: 0, maxCombo: 0, lives: LIVES, clicks: 0, start: performance.now(), nextSpawn: 600, id: 0, over: false })
+  // DOM handles for moving buttons, so they can glide without re-rendering React every frame
+  const els = useRef(new Map<number, HTMLButtonElement>())
+  const dirty = useRef(false)
+  const lastHud = useRef('')
   const onEndRef = useRef(onEnd)
   onEndRef.current = onEnd
 
@@ -108,21 +112,39 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
           color: kind === 'fake' ? '#ff4d5e' : kind === 'bonus' ? '#ffc72c' : COLORS[Math.floor(Math.random() * COLORS.length)],
         })
         play('tick', 0.8 + Math.random() * 0.5)
+        dirty.current = true
       }
 
       for (const b of s.btns) {
+        if (!b.vx && !b.vy) continue
         b.x += b.vx * dt
         b.y += b.vy * dt
         if (b.x < 8 || b.x > 92) b.vx *= -1
         if (b.y < 20 || b.y > 90) b.vy *= -1
+        const el = els.current.get(b.id)
+        if (el) {
+          el.style.left = `${b.x}%`
+          el.style.top = `${b.y}%`
+        }
       }
       const expired = s.btns.filter((b) => now - b.born > b.life)
-      s.btns = s.btns.filter((b) => now - b.born <= b.life)
+      if (expired.length) {
+        s.btns = s.btns.filter((b) => now - b.born <= b.life)
+        dirty.current = true
+      }
       for (const b of expired) {
         if (b.kind !== 'fake' && b.kind !== 'bonus') loseLife('MISSED!', b.x, b.y)
       }
-      setBtns([...s.btns])
-      setHud({ score: s.score, combo: s.combo, lives: s.lives, time: Math.floor(t) })
+      // Only re-render when something actually changed (not 60 times a second)
+      if (dirty.current) {
+        dirty.current = false
+        setBtns([...s.btns])
+      }
+      const hudKey = `${s.score}|${s.combo}|${s.lives}|${Math.floor(t)}`
+      if (hudKey !== lastHud.current) {
+        lastHud.current = hudKey
+        setHud({ score: s.score, combo: s.combo, lives: s.lives, time: Math.floor(t) })
+      }
     }
     raf = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(raf)
@@ -132,6 +154,7 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
     const s = g.current
     if (s.over || !s.btns.find((x) => x.id === b.id)) return
     s.btns = s.btns.filter((x) => x.id !== b.id)
+    dirty.current = true
     if (b.kind === 'fake') {
       loseLife('THAT WAS FAKE!', b.x, b.y)
       return
@@ -182,17 +205,22 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
         <ScoreDisplay label="TIME" value={`${hud.time}s`} color="var(--color-blue)" className="hidden sm:block" />
       </div>
       {btns.map((b) => {
-        const age = Math.min(1, (performance.now() - b.born) / b.life)
+        // countdown ring + fade-out run as CSS animations timed to the button's life
+        const elapsed = performance.now() - b.born
         return (
           <button
             key={b.id}
+            ref={(el) => {
+              if (el) els.current.set(b.id, el)
+              else els.current.delete(b.id)
+            }}
             onPointerDown={(e) => {
               e.stopPropagation()
               e.preventDefault()
               hit(b)
             }}
             aria-label={b.kind === 'fake' ? 'Fake button, do not press' : b.kind === 'bonus' ? 'Bonus button' : 'Button'}
-            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full sticker font-display grid place-items-center anim-pop"
+            className="mayhem-btn absolute -translate-x-1/2 -translate-y-1/2 rounded-full sticker font-display grid place-items-center"
             style={
               {
                 left: `${b.x}%`,
@@ -203,7 +231,8 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
                 color: '#071022',
                 fontSize: b.kind === 'bonus' ? 30 : b.kind === 'tiny' ? 9 : b.kind === 'fake' ? 13 : 14,
                 boxShadow: `0 5px 0 #071022, 0 0 ${b.kind === 'bonus' ? 40 : 16}px ${b.color}`,
-                opacity: 1 - Math.max(0, age - 0.75) * 2.5,
+                animation: `pop-in .45s cubic-bezier(.34,1.56,.64,1) both, btn-fade ${b.life}ms linear ${-elapsed}ms both`,
+                '--life': `${b.life}ms`,
                 outline: b.kind === 'fake' ? '3px dashed #071022' : undefined,
                 outlineOffset: -9,
               } as CSSProperties
@@ -212,7 +241,7 @@ export default function ButtonMayhem({ onEnd }: GameProps) {
             {b.label}
             {/* countdown ring */}
             <svg className="absolute inset-[-6px] pointer-events-none" viewBox="0 0 100 100" aria-hidden>
-              <circle cx="50" cy="50" r="47" fill="none" stroke={b.kind === 'fake' ? 'transparent' : '#fff'} strokeOpacity=".6" strokeWidth="4" strokeDasharray={`${(1 - age) * 295} 295`} transform="rotate(-90 50 50)" />
+              <circle cx="50" cy="50" r="47" fill="none" stroke={b.kind === 'fake' ? 'transparent' : '#fff'} strokeOpacity=".6" strokeWidth="4" strokeDasharray="295 295" transform="rotate(-90 50 50)" style={{ animation: `ring-drain ${b.life}ms linear ${-elapsed}ms both` }} />
             </svg>
           </button>
         )

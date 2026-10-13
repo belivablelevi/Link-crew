@@ -165,7 +165,7 @@ export function GameShell({ meta, Game }: { meta: GameMeta; Game: ComponentType<
         )}
 
         {phase === 'over' && result && summary && (
-          <div className="absolute inset-0 overflow-y-auto bg-bg/80 backdrop-blur-[2px]">
+          <div className="absolute inset-0 overflow-y-auto bg-bg/90">
             <div className="min-h-full flex flex-col items-center justify-center text-center p-5 gap-3">
               <div className="font-pixel text-xs text-red">{result.headline ? '' : 'GAME OVER'}</div>
               <h2 className="font-display title-outline text-4xl sm:text-6xl leading-none anim-pop" style={{ color: meta.color }}>
