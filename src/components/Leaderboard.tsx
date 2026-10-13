@@ -4,6 +4,7 @@ import { GAMES } from '../games/meta'
 import type { GameId } from '../lib/types'
 import { useStore } from '../state/store'
 import { navigate } from '../lib/router'
+import { displayName } from '../lib/names'
 
 export const RANKED_GAMES = GAMES.filter((g) => !g.custom)
 const PODIUM_COLOR = ['var(--color-yellow)', '#d6dbe8', 'var(--color-orange)']
@@ -86,7 +87,7 @@ export function Leaderboard({ game }: { game: GameId }) {
               const h = [140, 105, 85][i]
               return (
                 <div key={i} className="text-center anim-up" style={{ animationDelay: `${i * 100}ms` }}>
-                  <div className={`font-display text-xs sm:text-sm truncate ${r.isYou ? 'text-lime' : ''}`}>{r.isYou ? 'YOU' : r.name}</div>
+                  <div className={`font-display text-xs sm:text-sm truncate ${r.isYou ? 'text-lime' : ''}`}>{r.isYou ? 'YOU' : displayName(r.name)}</div>
                   <div className="font-display text-sm text-dim tabular-nums">{r.score.toLocaleString()}</div>
                   <div className="sticker rounded-t-2xl mt-2 grid place-items-center font-display text-3xl text-bg" style={{ height: h, background: PODIUM_COLOR[i] } as CSSProperties}>
                     {i + 1}
@@ -105,7 +106,7 @@ export function Leaderboard({ game }: { game: GameId }) {
                   {r.rank}
                 </span>
                 <span className={`flex-1 min-w-0 font-display text-sm truncate ${r.isYou ? 'text-lime' : ''}`}>
-                  {r.name} {r.isYou && <span className="font-pixel text-[0.7rem] align-middle">(YOU)</span>}
+                  {displayName(r.name)} {r.isYou && <span className="font-pixel text-[0.7rem] align-middle">(YOU)</span>}
                 </span>
                 <span className="font-display text-base tabular-nums text-yellow shrink-0">{r.score.toLocaleString()}</span>
               </li>

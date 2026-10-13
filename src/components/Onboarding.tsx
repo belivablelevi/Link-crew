@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { setUsername, useStore } from '../state/store'
 import { cleanName } from '../lib/names'
 import { Modal } from './Modal'
@@ -12,6 +12,8 @@ export function Onboarding() {
   const current = useStore((s) => s.username)
   const [value, setValue] = useState(current)
   const [err, setErr] = useState('')
+  // If the saved name gets replaced (e.g. it failed the filter), show the new one.
+  useEffect(() => setValue(current), [current])
   if (onboarded) return null
   const submit = (name: string) => {
     const res = cleanName(name)

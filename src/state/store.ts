@@ -9,6 +9,7 @@ import { fx } from '../lib/fx'
 import { configureSound, play } from '../lib/sound'
 import { leaderboard } from '../lib/leaderboard'
 import { invalidateRecords } from '../lib/useRecords'
+import { isCleanName } from '../lib/names'
 
 const STORAGE_KEY = 'lcff:player:v1'
 export const SPIN_COOLDOWN_MS = 15 * 60 * 1000
@@ -333,6 +334,11 @@ export function registerSecret(key: string): boolean {
 export function startSession() {
   mutate((d) => {
     rollDaily(d)
+    // Names saved before the filter got stricter: ask for a new one.
+    if (!isCleanName(d.username)) {
+      d.username = randomName()
+      d.onboarded = false
+    }
     // Make sure level-reward cosmetics are owned (covers saves from before an item was added).
     for (let lvl = 2; lvl <= levelFromXp(d.xp); lvl++) {
       cosmeticsUnlockedAtLevel(lvl).forEach((c) => {

@@ -37,7 +37,7 @@ One-time setup:
    - `SUPABASE_ANON_KEY`: the anon public key
 5. Re-run the "Deploy to GitHub Pages" workflow (or push any change).
 
-Moderation: to remove an inappropriate name or score, open **Table Editor > scores** in Supabase and delete the row. Names are also filtered for bad words in the app. The database rejects impossible scores, but this isn't cheat-proof, since anyone tech-savvy can send their own scores.
+Moderation: names go through a profanity filter in the app (`src/lib/names.ts`) **and** in the database (`is_clean_name` in `supabase/schema.sql`), so a bad name can't be saved even by bypassing the site. It catches look-alike tricks (`5h1t`, `f.u.c.k`, `BigAssDuck`) without blocking names like Cassie or Dickens. To add a word, add it to both lists and re-run the SQL file. To remove a name or score anyway, open **Table Editor > scores** in Supabase and delete the row. The database rejects impossible scores, but this isn't cheat-proof, since anyone tech-savvy can send their own scores.
 
 To run it locally with the online board, create `.env.local` with `VITE_SUPABASE_URL=...` and `VITE_SUPABASE_ANON_KEY=...`.
 

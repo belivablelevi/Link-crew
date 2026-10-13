@@ -27,6 +27,56 @@ create table if not exists public.scores (
   end)
 );
 
+-- Profanity filter: same rules and word lists as src/lib/names.ts (keep them in sync).
+-- Undoes look-alike tricks (0->o 1->i 3->e 4->a 5->s 7->t 8->b @->a $->s !->i |->i) and repeated letters.
+create or replace function public.is_clean_name(raw text) returns boolean
+language plpgsql immutable as $fn$
+declare
+  anywhere text[] := array[
+    'fuck', 'fck', 'phuck', 'bullshit', 'shithead', 'shitty', 'bitch', 'cunt', 'pussy', 'pussi', 'nigg', 'faggot',
+    'fagot', 'slut', 'whore', 'hitler', 'porn', 'penis', 'vagina', 'retard', 'molest', 'pedophile', 'paedo', 'dildo',
+    'jizz', 'twat', 'bastard', 'asshole', 'arsehole', 'dumbass', 'jackass', 'bollock', 'orgasm', 'horny', 'onlyfans', 'cocaine',
+    'tranny', 'wetback', 'beaner', 'killyourself', 'blowjob', 'handjob', 'boner', 'erection', 'masturbat', 'motherfuck', 'sexy', 'boobs',
+    'titties', 'nudes', 'kkk', 'swastika'
+  ];
+  whole text[] := array[
+    'shit', 'shits', 'fuk', 'ass', 'arse', 'dick', 'cock', 'fag', 'rape', 'rapist', 'sex', 'cum',
+    'tit', 'tits', 'boob', 'prick', 'spic', 'chink', 'kike', 'dyke', 'coon', 'gook', 'homo', 'anal',
+    'anus', 'nude', 'naked', 'weed', 'meth', 'heroin', 'kys', 'pedo', 'hoe', 'hoes', 'thot', 'nig',
+    'niger', 'nazi', 'nazis', 'isis', 'wank', 'wanker', 'damn', 'hell', 'crap', 'piss', 'slag', 'skank',
+    'butt', 'poop', 'pee'
+  ];
+  sq text;
+  sqc text;
+  w text;
+  t text;
+begin
+  -- whole name with everything but letters removed ("f.u.c.k", "xXfuckXx")
+  sq := regexp_replace(translate(lower(raw), '0134578@$!|', 'oieastbasii'), '[^a-z]', '', 'g');
+  sqc := regexp_replace(sq, '(.)\1+', '\1', 'g');
+  foreach w in array anywhere loop
+    if position(w in sq) > 0 or position(w in sqc) > 0 then
+      return false;
+    end if;
+  end loop;
+  if sq = any(whole) or sqc = any(whole) then
+    return false;
+  end if;
+  -- separate words: spaces, symbols and camelCase ("BigAssDuck" -> big ass duck)
+  foreach t in array regexp_split_to_array(
+    translate(lower(regexp_replace(raw, '([a-z])([A-Z])', '\1 \2', 'g')), '0134578@$!|', 'oieastbasii'), '[^a-z]+'
+  ) loop
+    if t <> '' and (t = any(whole) or regexp_replace(t, '(.)\1+', '\1', 'g') = any(whole)) then
+      return false;
+    end if;
+  end loop;
+  return true;
+end
+$fn$;
+
+alter table public.scores drop constraint if exists name_clean;
+alter table public.scores add constraint name_clean check (public.is_clean_name(name)) not valid;
+
 create index if not exists scores_game_score_idx on public.scores (game, score desc);
 
 -- Row level security: the website (anon key) may read and add scores, never edit or delete.
