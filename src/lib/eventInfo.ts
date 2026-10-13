@@ -9,7 +9,7 @@ export const EVENT_INFO = {
   location: 'The field',
 
   /** Short line under the section title. */
-  tagline: 'Open to everyone. No sign-up needed, just show up.',
+  tagline: 'For grade 9s and Link Crew members. No sign-up needed, just show up.',
 
   /** A few short paragraphs about the event. */
   about: [
@@ -27,7 +27,7 @@ export const EVENT_INFO = {
 
   /** Quick questions & answers. */
   faq: [
-    { q: 'Who can come?', a: 'Everyone! Fall Fest is open to all students.' },
+    { q: 'Who can come?', a: 'Grade 9s and Link Crew members only.' },
     { q: 'Do I need to sign up?', a: 'Nope, no sign-up needed. Just show up.' },
     { q: 'Do I need to play the games to come?', a: 'Nope. The arcade is just for fun. It’s free and optional.' },
   ],
