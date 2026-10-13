@@ -8,13 +8,19 @@ create table if not exists public.scores (
   -- random id generated on each device, so two people with the same name stay separate
   player_id uuid not null,
   name text not null check (char_length(name) between 2 and 16 and name ~ '^[A-Za-z0-9 _.-]+$'),
-  game text not null check (game in (
-    'reaction-rush', 'dodge-the-principal', 'locker-smash', 'fall-fest-stacker', 'memory-meltdown',
-    'button-mayhem', 'fall-fest-typer', 'catch-the-duck', 'fall-fest-boss'
-  )),
-  score integer not null check (score > 0),
-  -- generous upper limits so obviously fake scores are rejected
-  constraint score_cap check (score <= case game
+  game text not null,
+  score integer not null check (score > 0)
+);
+
+-- Which games are allowed, and generous score limits so obviously fake scores are rejected.
+-- Dropped and re-added so re-running this file picks up new games.
+alter table public.scores drop constraint if exists scores_game_check;
+alter table public.scores add constraint scores_game_check check (game in ('reaction-rush', 'dodge-the-principal', 'locker-smash', 'fall-fest-stacker', 'memory-meltdown',
+    'button-mayhem', 'fall-fest-typer', 'catch-the-duck', 'fall-fest-boss', 'leaf-catcher', 'goose-flight'
+  )) not valid;
+
+alter table public.scores drop constraint if exists score_cap;
+alter table public.scores add constraint score_cap check (score <= case game
     when 'reaction-rush' then 40000
     when 'dodge-the-principal' then 100000
     when 'locker-smash' then 60000
@@ -24,8 +30,9 @@ create table if not exists public.scores (
     when 'fall-fest-typer' then 60000
     when 'catch-the-duck' then 3000
     when 'fall-fest-boss' then 200000
-  end)
-);
+    when 'leaf-catcher' then 40000
+    when 'goose-flight' then 30000
+  end) not valid;
 
 -- Profanity filter: same rules and word lists as src/lib/names.ts (keep them in sync).
 -- Undoes look-alike tricks (0->o 1->i 3->e 4->a 5->s 7->t 8->b @->a $->s !->i |->i) and repeated letters.

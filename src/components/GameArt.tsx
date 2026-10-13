@@ -102,6 +102,38 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
           />
         </div>
       )
+    case 'leaf-catcher':
+      return (
+        <div className={wrap}>
+          {[
+            [22, 10, '#e2412d', 0],
+            [55, 4, '#ffc72c', 0.7],
+            [76, 16, '#f28c1f', 1.4],
+          ].map(([x, y, c, d], i) => (
+            <svg key={i} viewBox="-20 -20 40 40" className="absolute" style={{ left: `${x}%`, top: `${y}%`, width: 28 * s, height: 28 * s, ...a('float', 2.4, d as number) }} aria-hidden>
+              <path d="M0-18L4-8 14-11 10-2 18 3 6 6 5 13 0 9-5 13-6 6-18 3-10-2-14-11-4-8Z" fill={c as string} stroke="#071022" strokeWidth="2.5" />
+            </svg>
+          ))}
+          <div className="absolute bottom-3 rounded-b-xl sticker" style={{ width: 70 * s, height: 30 * s, background: '#c98a3f', ...a('chase', 2.4) }} />
+        </div>
+      )
+    case 'goose-flight':
+      return (
+        <div className={wrap}>
+          <div className="absolute left-[18%] top-0 sticker" style={{ width: 30 * s, height: '34%', background: '#2f6bff' }} />
+          <div className="absolute left-[18%] bottom-0 sticker" style={{ width: 30 * s, height: '30%', background: '#2f6bff' }} />
+          <div className="absolute right-[14%] top-0 sticker" style={{ width: 30 * s, height: '22%', background: '#2f6bff' }} />
+          <div className="absolute right-[14%] bottom-0 sticker" style={{ width: 30 * s, height: '42%', background: '#2f6bff' }} />
+          <svg viewBox="-30 -30 72 60" style={{ width: 64 * s, height: 54 * s, ...a('float', 1.2) }} aria-hidden>
+            <ellipse cx="0" cy="0" rx="20" ry="13" fill="#8b6b4a" stroke="#071022" strokeWidth="2.5" />
+            <path d="M12-4Q22-12 24-20" stroke="#111" strokeWidth="7" strokeLinecap="round" fill="none" />
+            <ellipse cx="27" cy="-22" rx="7" ry="5.5" fill="#111" />
+            <ellipse cx="25" cy="-19" rx="3.5" ry="2.5" fill="#fff" />
+            <path d="M33-24L41-21 33-19Z" fill="#f2a900" stroke="#071022" strokeWidth="1.5" />
+            <path d="M-6-4Q-4-30 10-26Q6-10 8-2Z" fill="#6b5136" stroke="#071022" strokeWidth="2.5" />
+          </svg>
+        </div>
+      )
     case 'fall-fest-boss':
       return (
         <div className={wrap}>

@@ -1,6 +1,6 @@
 # Link Crew Fall Fest Arcade
 
-PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 10 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, a school-wide leaderboard and hidden secrets.
+PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 12 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, a school-wide leaderboard and hidden secrets.
 
 Built with React, TypeScript, Vite and Tailwind CSS v4. There are no image assets: everything is CSS, SVG, Canvas or emoji. Sounds are generated with the Web Audio API.
 
@@ -60,12 +60,15 @@ Confetti, screen flashes and screen shakes all go through one dial, `INTENSITY` 
 | Catch the Duck | `CatchTheDuck.tsx` | tap |
 | Spin to Win | `SpinToWin.tsx` | tap (15-min cooldown, plus a bonus spin each level-up) |
 | Fall Fest Boss | `FallFestBoss.tsx` | tap / keys 1–4, SPACE to block |
+| Leaf Catcher | `LeafCatcher.tsx` (canvas) | drag / tap / mouse / arrow keys |
+| Goose Flight | `GooseFlight.tsx` (canvas) | tap / click / SPACE |
 
 Every game is a component that receives `{ onEnd(result) }` (see `src/games/types.ts`). `components/GameShell.tsx` handles the intro screen, the 3-2-1 countdown, the game-over screen, rewards and replay. To add a game:
 
 1. Add its metadata (name, colours, how-to, reward curve) in `src/games/meta.ts`.
 2. Register the component in `src/games/registry.ts`.
 3. Optionally add card art in `components/GameArt.tsx`.
+4. Add the game id (and a score limit) to `supabase/schema.sql` and re-run it in Supabase, or its scores won't be saved to the leaderboard.
 
 ## Where things live
 
@@ -74,7 +77,7 @@ src/
   state/store.ts        player state (localStorage), XP/levels, tokens, achievements, daily, boosts
   lib/progression.ts    level curve (L2 = 100 XP, L3 = 250, L4 = 500, L5 = 900, …)
   lib/leaderboard.ts    leaderboard: Supabase (online) or this-device fallback
-  lib/achievements.ts   33 achievements (5 are secret)
+  lib/achievements.ts   35 achievements (5 are secret)
   lib/daily.ts          daily challenge pool (same challenge for everyone on a given day)
   lib/cosmetics.ts      avatars, titles, backdrops, name FX, confetti styles
   lib/sound.ts          generated sound effects

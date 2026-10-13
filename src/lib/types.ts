@@ -9,6 +9,8 @@ export type GameId =
   | 'catch-the-duck'
   | 'spin-to-win'
   | 'fall-fest-boss'
+  | 'leaf-catcher'
+  | 'goose-flight'
 
 /** What a game reports back to the shell when a run ends. */
 export interface GameResult {
@@ -26,6 +28,8 @@ export interface GameStats {
   avgReactionMs?: number
   maxCombo?: number
   ducksCaught?: number
+  leavesCaught?: number
+  gatesPassed?: number
   buttonsClicked?: number
   lockersOpened?: number
   secretLockers?: number

@@ -158,6 +158,32 @@ export const GAMES: GameMeta[] = [
     scoreLabel: 'DAMAGE',
     reward: scaled(180),
   },
+  {
+    id: 'leaf-catcher',
+    name: 'LEAF CATCHER',
+    tagline: 'It\u2019s raining leaves. Fill the basket. Dodge the acorns.',
+    icon: '🍁',
+    difficulty: 'EASY',
+    color: '#f28c1f',
+    color2: '#ffc72c',
+    howTo: ['Move the basket to catch falling leaves.', 'Golden leaves are worth 5x.', 'Acorns bonk you. Three bonks and you\u2019re out.', 'Catch streaks multiply your score. 45 seconds.'],
+    controls: 'Drag / tap / mouse / arrow keys',
+    scoreLabel: 'POINTS',
+    reward: scaled(22),
+  },
+  {
+    id: 'goose-flight',
+    name: 'GOOSE FLIGHT',
+    tagline: 'Fly south for the winter. Through the lockers. Somehow.',
+    icon: '🐦',
+    difficulty: 'HARD',
+    color: '#4fb3ff',
+    color2: '#2f6bff',
+    howTo: ['Tap to flap. Let go to fall.', 'Fly through the gaps between the locker stacks.', 'Grab candy corn for bonus points.', 'It speeds up every 10 gaps.'],
+    controls: 'Tap / click / SPACE',
+    scoreLabel: 'POINTS',
+    reward: scaled(2),
+  },
 ]
 
 export function getGame(id: string): GameMeta | undefined {
