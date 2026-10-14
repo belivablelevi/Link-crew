@@ -45,29 +45,70 @@ function useMotionPreference() {
   }, [pref])
 }
 
-/** ↑↑↓↓←→←→BA anywhere outside a text field. */
-function useKonami() {
+/**
+ * Secret code ↑↑↓↓←→←→BA.
+ * Keyboard: type it anywhere outside a text field.
+ * Phone/tablet: swipe up, up, down, down, left, right, left, right, then tap twice (B, A).
+ * Swipes are ignored inside games so normal play never triggers it.
+ */
+function useKonami(inGame: boolean) {
   const pos = useRef(0)
+  const inGameRef = useRef(inGame)
+  inGameRef.current = inGame
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement)?.tagName
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return
-      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key
+    const feed = (k: string) => {
       pos.current = k === KONAMI[pos.current] ? pos.current + 1 : k === KONAMI[0] ? 1 : 0
       if (pos.current === KONAMI.length) {
         pos.current = 0
         triggerSecret('konami')
       }
     }
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return
+      feed(e.key.length === 1 ? e.key.toLowerCase() : e.key)
+    }
+
+    let start: { x: number; y: number; t: number } | null = null
+    const onTouchStart = (e: TouchEvent) => {
+      if (inGameRef.current || e.touches.length !== 1) return (start = null)
+      const t = e.touches[0]
+      start = { x: t.clientX, y: t.clientY, t: performance.now() }
+    }
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!start || inGameRef.current) return
+      const t = e.changedTouches[0]
+      const dx = t.clientX - start.x
+      const dy = t.clientY - start.y
+      const dist = Math.hypot(dx, dy)
+      const quick = performance.now() - start.t < 600
+      start = null
+      if (dist >= 40 && quick) {
+        // a swipe: the finger's direction (swiping up = "up")
+        if (Math.abs(dy) > Math.abs(dx)) feed(dy < 0 ? 'ArrowUp' : 'ArrowDown')
+        else feed(dx < 0 ? 'ArrowLeft' : 'ArrowRight')
+      } else if (dist < 12 && quick) {
+        // a tap stands in for B then A at the end of the code
+        const expected = KONAMI[pos.current]
+        feed(expected === 'b' || expected === 'a' ? expected : 'tap')
+      }
+    }
+
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchend', onTouchEnd, { passive: true })
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchend', onTouchEnd)
+    }
   }, [])
 }
 
 export default function App() {
   const route = useRoute()
   useMotionPreference()
-  useKonami()
+  useKonami(route.startsWith('/games/'))
   useEffect(() => startSession(), [])
   useEffect(() => {
     window.scrollTo({ top: 0 })

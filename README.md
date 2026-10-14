@@ -92,7 +92,7 @@ src/
 ## Secrets (spoilers)
 
 - Click the LC logo 5 times quickly.
-- Type ↑ ↑ ↓ ↓ ← → ← → B A.
+- Type ↑ ↑ ↓ ↓ ← → ← → B A. On a phone or tablet: swipe up, up, down, down, left, right, left, right, then tap twice (not inside a game).
 - Find the tiny duck in the event info panel.
 - Find the nearly invisible button in the footer.
 
