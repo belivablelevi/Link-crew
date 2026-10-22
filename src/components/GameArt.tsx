@@ -152,7 +152,7 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
                 </text>
               </g>
             ))}
-            <g style={a('hop', 2.6)}>
+            <g style={a('plinko-drop', 2.8, 0, 'linear')}>
               <ellipse cx="40" cy="8" rx="6" ry="5.3" fill="#f28c1f" stroke="#071022" strokeWidth="1.5" />
               <rect x="39" y="1" width="2" height="3" fill="#3a7d1a" />
             </g>

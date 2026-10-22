@@ -32,7 +32,7 @@ alter table public.scores add constraint score_cap check (score <= case game
     when 'fall-fest-boss' then 200000
     when 'leaf-catcher' then 40000
     when 'goose-flight' then 30000
-    when 'plinko' then 2000
+    when 'plinko' then 1500
   end) not valid;
 
 -- Profanity filter: same rules and word lists as src/lib/names.ts (keep them in sync).
