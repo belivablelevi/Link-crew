@@ -11,6 +11,7 @@ export type GameId =
   | 'fall-fest-boss'
   | 'leaf-catcher'
   | 'goose-flight'
+  | 'plinko'
 
 /** What a game reports back to the shell when a run ends. */
 export interface GameResult {
@@ -30,6 +31,7 @@ export interface GameStats {
   ducksCaught?: number
   leavesCaught?: number
   gatesPassed?: number
+  bigSlots?: number
   buttonsClicked?: number
   lockersOpened?: number
   secretLockers?: number

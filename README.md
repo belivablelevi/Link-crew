@@ -1,6 +1,6 @@
 # Link Crew Fall Fest Arcade
 
-PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 12 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, a school-wide leaderboard and hidden secrets.
+PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 13 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, a school-wide leaderboard and hidden secrets.
 
 Built with React, TypeScript, Vite and Tailwind CSS v4. There are no image assets: everything is CSS, SVG, Canvas or emoji. Sounds are generated with the Web Audio API.
 
@@ -64,6 +64,7 @@ Confetti, screen flashes and screen shakes all go through one dial, `INTENSITY` 
 | Fall Fest Boss | `FallFestBoss.tsx` | tap / keys 1–4, SPACE to block |
 | Leaf Catcher | `LeafCatcher.tsx` (canvas) | drag / tap / mouse / arrow keys |
 | Goose Flight | `GooseFlight.tsx` (canvas) | tap / click / SPACE |
+| Pumpkin Plinko | `Plinko.tsx` (canvas) | tap where to drop / arrow keys + SPACE |
 
 Every game is a component that receives `{ onEnd(result) }` (see `src/games/types.ts`). `components/GameShell.tsx` handles the intro screen, the 3-2-1 countdown, the game-over screen, rewards and replay. To add a game:
 
@@ -79,7 +80,7 @@ src/
   state/store.ts        player state (localStorage), XP/levels, tokens, achievements, daily, boosts
   lib/progression.ts    level curve (L2 = 100 XP, L3 = 250, L4 = 500, L5 = 900, …)
   lib/leaderboard.ts    leaderboard: Supabase (online) or this-device fallback
-  lib/achievements.ts   35 achievements (5 are secret)
+  lib/achievements.ts   36 achievements (5 are secret)
   lib/daily.ts          daily challenge pool (same challenge for everyone on a given day)
   lib/cosmetics.ts      avatars, titles, backdrops, name FX, confetti styles
   lib/sound.ts          generated sound effects

@@ -16,7 +16,7 @@ create table if not exists public.scores (
 -- Dropped and re-added so re-running this file picks up new games.
 alter table public.scores drop constraint if exists scores_game_check;
 alter table public.scores add constraint scores_game_check check (game in ('reaction-rush', 'dodge-the-principal', 'locker-smash', 'fall-fest-stacker', 'memory-meltdown',
-    'button-mayhem', 'fall-fest-typer', 'catch-the-duck', 'fall-fest-boss', 'leaf-catcher', 'goose-flight'
+    'button-mayhem', 'fall-fest-typer', 'catch-the-duck', 'fall-fest-boss', 'leaf-catcher', 'goose-flight', 'plinko'
   )) not valid;
 
 alter table public.scores drop constraint if exists score_cap;
@@ -32,6 +32,7 @@ alter table public.scores add constraint score_cap check (score <= case game
     when 'fall-fest-boss' then 200000
     when 'leaf-catcher' then 40000
     when 'goose-flight' then 30000
+    when 'plinko' then 2000
   end) not valid;
 
 -- Profanity filter: same rules and word lists as src/lib/names.ts (keep them in sync).
@@ -136,6 +137,7 @@ from (
       when 'fall-fest-boss' then 180
       when 'leaf-catcher' then 22
       when 'goose-flight' then 2
+      when 'plinko' then 3
       else 1000000 end))))::int as points,
     count(*)::int as games
   from public.scores

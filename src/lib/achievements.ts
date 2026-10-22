@@ -40,6 +40,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   { id: 'big-brain', name: 'BIG BRAIN', desc: 'Reach round 12 in Memory Meltdown.', icon: '🧠', tokens: 120, check: (s) => s.stats.bestMemoryRound >= 12, progress: (s) => [s.stats.bestMemoryRound, 12] },
   { id: 'leaf-peeper', name: 'LEAF PEEPER', desc: 'Score 1,500+ in Leaf Catcher.', icon: '🍁', tokens: 100, check: (s) => (s.highScores['leaf-catcher'] ?? 0) >= 1500 },
   { id: 'goose-pilot', name: 'GOOSE PILOT', desc: 'Fly through 25 gaps in Goose Flight.', icon: '🐦', tokens: 150, check: (s) => (s.highScores['goose-flight'] ?? 0) >= 250 },
+  { id: 'plinko-pro', name: 'PLINKO PRO', desc: 'Score 600+ in Pumpkin Plinko.', icon: '🎃', tokens: 100, check: (s) => (s.highScores['plinko'] ?? 0) >= 600 },
   { id: 'escape-artist', name: 'ESCAPE ARTIST', desc: 'Score 1,500+ in Dodge the Principal.', icon: '🏃', tokens: 100, check: (s) => (s.highScores['dodge-the-principal'] ?? 0) >= 1500 },
   { id: 'streak-3', name: 'ON A ROLL', desc: 'Visit 3 days in a row.', icon: '📅', tokens: 75, check: (s) => s.streak.count >= 3, progress: (s) => [s.streak.count, 3] },
   { id: 'daily-1', name: 'DAILY GRINDER', desc: 'Complete a Daily Challenge.', icon: '🎯', tokens: 40, check: (s) => s.stats.dailiesCompleted >= 1 },

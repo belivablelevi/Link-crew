@@ -30,6 +30,7 @@ export const DAILY_CHALLENGES: DailyChallengeDef[] = [
   { id: 'boss-dmg', text: 'Deal 15,000 total damage to the Boss.', game: 'fall-fest-boss', goal: 15000, unit: 'dmg', measure: (g, r) => stat(g, 'fall-fest-boss', r.stats?.bossDamage), xp: 150, tokens: 75 },
   { id: 'leaves-60', text: 'Catch 60 leaves in Leaf Catcher (any number of runs).', game: 'leaf-catcher', goal: 60, unit: 'leaves', measure: (g, r) => stat(g, 'leaf-catcher', r.stats?.leavesCaught), xp: 100, tokens: 50 },
   { id: 'goose-12', text: 'Fly through 12 gaps in one Goose Flight.', game: 'goose-flight', goal: 12, unit: 'gaps', best: true, measure: (g, r) => stat(g, 'goose-flight', r.stats?.gatesPassed), xp: 120, tokens: 60 },
+  { id: 'plinko-100', text: 'Land a pumpkin in a 100 slot in Pumpkin Plinko.', game: 'plinko', goal: 1, measure: (g, r) => (g === 'plinko' && (r.stats?.bigSlots ?? 0) > 0 ? 1 : 0), best: true, xp: 100, tokens: 50 },
   { id: 'combo-25', text: 'Reach a 25x combo in any game.', goal: 25, unit: 'combo', best: true, measure: (_g, r) => r.stats?.maxCombo ?? 0, xp: 120, tokens: 60 },
 ]
 

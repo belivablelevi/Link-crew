@@ -134,6 +134,31 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
           </svg>
         </div>
       )
+    case 'plinko':
+      return (
+        <div className={wrap}>
+          <svg viewBox="0 0 120 90" style={{ width: 130 * s, height: 98 * s }} aria-hidden>
+            {[0, 1, 2, 3].map((r) =>
+              [0, 1, 2, 3, 4, 5].map((c) => {
+                const x = 12 + c * 19 + (r % 2 ? 9.5 : 0)
+                return x < 115 ? <circle key={`${r}-${c}`} cx={x} cy={14 + r * 14} r="2.6" fill="#8ec2ff" /> : null
+              }),
+            )}
+            {[100, 20, 5, 20, 100].map((v, i) => (
+              <g key={i}>
+                <rect x={2 + i * 23.2} y="70" width="21" height="16" rx="2" fill={v === 100 ? '#ffc72c' : v === 20 ? '#4fb3ff' : '#1b2d5c'} stroke="#071022" strokeWidth="1.5" />
+                <text x={12.5 + i * 23.2} y="81.5" textAnchor="middle" fontSize="8" fontWeight="800" fontFamily="Outfit, sans-serif" fill={v === 100 ? '#071022' : '#fff'}>
+                  {v}
+                </text>
+              </g>
+            ))}
+            <g style={a('hop', 2.6)}>
+              <ellipse cx="40" cy="8" rx="6" ry="5.3" fill="#f28c1f" stroke="#071022" strokeWidth="1.5" />
+              <rect x="39" y="1" width="2" height="3" fill="#3a7d1a" />
+            </g>
+          </svg>
+        </div>
+      )
     case 'fall-fest-boss':
       return (
         <div className={wrap}>

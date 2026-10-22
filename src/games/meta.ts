@@ -184,6 +184,19 @@ export const GAMES: GameMeta[] = [
     scoreLabel: 'POINTS',
     reward: scaled(2),
   },
+  {
+    id: 'plinko',
+    name: 'PUMPKIN PLINKO',
+    tagline: 'Drop the pumpkin. Watch it bounce. Pray for the 100.',
+    icon: '🎃',
+    difficulty: 'EASY',
+    color: '#f28c1f',
+    color2: '#ffc72c',
+    howTo: ['Tap where you want to drop each pumpkin.', 'It bounces off the pegs into a slot at the bottom.', 'Edge slots are worth 100. The middle is worth 5.', '10 pumpkins. The last one is golden: 3x points.'],
+    controls: 'Tap / click · arrow keys + SPACE',
+    scoreLabel: 'POINTS',
+    reward: scaled(3),
+  },
 ]
 
 export function getGame(id: string): GameMeta | undefined {

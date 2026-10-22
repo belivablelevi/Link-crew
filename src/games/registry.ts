@@ -16,4 +16,5 @@ export const GAME_COMPONENTS: Record<GameId, LazyExoticComponent<ComponentType<G
   'fall-fest-boss': lazy(() => import('./FallFestBoss')),
   'leaf-catcher': lazy(() => import('./LeafCatcher')),
   'goose-flight': lazy(() => import('./GooseFlight')),
+  plinko: lazy(() => import('./Plinko')),
 }
