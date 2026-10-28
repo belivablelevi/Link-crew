@@ -27,7 +27,7 @@ function Preview({ c }: { c: Cosmetic }) {
     case 'nameEffect':
       return <span className={`font-display text-lg ${c.value}`}>Abc</span>
     case 'confetti':
-      return <span className="text-2xl">{{ classic: '🎊', leaves: '🍁', pixel: '🟪', ducks: '🦆', candy: '🍬' }[c.value] ?? '🎊'}</span>
+      return <span className="text-2xl">{{ classic: '🎊', snow: '❄️', pixel: '🟪', ducks: '🦆', candy: '🎁' }[c.value] ?? '🎊'}</span>
   }
 }
 

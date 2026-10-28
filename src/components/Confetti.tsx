@@ -18,9 +18,9 @@ interface P {
 
 const COLORS = ['#8ec2ff', '#ffc72c', '#3ddc84', '#4fb3ff', '#f2a900', '#2f6bff', '#ff4d5e']
 const GLYPHS: Record<string, string[]> = {
-  leaves: ['🍁', '🍂', '🍃', '🎃'],
+  snow: ['❄️', '❄️', '⛄', '✨'],
   ducks: ['🦆', '🐥', '🦆'],
-  candy: ['🍬', '🍭', '🍫', '🍩'],
+  candy: ['🎁', '🎄', '🍬', '⭐'],
 }
 
 /** Full-screen canvas confetti. Style comes from the player's equipped confetti cosmetic. */

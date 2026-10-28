@@ -1,6 +1,13 @@
 import type { CSSProperties } from 'react'
 import type { GameId } from '../lib/types'
 
+/** Six-armed snowflake path for the Snowflake Catcher card. */
+const FLAKE = Array.from({ length: 6 }, (_, i) => {
+  const t = (i * Math.PI) / 3
+  const p = (r: number, d = 0) => `${(Math.cos(t + d) * r).toFixed(1)} ${(Math.sin(t + d) * r).toFixed(1)}`
+  return `M0 0L${p(16)}M${p(9)}L${p(13, 0.35)}M${p(9)}L${p(13, -0.35)}`
+}).join('')
+
 const a = (name: string, dur: number, delay = 0, extra = ''): CSSProperties => ({ animation: `${name} ${dur}s ${extra || 'ease-in-out'} ${delay}s infinite` })
 
 /** Small animated scene for each game card, pure CSS/emoji, no images. */
@@ -35,6 +42,8 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
               <div key={i} className="mx-2 mt-2 h-1.5 rounded bg-[#0b3b55]" />
             ))}
             <div className="absolute right-2 top-1/2 w-2 h-5 rounded bg-yellow border-2 border-bg" />
+            <div className="absolute inset-0 rounded-lg" style={{ background: 'linear-gradient(160deg, rgba(235,248,255,.7), transparent 60%)' }} />
+            <div className="absolute -top-1.5 -inset-x-1 h-3 rounded-full bg-[#f6faff] border-2 border-bg" />
           </div>
         </div>
       )
@@ -42,9 +51,13 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
       return (
         <div className={wrap}>
           <div className="flex flex-col items-center gap-0.5">
-            <div className="sticker rounded-md h-4" style={{ width: 70 * s, background: '#8ec2ff', ...a('slide-block', 1.4) }} />
-            {['#f2a900', '#ffc72c', '#3ddc84', '#4fb3ff'].map((c, i) => (
-              <div key={c} className="sticker rounded-md h-4" style={{ width: (70 + i * 4) * s, background: c, marginLeft: i % 2 ? 8 : -6 }} />
+            <div className="sticker rounded-md h-4 grid place-items-center" style={{ width: 70 * s, background: '#b45cff', ...a('slide-block', 1.4) }}>
+              <div className="w-2.5 h-full bg-[#ffd75e]" />
+            </div>
+            {['#e63946', '#2fbf71', '#3d8bff', '#ffc72c'].map((c, i) => (
+              <div key={c} className="sticker rounded-md h-4 grid place-items-center" style={{ width: (70 + i * 4) * s, background: c, marginLeft: i % 2 ? 8 : -6 }}>
+                <div className="w-2.5 h-full" style={{ background: c === '#ffc72c' ? '#e63946' : '#ffd75e' }} />
+              </div>
             ))}
           </div>
         </div>
@@ -79,8 +92,8 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
       return (
         <div className={wrap}>
           <div className="font-display text-ink" style={{ fontSize: 26 * s }}>
-            <span className="text-lime">LIS</span>
-            <span className="text-dim">GAR</span>
+            <span className="text-lime">COC</span>
+            <span className="text-dim">OA</span>
             <span className="anim-blink text-yellow">_</span>
           </div>
         </div>
@@ -91,6 +104,10 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
           <div className="-ml-16" style={{ fontSize: 46 * s, ...a('hop', 2.4) }}>
             🦆
           </div>
+          <div className="absolute bottom-1 inset-x-0 flex justify-around opacity-70" style={{ fontSize: 22 * s }} aria-hidden>
+            <span>🌲</span>
+            <span>🌲</span>
+          </div>
         </div>
       )
     case 'spin-to-win':
@@ -98,7 +115,7 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
         <div className={wrap}>
           <div
             className="rounded-full sticker anim-spin-slow"
-            style={{ width: 96 * s, height: 96 * s, animationDuration: '4s', background: 'conic-gradient(#8ec2ff 0 45deg,#ffc72c 0 90deg,#3ddc84 0 135deg,#4fb3ff 0 180deg,#f2a900 0 225deg,#2f6bff 0 270deg,#ff4d5e 0 315deg,#fff 0)' }}
+            style={{ width: 96 * s, height: 96 * s, animationDuration: '4s', background: 'conic-gradient(#e63946 0 45deg,#fff 0 90deg,#2fbf71 0 135deg,#ffc72c 0 180deg,#e63946 0 225deg,#fff 0 270deg,#2fbf71 0 315deg,#7fd4ff 0)' }}
           />
         </div>
       )
@@ -106,31 +123,38 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
       return (
         <div className={wrap}>
           {[
-            [22, 10, '#e2412d', 0],
-            [55, 4, '#ffc72c', 0.7],
-            [76, 16, '#f28c1f', 1.4],
+            [22, 10, '#ffffff', 0],
+            [55, 4, '#ffd75e', 0.7],
+            [76, 16, '#7fd4ff', 1.4],
           ].map(([x, y, c, d], i) => (
             <svg key={i} viewBox="-20 -20 40 40" className="absolute" style={{ left: `${x}%`, top: `${y}%`, width: 28 * s, height: 28 * s, ...a('float', 2.4, d as number) }} aria-hidden>
-              <path d="M0-18L4-8 14-11 10-2 18 3 6 6 5 13 0 9-5 13-6 6-18 3-10-2-14-11-4-8Z" fill={c as string} stroke="#071022" strokeWidth="2.5" />
+              <g strokeLinecap="round" fill="none">
+                <path d={FLAKE} stroke="#071022" strokeWidth="6" />
+                <path d={FLAKE} stroke={c as string} strokeWidth="2.6" />
+              </g>
             </svg>
           ))}
-          <div className="absolute bottom-3 rounded-b-xl sticker" style={{ width: 70 * s, height: 30 * s, background: '#c98a3f', ...a('chase', 2.4) }} />
+          <div className="absolute bottom-3 rounded-b-xl sticker" style={{ width: 70 * s, height: 30 * s, background: 'linear-gradient(#6b3d1f 0 22%, #d62839 22% 50%, #fff 50% 62%, #d62839 62%)', ...a('chase', 2.4) }} />
         </div>
       )
     case 'goose-flight':
       return (
         <div className={wrap}>
-          <div className="absolute left-[18%] top-0 sticker" style={{ width: 30 * s, height: '34%', background: '#2f6bff' }} />
-          <div className="absolute left-[18%] bottom-0 sticker" style={{ width: 30 * s, height: '30%', background: '#2f6bff' }} />
-          <div className="absolute right-[14%] top-0 sticker" style={{ width: 30 * s, height: '22%', background: '#2f6bff' }} />
-          <div className="absolute right-[14%] bottom-0 sticker" style={{ width: 30 * s, height: '42%', background: '#2f6bff' }} />
-          <svg viewBox="-30 -30 72 60" style={{ width: 64 * s, height: 54 * s, ...a('float', 1.2) }} aria-hidden>
+          <div className="absolute left-[18%] top-0 sticker" style={{ width: 30 * s, height: '34%', background: '#2f6bff', borderTopColor: '#f6faff', borderBottomColor: '#f6faff', borderTopWidth: 5, borderBottomWidth: 5 }} />
+          <div className="absolute left-[18%] bottom-0 sticker" style={{ width: 30 * s, height: '30%', background: '#2f6bff', borderTopColor: '#f6faff', borderBottomColor: '#f6faff', borderTopWidth: 5, borderBottomWidth: 5 }} />
+          <div className="absolute right-[14%] top-0 sticker" style={{ width: 30 * s, height: '22%', background: '#2f6bff', borderTopColor: '#f6faff', borderBottomColor: '#f6faff', borderTopWidth: 5, borderBottomWidth: 5 }} />
+          <div className="absolute right-[14%] bottom-0 sticker" style={{ width: 30 * s, height: '42%', background: '#2f6bff', borderTopColor: '#f6faff', borderBottomColor: '#f6faff', borderTopWidth: 5, borderBottomWidth: 5 }} />
+          <svg viewBox="-30 -42 72 72" style={{ width: 64 * s, height: 64 * s, ...a('float', 1.2) }} aria-hidden>
             <ellipse cx="0" cy="0" rx="20" ry="13" fill="#8b6b4a" stroke="#071022" strokeWidth="2.5" />
             <path d="M12-4Q22-12 24-20" stroke="#111" strokeWidth="7" strokeLinecap="round" fill="none" />
             <ellipse cx="27" cy="-22" rx="7" ry="5.5" fill="#111" />
             <ellipse cx="25" cy="-19" rx="3.5" ry="2.5" fill="#fff" />
             <path d="M33-24L41-21 33-19Z" fill="#f2a900" stroke="#071022" strokeWidth="1.5" />
             <path d="M-6-4Q-4-30 10-26Q6-10 8-2Z" fill="#6b5136" stroke="#071022" strokeWidth="2.5" />
+            <ellipse cx="17" cy="-9" rx="6" ry="3.5" transform="rotate(-34 17 -9)" fill="#e63946" stroke="#071022" strokeWidth="1.5" />
+            <path d="M21-25L33-27 22-38Z" fill="#e63946" stroke="#071022" strokeWidth="1.5" />
+            <rect x="20" y="-27" width="14" height="3.2" fill="#fff" />
+            <circle cx="22" cy="-38" r="2.6" fill="#fff" />
           </svg>
         </div>
       )
@@ -141,20 +165,21 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
             {[0, 1, 2, 3].map((r) =>
               [0, 1, 2, 3, 4, 5].map((c) => {
                 const x = 12 + c * 19 + (r % 2 ? 9.5 : 0)
-                return x < 115 ? <circle key={`${r}-${c}`} cx={x} cy={14 + r * 14} r="2.6" fill="#8ec2ff" /> : null
+                return x < 115 ? <circle key={`${r}-${c}`} cx={x} cy={14 + r * 14} r="2.6" fill={['#ff6b7a', '#ffd75e', '#6ee7a8', '#7fd4ff'][(r + c) % 4]} /> : null
               }),
             )}
             {[100, 20, 5, 20, 100].map((v, i) => (
               <g key={i}>
-                <rect x={2 + i * 23.2} y="70" width="21" height="16" rx="2" fill={v === 100 ? '#ffc72c' : v === 20 ? '#4fb3ff' : '#1b2d5c'} stroke="#071022" strokeWidth="1.5" />
+                <rect x={2 + i * 23.2} y="70" width="21" height="16" rx="2" fill={v === 100 ? '#ffc72c' : v === 20 ? '#1b7a43' : '#1b2d5c'} stroke="#071022" strokeWidth="1.5" />
                 <text x={12.5 + i * 23.2} y="81.5" textAnchor="middle" fontSize="8" fontWeight="800" fontFamily="Outfit, sans-serif" fill={v === 100 ? '#071022' : '#fff'}>
                   {v}
                 </text>
               </g>
             ))}
             <g style={a('plinko-drop', 2.8, 0, 'linear')}>
-              <ellipse cx="40" cy="8" rx="6" ry="5.3" fill="#f28c1f" stroke="#071022" strokeWidth="1.5" />
-              <rect x="39" y="1" width="2" height="3" fill="#3a7d1a" />
+              <rect x="38.3" y="1" width="3.4" height="2.6" fill="#c9d3e6" stroke="#071022" strokeWidth="1" />
+              <circle cx="40" cy="8.5" r="5.5" fill="#e63946" stroke="#071022" strokeWidth="1.5" />
+              <circle cx="38" cy="7" r="1.5" fill="#ff9aa3" />
             </g>
           </svg>
         </div>
@@ -163,7 +188,7 @@ export function GameArt({ id, big }: { id: GameId; big?: boolean }) {
       return (
         <div className={wrap}>
           <div className="flex flex-col items-center">
-            <div style={{ fontSize: 56 * s, ...a('heartbeat', 0.9) }}>👹</div>
+            <div style={{ fontSize: 56 * s, ...a('heartbeat', 0.9) }}>☃️</div>
             <div className="w-24 h-2.5 rounded-full bg-bg border-2 border-bg overflow-hidden mt-1">
               <div className="h-full bg-red" style={{ width: '70%' }} />
             </div>

@@ -27,7 +27,7 @@ function Logo() {
     <a
       href={href('/')}
       className="flex items-center gap-2 select-none shrink-0"
-      aria-label="Link Crew Fall Fest home"
+      aria-label="Link Crew Winter Fest home"
       onClick={() => {
         const now = Date.now()
         clicks.current = [...clicks.current.filter((t) => now - t < 2000), now]
@@ -41,7 +41,7 @@ function Logo() {
       <SchoolLogo size={46} />
       <span className="leading-none hidden min-[380px]:block">
         <span className="block font-display text-sm text-yellow">LINK CREW</span>
-        <span className="block font-pixel text-[0.7rem] text-pink mt-1">FALL FEST</span>
+        <span className="block font-pixel text-[0.7rem] text-pink mt-1">WINTER FEST</span>
       </span>
     </a>
   )

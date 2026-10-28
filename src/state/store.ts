@@ -15,8 +15,8 @@ const STORAGE_KEY = 'lcff:player:v1'
 export const SPIN_COOLDOWN_MS = 15 * 60 * 1000
 
 function randomName() {
-  const a = ['Turbo', 'Spicy', 'Neon', 'Pixel', 'Crispy', 'Mega', 'Sneaky', 'Cosmic', 'Golden', 'Hyper']
-  const b = ['Duck', 'Pumpkin', 'Leaf', 'Locker', 'Gourd', 'Goose', 'Acorn', 'Maple', 'Waffle', 'Raccoon']
+  const a = ['Turbo', 'Frosty', 'Neon', 'Pixel', 'Crispy', 'Mega', 'Sneaky', 'Cosmic', 'Golden', 'Hyper']
+  const b = ['Duck', 'Snowman', 'Penguin', 'Locker', 'Icicle', 'Goose', 'Mitten', 'Reindeer', 'Waffle', 'Snowflake']
   return `${a[Math.floor(Math.random() * a.length)]}${b[Math.floor(Math.random() * b.length)]}${Math.floor(Math.random() * 90 + 10)}`
 }
 

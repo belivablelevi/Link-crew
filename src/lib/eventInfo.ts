@@ -1,12 +1,12 @@
 /**
- * Fall Fest event details. EDIT THIS FILE as plans are confirmed.
- * Everything in the "ABOUT FALL FEST" section of the home page comes from here.
+ * Winter Fest event details. EDIT THIS FILE as plans are confirmed.
+ * Everything in the "ABOUT WINTER FEST" section of the home page comes from here.
  * Anything still "TBA" shows as "TBA" on the site.
  */
 export const EVENT_INFO = {
-  date: 'October 21',
-  time: 'Lunch',
-  location: 'The field',
+  date: 'TBA',
+  time: 'TBA',
+  location: 'TBA',
 
   /** Short line under the section title. */
   tagline: 'For grade 9s and Link Crew members. No sign-up needed, just show up.',
@@ -14,14 +14,14 @@ export const EVENT_INFO = {
   /** A few short paragraphs about the event. */
   about: [
     'Link Crew is the student mentorship program where senior students (Link Leaders) help grade 9s settle into high school.',
-    'Fall Fest is a Link Crew get-together to celebrate the season, hang out with your crew and meet people outside your classes. This arcade is part of the fun: play before and during the event, and see whose name ends up on top of the leaderboard.',
+    'Winter Fest is a Link Crew get-together before the holidays to hang out with your crew, warm up and meet people outside your classes. This arcade is part of the fun: play before and during the event, and see whose name ends up on top of the leaderboard.',
   ],
 
   /** What's happening at the event. Replace with the real plan. */
   happenings: [
     { title: 'Meet your crew', text: 'Hang out with your Link Leaders and other students in your group.' },
     { title: 'Games & challenges', text: 'Activities run by Link Crew. Details coming soon.' },
-    { title: 'Fall vibes', text: 'Seasonal fun. More details as plans are confirmed.' },
+    { title: 'Holiday vibes', text: 'Winter fun before the break. More details as plans are confirmed.' },
     { title: 'Arcade leaderboard', text: 'Play the games on this site and try to get your name on the school-wide leaderboard.' },
   ],
 

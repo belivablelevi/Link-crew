@@ -22,13 +22,15 @@ interface Chunk {
   color: string
 }
 
-const COLORS = ['#f2a900', '#ffc72c', '#3ddc84', '#4fb3ff', '#2f6bff', '#8ec2ff', '#ff4d5e']
+// wrapping paper colours
+const COLORS = ['#e63946', '#2fbf71', '#3d8bff', '#ffc72c', '#b45cff', '#eef7ff', '#ff6b7a']
+const RIBBON = (color: string) => (color === '#ffc72c' || color === '#eef7ff' ? '#e63946' : '#ffd75e')
 const WORLD_W = 400 // world is 400 units wide, scaled to the canvas
 const BLOCK_H = 34
 const START_W = 220
 const PERFECT = 6
 
-export default function FallFestStacker({ onEnd }: GameProps) {
+export default function GiftStacker({ onEnd }: GameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [hud, setHud] = useState({ score: 0, height: 0, combo: 0 })
   const onEndRef = useRef(onEnd)
@@ -45,7 +47,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
       H = h
     })
 
-    const tower: Block[] = [{ x: (WORLD_W - START_W) / 2, w: START_W, y: 0, color: '#2f6bff' }]
+    const tower: Block[] = [{ x: (WORLD_W - START_W) / 2, w: START_W, y: 0, color: '#1b7a43' }]
     const chunks: Chunk[] = []
     let moving = { x: 0, w: START_W, dir: 1, speed: 140 }
     let score = 0
@@ -77,7 +79,7 @@ export default function FallFestStacker({ onEnd }: GameProps) {
         () =>
           onEndRef.current({
             score,
-            headline: height >= 20 ? 'SKY HIGH!' : 'TIMBERRR!',
+            headline: height >= 20 ? 'SANTA WOULD BE PROUD!' : 'PRESENTS EVERYWHERE!',
             stats: { stackHeight: height, perfectDrops: perfects, maxCombo },
             details: [
               { label: 'HEIGHT', value: `${height}` },
@@ -183,9 +185,9 @@ export default function FallFestStacker({ onEnd }: GameProps) {
 
       ctx.save()
       // ground
-      ctx.fillStyle = '#2a7d2e'
+      ctx.fillStyle = '#dbeeff'
       ctx.fillRect(0, toScreenY(0) + 0, W, H)
-      ctx.fillStyle = '#3ddc84'
+      ctx.fillStyle = '#ffffff'
       ctx.fillRect(0, toScreenY(0), W, 4)
 
       const drawBlock = (x: number, yTopWorld: number, w: number, color: string) => {
@@ -208,14 +210,13 @@ export default function FallFestStacker({ onEnd }: GameProps) {
         ctx.beginPath()
         ctx.roundRect(sx, sy, sw, sh - 2, 6 * scale)
         ctx.stroke()
-        // hay-bale stripes
-        ctx.strokeStyle = 'rgba(0,0,0,.18)'
-        for (let i = 1; i < 4; i++) {
-          ctx.beginPath()
-          ctx.moveTo(sx + (sw * i) / 4, sy + 3)
-          ctx.lineTo(sx + (sw * i) / 4, sy + sh - 5)
-          ctx.stroke()
-        }
+        // ribbon down the middle of the present
+        const rw = Math.min(sw * 0.3, 12 * scale)
+        ctx.fillStyle = RIBBON(color)
+        ctx.fillRect(sx + sw / 2 - rw / 2, sy + 1, rw, sh - 4)
+        ctx.strokeStyle = 'rgba(7,16,34,.5)'
+        ctx.lineWidth = 1
+        ctx.strokeRect(sx + sw / 2 - rw / 2, sy + 1, rw, sh - 4)
       }
 
       for (const b of tower) {

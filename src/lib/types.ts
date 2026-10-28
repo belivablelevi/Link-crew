@@ -1,3 +1,7 @@
+/**
+ * Game ids are stored in saves and the leaderboard database, so they keep their original
+ * Fall Fest names even though the games are now winter themed (e.g. 'leaf-catcher' is Snowflake Catcher).
+ */
 export type GameId =
   | 'reaction-rush'
   | 'dodge-the-principal'

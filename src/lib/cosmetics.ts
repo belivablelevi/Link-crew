@@ -15,24 +15,24 @@ export interface Cosmetic {
 }
 
 export const COSMETICS: Cosmetic[] = [
-  // Avatars
+  // Avatars (ids are stored in saves, so a few keep their old fall names)
   { id: 'av-duck', kind: 'avatar', name: 'Duck', value: '🦆', cost: 0 },
-  { id: 'av-pumpkin', kind: 'avatar', name: 'Pumpkin', value: '🎃', cost: 0 },
-  { id: 'av-fox', kind: 'avatar', name: 'Fox', value: '🦊', cost: 0, level: 2 },
-  { id: 'av-leaf', kind: 'avatar', name: 'Leaf', value: '🍁', cost: 120 },
+  { id: 'av-pumpkin', kind: 'avatar', name: 'Snowman', value: '⛄', cost: 0 },
+  { id: 'av-fox', kind: 'avatar', name: 'Arctic Fox', value: '🦊', cost: 0, level: 2 },
+  { id: 'av-leaf', kind: 'avatar', name: 'Penguin', value: '🐧', cost: 120 },
   { id: 'av-pizza', kind: 'avatar', name: 'Pizza', value: '🍕', cost: 150 },
   { id: 'av-alien', kind: 'avatar', name: 'Alien', value: '👾', cost: 250 },
   { id: 'av-robot', kind: 'avatar', name: 'Robot', value: '🤖', cost: 300 },
   { id: 'av-dragon', kind: 'avatar', name: 'Dragon', value: '🐉', cost: 0, level: 6 },
   { id: 'av-crown', kind: 'avatar', name: 'Royal', value: '👑', cost: 0, level: 10 },
-  { id: 'av-ghost', kind: 'avatar', name: 'Ghost', value: '👻', cost: 400 },
+  { id: 'av-ghost', kind: 'avatar', name: 'Reindeer', value: '🦌', cost: 400 },
   { id: 'av-unicorn', kind: 'avatar', name: 'Unicorn', value: '🦄', cost: 0, special: 'rare' },
   { id: 'av-goldduck', kind: 'avatar', name: 'Golden Duck', value: '🐥', cost: 0, special: 'secret' },
 
   // Titles
   { id: 'ti-rookie', kind: 'title', name: 'Rookie', value: 'FRESH RECRUIT', cost: 0 },
   { id: 'ti-linker', kind: 'title', name: 'Linker', value: 'CERTIFIED LINKER', cost: 0, level: 3 },
-  { id: 'ti-spice', kind: 'title', name: 'Pumpkin Spice', value: 'PUMPKIN SPICE MENACE', cost: 200 },
+  { id: 'ti-spice', kind: 'title', name: 'Hot Cocoa', value: 'HOT COCOA MENACE', cost: 200 },
   { id: 'ti-ducklord', kind: 'title', name: 'Duck Lord', value: 'LORD OF THE DUCKS', cost: 350 },
   { id: 'ti-tryhard', kind: 'title', name: 'Tryhard', value: 'PROFESSIONAL TRYHARD', cost: 300 },
   { id: 'ti-speed', kind: 'title', name: 'Speedy', value: 'FASTER THAN WIFI', cost: 0, level: 5 },
@@ -43,10 +43,10 @@ export const COSMETICS: Cosmetic[] = [
   { id: 'ti-secret', kind: 'title', name: 'Secret', value: 'KNOWS THE SECRETS', cost: 0, special: 'secret' },
 
   // Profile backgrounds
-  { id: 'bg-night', kind: 'background', name: 'Midnight', value: 'linear-gradient(135deg,#14306b,#0d1a3a)', cost: 0 },
-  { id: 'bg-harvest', kind: 'background', name: 'Harvest', value: 'linear-gradient(135deg,#ff7a1a,#c2185b)', cost: 0, level: 4 },
-  { id: 'bg-lime', kind: 'background', name: 'Slime', value: 'linear-gradient(135deg,#3ddc84,#0f7c6b)', cost: 180 },
-  { id: 'bg-ocean', kind: 'background', name: 'Neon Sea', value: 'linear-gradient(135deg,#4fb3ff,#3b2bff)', cost: 220 },
+  { id: 'bg-night', kind: 'background', name: 'Snowy Night', value: 'linear-gradient(135deg,#1d3f7a,#0b1730)', cost: 0 },
+  { id: 'bg-harvest', kind: 'background', name: 'Holly', value: 'linear-gradient(135deg,#d62839,#1b7a43)', cost: 0, level: 4 },
+  { id: 'bg-lime', kind: 'background', name: 'Evergreen', value: 'linear-gradient(135deg,#3ddc84,#0f5c3b)', cost: 180 },
+  { id: 'bg-ocean', kind: 'background', name: 'Glacier', value: 'linear-gradient(135deg,#bff1ff,#4fb3ff,#2f6bff)', cost: 220 },
   { id: 'bg-arcade', kind: 'background', name: 'Arcade Grid', value: 'repeating-linear-gradient(0deg,#8ec2ff 0 2px,transparent 2px 22px),repeating-linear-gradient(90deg,#8ec2ff 0 2px,transparent 2px 22px),#1a0633', cost: 350 },
   { id: 'bg-gold', kind: 'background', name: 'Gold Rush', value: 'linear-gradient(135deg,#ffc72c,#f2a900,#ffc72c)', cost: 0, level: 9 },
   { id: 'bg-rainbow', kind: 'background', name: 'Rainbow', value: 'linear-gradient(135deg,#8ec2ff,#f2a900,#ffc72c,#3ddc84,#4fb3ff,#2f6bff)', cost: 0, special: 'rare' },
@@ -61,10 +61,10 @@ export const COSMETICS: Cosmetic[] = [
 
   // Confetti styles
   { id: 'cf-classic', kind: 'confetti', name: 'Classic', value: 'classic', cost: 0 },
-  { id: 'cf-leaves', kind: 'confetti', name: 'Fall Leaves', value: 'leaves', cost: 100 },
+  { id: 'cf-leaves', kind: 'confetti', name: 'Snowflakes', value: 'snow', cost: 100 },
   { id: 'cf-pixel', kind: 'confetti', name: 'Pixels', value: 'pixel', cost: 0, level: 5 },
   { id: 'cf-ducks', kind: 'confetti', name: 'Ducks', value: 'ducks', cost: 250 },
-  { id: 'cf-candy', kind: 'confetti', name: 'Candy', value: 'candy', cost: 200 },
+  { id: 'cf-candy', kind: 'confetti', name: 'Holiday', value: 'candy', cost: 200 },
 ]
 
 export const COSMETIC_KIND_LABEL: Record<CosmeticKind, string> = {

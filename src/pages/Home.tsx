@@ -45,7 +45,7 @@ function Hero() {
       <h1 className="font-display leading-[0.85] select-none">
         <span className="block title-outline text-yellow text-[clamp(3.5rem,15vw,9rem)] -rotate-2">LINK CREW</span>
         <span className="block title-outline text-[clamp(3rem,13vw,8rem)] rotate-1 text-ink">
-          FALL FEST
+          WINTER FEST
         </span>
       </h1>
       <p className="font-display text-base sm:text-xl text-blue mt-4 tracking-wide">THE SCHOOL&apos;S BIGGEST GAME HUB</p>
@@ -65,7 +65,7 @@ function Hero() {
         OR BROWSE ALL {GAMES.length} GAMES ↓
       </a>
       <a href="#event" onClick={(e) => (e.preventDefault(), document.getElementById('event')?.scrollIntoView({ behavior: 'smooth' }))} className="block mt-3 font-pixel text-[0.72rem] text-orange hover:text-yellow">
-        WHAT IS FALL FEST? ↓
+        WHAT IS WINTER FEST? ↓
       </a>
     </section>
   )
@@ -151,7 +151,7 @@ function EventInfo() {
     <section id="event" className="panel p-5 sm:p-8 relative overflow-hidden scroll-mt-20" aria-labelledby="event-title">
       <div className="font-pixel text-[0.72rem] text-orange">THE EVENT</div>
       <h2 id="event-title" className="font-display text-3xl sm:text-4xl mt-1">
-        ABOUT <span className="text-orange">FALL FEST</span>
+        ABOUT <span className="text-orange">WINTER FEST</span>
       </h2>
       <p className="text-dim mt-1">{EVENT_INFO.tagline}</p>
 

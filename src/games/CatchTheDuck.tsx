@@ -48,6 +48,11 @@ function DuckSprite({ kind }: { kind: DuckKind }) {
       <path d="M8 36 L-4 41 L8 46 Z" fill="#f2a900" stroke="#071022" strokeWidth="3" transform="translate(4 0)" />
       <circle cx="26" cy="32" r="4.5" fill="#071022" />
       <circle cx="27.5" cy="30.5" r="1.5" fill="#fff" />
+      {/* winter scarf + toque */}
+      <path d="M16 50 Q32 60 48 50 L49 57 Q32 67 15 57 Z" fill="#e63946" stroke="#071022" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M42 56 L52 74 L44 76 L37 58 Z" fill="#e63946" stroke="#071022" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M13 26 Q30 6 47 26 Z" fill="#2fbf71" stroke="#071022" strokeWidth="3" strokeLinejoin="round" />
+      <circle cx="30" cy="11" r="5" fill="#fff" stroke="#071022" strokeWidth="2.5" />
       {kind === 'fake' && (
         <>
           <path d="M17 22 L33 27" stroke="#071022" strokeWidth="4" strokeLinecap="round" />
@@ -174,7 +179,7 @@ export default function CatchTheDuck({ onEnd }: GameProps) {
     <div
       ref={stage}
       className="absolute inset-0 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, transparent 60%, rgba(79,179,255,.12) 60%, rgba(0,120,200,.25))' }}
+      style={{ background: 'linear-gradient(180deg, transparent 60%, rgba(191,230,255,.14) 60%, rgba(127,212,255,.28))' }}
       onPointerDown={(e) => {
         if (e.target !== e.currentTarget) return
         const st = g.current
@@ -196,13 +201,13 @@ export default function CatchTheDuck({ onEnd }: GameProps) {
         </div>
         <ProgressBar value={hud.left / DURATION} height={12} color="var(--color-yellow)" label="Time left" />
       </div>
-      {/* pond reeds */}
+      {/* snowy pond edge */}
       <div className="absolute bottom-0 inset-x-0 h-10 pointer-events-none opacity-70 text-3xl flex justify-around" aria-hidden>
-        <span>🌾</span>
-        <span>🍂</span>
-        <span>🌾</span>
-        <span>🍁</span>
-        <span>🌾</span>
+        <span>🌲</span>
+        <span>⛄</span>
+        <span>🌲</span>
+        <span>❄️</span>
+        <span>🌲</span>
       </div>
       {ducks.map((d) => (
         <button

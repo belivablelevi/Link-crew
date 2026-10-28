@@ -7,9 +7,9 @@ import { fx } from '../lib/fx'
 import { play } from '../lib/sound'
 
 const DURATION = 45
-const EASY = ['DUCK', 'PIZZA', 'CANDY', 'LOCKER', 'ORANGE', 'SPIRIT', 'LISGAR', 'BELL', 'MAPLE', 'CIDER', 'TOKEN', 'COMBO', 'LEAF', 'HOODIE', 'GOOSE']
-const MID = ['PUMPKIN', 'FALL FEST', 'LINK CREW', 'HALLWAY', 'HAYRIDE', 'ARCADE', 'SPOOKY', 'TEAMWORK', 'SCARECROW', 'HIGH SCORE', 'LEAF PILE', 'HOMEWORK']
-const HARD = ['FRIENDSHIP', 'CAFETERIA', 'PUMPKIN SPICE', 'GRADE NINE', 'SCHOOL SPIRIT', 'LISGAR LEGEND', 'DUCK INVASION', 'COMBO KING']
+const EASY = ['DUCK', 'SNOW', 'COCOA', 'LOCKER', 'MITTEN', 'SPIRIT', 'LISGAR', 'SLED', 'SCARF', 'ICICLE', 'TOKEN', 'COMBO', 'GIFT', 'HOODIE', 'TOQUE']
+const MID = ['SNOWMAN', 'WINTER FEST', 'LINK CREW', 'HALLWAY', 'SNOW DAY', 'ARCADE', 'REINDEER', 'TEAMWORK', 'SNOWBALL', 'HIGH SCORE', 'GINGERBREAD', 'HOMEWORK']
+const HARD = ['FRIENDSHIP', 'CAFETERIA', 'HOT CHOCOLATE', 'GRADE NINE', 'SCHOOL SPIRIT', 'LISGAR LEGEND', 'WINTER BREAK', 'HOLIDAY BREAK']
 
 function pickWord(n: number, prev?: string): string {
   const pool = n < 6 ? EASY : n < 14 ? [...EASY, ...MID] : [...MID, ...HARD]
@@ -18,7 +18,7 @@ function pickWord(n: number, prev?: string): string {
   return w
 }
 
-export default function FallFestTyper({ onEnd }: GameProps) {
+export default function WinterFestTyper({ onEnd }: GameProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const stage = useRef<HTMLDivElement>(null)
   const { spawn, layer } = usePopups()

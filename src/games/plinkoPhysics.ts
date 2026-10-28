@@ -1,5 +1,5 @@
 /**
- * Pumpkin Plinko physics on a FIXED logical board (BOARD_W x BOARD_H), scaled to fit the screen.
+ * Ornament Plinko physics on a FIXED logical board (BOARD_W x BOARD_H), scaled to fit the screen.
  * Because the geometry never changes with screen size, the game plays the same on a phone and a
  * laptop, and resizing mid-game only changes how it's drawn. Pure functions, no DOM, so it can be
  * stress-tested headless.

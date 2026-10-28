@@ -19,9 +19,9 @@ interface LockerType {
 }
 
 const TYPES: LockerType[] = [
-  { id: 'basic', name: 'BASIC LOCKER', hp: 8, reward: 100, door: 'linear-gradient(90deg,#1d8fbf,#38c6ff)', trim: '#0b3b55', loot: ['📚', '🧦', '🍎', '✏️', '🧃'] },
-  { id: 'gym', name: 'GYM LOCKER', hp: 14, reward: 220, door: 'linear-gradient(90deg,#14a34a,#3ddc84)', trim: '#0b4d22', loot: ['🏀', '👟', '🏈', '🥤', '🏸'] },
-  { id: 'rusty', name: 'RUSTY LOCKER', hp: 20, reward: 380, door: 'linear-gradient(90deg,#8a4b1c,#c9772f)', trim: '#4a2208', loot: ['🦴', '🧀', '📼', '🕸️', '🪙'] },
+  { id: 'basic', name: 'BASIC LOCKER', hp: 8, reward: 100, door: 'linear-gradient(90deg,#1d8fbf,#38c6ff)', trim: '#0b3b55', loot: ['📚', '🧦', '🍪', '✏️', '🧤'] },
+  { id: 'gym', name: 'GYM LOCKER', hp: 14, reward: 220, door: 'linear-gradient(90deg,#14a34a,#3ddc84)', trim: '#0b4d22', loot: ['🏀', '👟', '⛸️', '🏒', '🧣'] },
+  { id: 'rusty', name: 'FROZEN LOCKER', hp: 20, reward: 380, door: 'linear-gradient(90deg,#7fb8d9,#d6f1ff)', trim: '#3d6f8f', loot: ['🧊', '🧀', '📼', '☃️', '🪙'] },
   { id: 'secret', name: 'SECRET LOCKER!', hp: 10, reward: 800, door: 'linear-gradient(90deg,#c99a00,#ffc72c,#fff4a8,#ffc72c)', trim: '#7a5a00', loot: ['💎', '🏆', '👑', '🎟️', '🦆'] },
 ]
 
@@ -209,6 +209,9 @@ export default function LockerSmash({ onEnd }: GameProps) {
             <div className="absolute top-[38%] left-1/2 -translate-x-1/2 sticker rounded-md px-2 py-0.5 font-pixel text-[0.72rem] bg-ink text-bg">{locker.num}</div>
             <div className="absolute right-3 top-1/2 w-3.5 h-12 rounded-md bg-yellow border-2 border-bg" />
             <div className="absolute right-2 top-[60%] w-8 h-8 rounded-full border-4 border-bg bg-[#ccc] grid place-items-center font-pixel text-[0.65rem] text-bg">◉</div>
+            {/* frost that cracks away as you smash */}
+            <div className="absolute inset-0 rounded-xl pointer-events-none" style={{ background: 'linear-gradient(160deg, rgba(235,248,255,.5), rgba(191,230,255,.15) 40%, transparent 65%)', opacity: 1 - dmgPct }} />
+            <div className="absolute -top-1 inset-x-1 h-3 rounded-t-xl bg-[#f6faff] border-2 border-bg pointer-events-none" />
             {/* dents / cracks grow with damage */}
             {dmgPct > 0.25 && <div className="absolute left-5 top-[55%] text-3xl opacity-80">💢</div>}
             {dmgPct > 0.5 && <div className="absolute left-[40%] bottom-8 w-16 h-1 bg-bg rotate-[30deg] rounded" />}

@@ -39,7 +39,7 @@ export default function Games() {
         ))}
       </div>
       <p className="text-center font-pixel text-[0.72rem] text-dim mt-10">
-        MORE GAMES DROP DURING FALL FEST. MAYBE.
+        MORE GAMES MIGHT SHOW UP OVER THE HOLIDAYS. MAYBE.
       </p>
     </div>
   )

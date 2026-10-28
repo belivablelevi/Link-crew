@@ -1,16 +1,16 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-bg: #071022;
-  --color-panel: #13214a;
-  --color-panel2: #1a2c5e;
-  --color-ink: #f4f7ff;
-  --color-dim: #a9b9de;
+  --color-bg: #061224;
+  --color-panel: #12264d;
+  --color-panel2: #19325f;
+  --color-ink: #f6faff;
+  --color-dim: #b0c6e6;
   --color-purple: #2f6bff;
-  --color-blue: #4fb3ff;
+  --color-blue: #7fd4ff;
   --color-orange: #f2a900;
   --color-lime: #3ddc84;
-  --color-pink: #8ec2ff;
+  --color-pink: #bfe6ff;
   --color-yellow: #ffc72c;
   --color-red: #ff4d5e;
   --font-display: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -34,7 +34,7 @@ body {
   overflow-x: hidden;
 }
 ::selection {
-  background: var(--color-pink);
+  background: var(--color-purple);
   color: #fff;
 }
 :focus-visible {
@@ -76,24 +76,40 @@ button:disabled {
   overflow: hidden;
   background:
     radial-gradient(60vmax 50vmax at 10% -10%, rgba(47,107,255, 0.35), transparent 60%),
-    radial-gradient(50vmax 40vmax at 110% 10%, rgba(110,180,255, 0.22), transparent 60%),
-    radial-gradient(60vmax 50vmax at 50% 120%, rgba(242,169,0, 0.22), transparent 60%),
+    radial-gradient(50vmax 40vmax at 110% 10%, rgba(127,212,255, 0.2), transparent 60%),
+    radial-gradient(60vmax 40vmax at 50% 115%, rgba(200,235,255, 0.16), transparent 60%),
     var(--color-bg);
 }
 .bg-stage::before {
-  /* synthwave floor grid */
+  /* snowdrifts along the bottom of the screen */
   content: '';
   position: absolute;
-  left: -50%;
-  right: -50%;
-  bottom: -10%;
-  height: 55%;
+  left: -10%;
+  right: -10%;
+  bottom: -4vh;
+  height: 22vh;
   background:
-    repeating-linear-gradient(90deg, rgba(79,179,255, 0.18) 0 2px, transparent 2px 70px),
-    repeating-linear-gradient(0deg, rgba(110,180,255, 0.16) 0 2px, transparent 2px 70px);
-  transform: perspective(500px) rotateX(62deg);
-  transform-origin: bottom;
-  mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+    radial-gradient(45% 60% at 18% 100%, rgba(220,240,255, 0.13) 0 98%, transparent 100%),
+    radial-gradient(40% 50% at 62% 100%, rgba(220,240,255, 0.1) 0 98%, transparent 100%),
+    radial-gradient(35% 70% at 95% 100%, rgba(220,240,255, 0.12) 0 98%, transparent 100%);
+}
+.bg-stage::after {
+  /* faint stars */
+  content: '';
+  position: absolute;
+  inset: 0 0 40% 0;
+  opacity: 0.5;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 27% 8%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 44% 26%, #fff, transparent),
+    radial-gradient(1px 1px at 58% 12%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 73% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 86% 6%, #fff, transparent),
+    radial-gradient(1px 1px at 93% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 6% 40%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 36% 46%, #fff, transparent),
+    radial-gradient(1px 1px at 66% 52%, #fff, transparent);
 }
 
 /* ------------------------------------------------------------- panels/cards */
@@ -188,7 +204,7 @@ button:disabled {
   padding: 0.35em 1.1em;
   border-radius: 26px;
   border-width: 4px;
-  background: linear-gradient(180deg, #ffe08a, var(--color-yellow) 45%, var(--color-orange));
+  background: linear-gradient(180deg, #fff1bf, var(--color-yellow) 45%, #f2a900);
   box-shadow:
     0 10px 0 #071022,
     0 0 0 6px rgba(255,199,44, 0.15),
@@ -584,7 +600,7 @@ html.reduce-motion.secret-mode body {
     transform: translate(30px, -26px) scaleX(-1);
   }
 }
-/* pumpkin zigzags down the pegs into a slot, staying inside the card art */
+/* ornament zigzags down the pegs into a slot, staying inside the card art */
 @keyframes plinko-drop {
   0% {
     transform: translate(0, 0);

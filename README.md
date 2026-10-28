@@ -1,6 +1,6 @@
-# Link Crew Fall Fest Arcade
+# Link Crew Winter Fest Arcade
 
-PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Fall Fest. It has 13 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, a school-wide leaderboard and hidden secrets.
+PLAY. COMPETE. DOMINATE. A browser game hub for Lisgar Collegiate's Link Crew Winter Fest. It has 13 mini-games, XP and levels, Fest Tokens, cosmetics, achievements, daily challenges, a school-wide leaderboard and hidden secrets.
 
 Built with React, TypeScript, Vite and Tailwind CSS v4. There are no image assets: everything is CSS, SVG, Canvas or emoji. Sounds are generated with the Web Audio API.
 
@@ -17,7 +17,7 @@ npm run preview    # serve the production build
 
 ## Edit the event details
 
-Everything in the **ABOUT FALL FEST** section on the home page comes from `src/lib/eventInfo.ts`: date, time, location, the about text, the "What's happening" list and the Q&A. Some of it is still general wording or `TBA`, so update it as plans are confirmed.
+Everything in the **ABOUT WINTER FEST** section on the home page comes from `src/lib/eventInfo.ts`: date, time, location, the about text, the "What's happening" list and the Q&A. Some of it is still general wording or `TBA`, so update it as plans are confirmed.
 
 ## School logo
 
@@ -55,16 +55,18 @@ Confetti, screen flashes and screen shakes all go through one dial, `INTENSITY` 
 | Reaction Rush | `ReactionRush.tsx` | tap / SPACE |
 | Dodge the Principal | `DodgeThePrincipal.tsx` (canvas) | WASD / arrows / drag anywhere (virtual joystick) |
 | Locker Smash | `LockerSmash.tsx` | tap / SPACE |
-| Fall Fest Stacker | `FallFestStacker.tsx` (canvas) | tap / SPACE |
+| Gift Stacker | `GiftStacker.tsx` (canvas) | tap / SPACE |
 | Memory Meltdown | `MemoryMeltdown.tsx` | tap pads / keys 1–6 |
 | Button Mayhem | `ButtonMayhem.tsx` | tap |
-| Fall Fest Typer | `FallFestTyper.tsx` | keyboard (mobile keyboard works) |
+| Winter Fest Typer | `WinterFestTyper.tsx` | keyboard (mobile keyboard works) |
 | Catch the Duck | `CatchTheDuck.tsx` | tap |
 | Spin to Win | `SpinToWin.tsx` | tap (15-min cooldown, plus a bonus spin each level-up) |
-| Fall Fest Boss | `FallFestBoss.tsx` | tap / keys 1–4, SPACE to block |
-| Leaf Catcher | `LeafCatcher.tsx` (canvas) | drag / tap / mouse / arrow keys |
+| Winter Fest Boss | `WinterFestBoss.tsx` | tap / keys 1–4, SPACE to block |
+| Snowflake Catcher | `SnowflakeCatcher.tsx` (canvas) | drag / tap / mouse / arrow keys |
 | Goose Flight | `GooseFlight.tsx` (canvas) | tap / click / SPACE |
-| Pumpkin Plinko | `Plinko.tsx` (canvas) | tap where to drop / arrow keys + SPACE |
+| Ornament Plinko | `Plinko.tsx` + `plinkoPhysics.ts` (canvas) | tap where to drop / arrow keys + SPACE |
+
+Game ids (like `leaf-catcher` or `fall-fest-boss`) still use the original Fall Fest names because saves and the leaderboard database store them. Only the display names changed.
 
 Every game is a component that receives `{ onEnd(result) }` (see `src/games/types.ts`). `components/GameShell.tsx` handles the intro screen, the 3-2-1 countdown, the game-over screen, rewards and replay. To add a game:
 

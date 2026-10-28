@@ -14,8 +14,8 @@ interface Stack {
   gapY: number // centre of the gap
   gap: number
   passed: boolean
-  hasCorn: boolean
-  cornTaken: boolean
+  hasCane: boolean
+  caneTaken: boolean
 }
 interface FloatText {
   text: string
@@ -102,6 +102,36 @@ function drawGoose(ctx: CanvasRenderingContext2D, x: number, y: number, vy: numb
   ctx.closePath()
   ctx.fill()
   ctx.stroke()
+  // red scarf around the neck, with a tail blowing back
+  ctx.strokeStyle = '#071022'
+  ctx.lineWidth = 1.5
+  ctx.fillStyle = '#e63946'
+  ctx.beginPath()
+  ctx.ellipse(17, -9, 6, 3.5, -0.6, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.stroke()
+  ctx.beginPath()
+  ctx.moveTo(14, -8)
+  ctx.lineTo(2, -12 + (wingUp ? -3 : 2))
+  ctx.lineTo(3, -6 + (wingUp ? -3 : 2))
+  ctx.lineTo(14, -5)
+  ctx.closePath()
+  ctx.fill()
+  ctx.stroke()
+  // santa hat
+  ctx.fillStyle = '#e63946'
+  ctx.beginPath()
+  ctx.moveTo(21, -25)
+  ctx.lineTo(33, -27)
+  ctx.lineTo(22, -38)
+  ctx.closePath()
+  ctx.fill()
+  ctx.stroke()
+  ctx.fillStyle = '#fff'
+  ctx.beginPath()
+  ctx.arc(22, -38, 2.6, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.fillRect(20, -27, 14, 3.2)
   ctx.restore()
 }
 
@@ -130,33 +160,61 @@ function drawLockerStack(ctx: CanvasRenderingContext2D, x: number, top: number, 
     const hy = y0 + (y1 - y0) / 2
     if (hy > y0 + 8 && hy < y1 - 8) ctx.fillRect(x + STACK_W - 16, hy - 6, 5, 12)
   }
-  // cap
-  ctx.fillStyle = '#4fb3ff'
+  // snowy cap
+  ctx.fillStyle = '#eef7ff'
   ctx.lineWidth = 3
   const capY = flip ? bottom - 12 : top
   ctx.fillRect(x - 6, capY, STACK_W + 12, 12)
   ctx.strokeRect(x - 6, capY, STACK_W + 12, 12)
+  if (flip) {
+    // icicles hanging into the gap
+    ctx.fillStyle = '#bff1ff'
+    ctx.lineWidth = 1.5
+    for (let i = 0; i < 4; i++) {
+      const ix = x + 4 + i * 19
+      const len = 5 + (i % 2) * 3
+      ctx.beginPath()
+      ctx.moveTo(ix, bottom)
+      ctx.lineTo(ix + 9, bottom)
+      ctx.lineTo(ix + 4.5, bottom + len)
+      ctx.closePath()
+      ctx.fill()
+      ctx.stroke()
+    }
+  } else {
+    // snow piled on top, drawn as soft bumps
+    ctx.beginPath()
+    ctx.ellipse(x + 14, top, 10, 5, 0, Math.PI, 0)
+    ctx.ellipse(x + 37, top, 13, 7, 0, Math.PI, 0)
+    ctx.ellipse(x + 60, top, 10, 5, 0, Math.PI, 0)
+    ctx.fill()
+  }
 }
 
-function drawCandyCorn(ctx: CanvasRenderingContext2D, x: number, y: number, t: number) {
+const CANE_DASH = [3.5, 3.5]
+
+function drawCandyCane(ctx: CanvasRenderingContext2D, x: number, y: number, t: number) {
   ctx.save()
   ctx.translate(x, y + Math.sin(t / 200) * 4)
+  ctx.rotate(0.25)
+  ctx.lineCap = 'round'
+  const path = () => {
+    ctx.beginPath()
+    ctx.moveTo(2, 13)
+    ctx.lineTo(2, -6)
+    ctx.arc(-4, -6, 6, 0, Math.PI, true)
+  }
+  path()
   ctx.strokeStyle = '#071022'
-  ctx.lineWidth = 2
-  ctx.beginPath()
-  ctx.moveTo(0, -13)
-  ctx.lineTo(10, 11)
-  ctx.lineTo(-10, 11)
-  ctx.closePath()
-  ctx.fillStyle = '#f28c1f'
-  ctx.fill()
-  ctx.save()
-  ctx.clip()
-  ctx.fillStyle = '#fff'
-  ctx.fillRect(-12, -14, 24, 9)
-  ctx.fillStyle = '#ffc72c'
-  ctx.fillRect(-12, 5, 24, 8)
-  ctx.restore()
+  ctx.lineWidth = 8
+  ctx.stroke()
+  path()
+  ctx.strokeStyle = '#fff'
+  ctx.lineWidth = 5
+  ctx.stroke()
+  path()
+  ctx.strokeStyle = '#e63946'
+  ctx.setLineDash(CANE_DASH)
   ctx.stroke()
   ctx.restore()
 }
@@ -180,15 +238,24 @@ export default function GooseFlight({ onEnd }: GameProps) {
       H = h
       bg = makeLayer(w, h, (c) => {
         const g = c.createLinearGradient(0, 0, 0, h)
-        g.addColorStop(0, '#0d1d45')
-        g.addColorStop(0.7, '#1a3570')
-        g.addColorStop(1, '#f2a900')
+        g.addColorStop(0, '#0b1a3d')
+        g.addColorStop(0.75, '#1d3f7a')
+        g.addColorStop(1, '#4a78b8')
         c.fillStyle = g
         c.fillRect(0, 0, w, h)
-        // setting sun + distant geese V
-        c.fillStyle = 'rgba(255,199,44,.25)'
+        // moon
+        c.fillStyle = 'rgba(246,250,255,.85)'
         c.beginPath()
-        c.arc(w * 0.78, h - 40, 70, Math.PI, 0)
+        c.arc(w * 0.8, h * 0.16, 26, 0, Math.PI * 2)
+        c.fill()
+        // stars
+        c.fillStyle = 'rgba(255,255,255,.6)'
+        for (let i = 0; i < 40; i++) c.fillRect((i * 97.3) % w, (i * 53.7) % (h * 0.6), 2, 2)
+        // distant snowy hills
+        c.fillStyle = 'rgba(219,238,255,.18)'
+        c.beginPath()
+        c.arc(w * 0.2, h + 40, w * 0.35, Math.PI, 0)
+        c.arc(w * 0.75, h + 60, w * 0.4, Math.PI, 0)
         c.fill()
       })
     })
@@ -199,7 +266,7 @@ export default function GooseFlight({ onEnd }: GameProps) {
     let started = false
     let over = false
     let gates = 0
-    let corn = 0
+    let canes = 0
     let score = 0
     let speed = 170
     let distSinceStack = 0
@@ -220,7 +287,7 @@ export default function GooseFlight({ onEnd }: GameProps) {
       const gap = Math.max(140, 200 - gates * 2.5) * Math.min(1, H / 520) + 20
       const margin = 50
       const gapY = margin + gap / 2 + Math.random() * Math.max(10, H - 30 - margin * 2 - gap)
-      stacks.push({ x: W + 20, gapY, gap, passed: false, hasCorn: Math.random() < 0.35, cornTaken: false })
+      stacks.push({ x: W + 20, gapY, gap, passed: false, hasCane: Math.random() < 0.35, caneTaken: false })
     }
 
     const float = (text: string, x: number, y: number, color: string) => texts.push({ text, x, y, color, t: 0 })
@@ -240,7 +307,7 @@ export default function GooseFlight({ onEnd }: GameProps) {
             stats: { gatesPassed: gates },
             details: [
               { label: 'GAPS CLEARED', value: `${gates}` },
-              { label: 'CANDY CORN', value: `${corn}` },
+              { label: 'CANDY CANES', value: `${canes}` },
             ],
           }),
         800,
@@ -289,12 +356,12 @@ export default function GooseFlight({ onEnd }: GameProps) {
               }
               setHud({ score, gates, started: true })
             }
-            // candy corn in the middle of the gap
-            if (s.hasCorn && !s.cornTaken) {
+            // candy cane in the middle of the gap
+            if (s.hasCane && !s.caneTaken) {
               const cx = s.x + STACK_W / 2
               if (Math.hypot(goose.x - cx, goose.y - s.gapY) < goose.r + 14) {
-                s.cornTaken = true
-                corn++
+                s.caneTaken = true
+                canes++
                 score += 5
                 play('pop', 1.3)
                 float('+5', cx, s.gapY - 20, '#ffc72c')
@@ -346,15 +413,15 @@ export default function GooseFlight({ onEnd }: GameProps) {
       for (const s of stacks) {
         drawLockerStack(ctx, s.x, -10, s.gapY - s.gap / 2, true)
         drawLockerStack(ctx, s.x, s.gapY + s.gap / 2, H - 30, false)
-        if (s.hasCorn && !s.cornTaken) drawCandyCorn(ctx, s.x + STACK_W / 2, s.gapY, now)
+        if (s.hasCane && !s.caneTaken) drawCandyCane(ctx, s.x + STACK_W / 2, s.gapY, now)
       }
 
-      // ground (field)
-      ctx.fillStyle = '#1f5a2e'
+      // snowy ground
+      ctx.fillStyle = '#dbeeff'
       ctx.fillRect(0, H - 30, W, 30)
-      ctx.fillStyle = '#3ddc84'
+      ctx.fillStyle = '#ffffff'
       ctx.fillRect(0, H - 30, W, 3)
-      ctx.fillStyle = '#2a7d3e'
+      ctx.fillStyle = '#b9d6f2'
       for (let x = -groundX; x < W; x += 40) ctx.fillRect(x, H - 22, 18, 4)
 
       drawGoose(ctx, goose.x, goose.y, goose.vy, flapT > 0 || (!started && Math.floor(now / 200) % 2 === 0), over)

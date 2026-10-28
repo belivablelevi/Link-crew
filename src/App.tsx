@@ -143,7 +143,7 @@ function Footer() {
   return (
     <footer className="relative max-w-6xl w-full mx-auto px-5 pb-28 md:pb-10 pt-4 text-center">
       <div className="font-pixel text-[0.7rem] text-dim leading-relaxed">
-        LINK CREW FALL FEST ARCADE · PROGRESS SAVES ON THIS DEVICE · NO REAL MONEY, EVER
+        LINK CREW WINTER FEST ARCADE · PROGRESS SAVES ON THIS DEVICE · NO REAL MONEY, EVER
       </div>
       {/* Easter egg: the forbidden button. Nearly invisible. */}
       <button

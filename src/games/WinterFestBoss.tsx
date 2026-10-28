@@ -24,54 +24,66 @@ interface Attack {
 
 const ATTACKS: Attack[] = [
   { id: 'slap', name: 'SLAP', icon: '👋', min: 22, max: 34, cooldown: 0, color: '#ffc72c', unlock: '', isUnlocked: () => true },
-  { id: 'pizza', name: 'PIZZA TOSS', icon: '🍕', min: 450, max: 650, cooldown: 3000, color: '#f2a900', unlock: '10 COMBO', isUnlocked: (_p, c, t) => c >= 10 || t > 12 },
+  { id: 'pizza', name: 'COCOA SPLASH', icon: '☕', min: 450, max: 650, cooldown: 3000, color: '#f2a900', unlock: '10 COMBO', isUnlocked: (_p, c, t) => c >= 10 || t > 12 },
   { id: 'spirit', name: 'SPIRIT BLAST', icon: '🔥', min: 1500, max: 2100, cooldown: 7000, color: '#8ec2ff', unlock: 'BOSS < 70%', isUnlocked: (p) => p < 0.7 },
   { id: 'duck', name: 'DUCK STORM', icon: '🦆', min: 3500, max: 4600, cooldown: 14000, color: '#4fb3ff', unlock: 'BOSS < 35%', isUnlocked: (p) => p < 0.35 },
 ]
 
-const BOSS_TAUNTS = ['YOU CALL THAT A SLAP?', 'I AM INEVITABLE (AND SEASONAL)', 'PREPARE FOR POP QUIZ DAMAGE', 'MY SPICE IS ETERNAL', 'HOMEWORK INCOMING!']
-const BOSS_MOVES = ['HOMEWORK TSUNAMI', 'POP QUIZ BARRAGE', 'GOURD SLAM', 'PUMPKIN SPICE BREATH', 'DETENTION BEAM']
+const BOSS_TAUNTS = ['YOU CALL THAT A SLAP?', 'I AM INEVITABLE (AND SEASONAL)', 'PREPARE FOR POP QUIZ DAMAGE', 'WINTER IS FOREVER', 'HOMEWORK INCOMING!']
+const BOSS_MOVES = ['HOMEWORK AVALANCHE', 'POP QUIZ BLIZZARD', 'SNOWBALL SLAM', 'FROSTY BREATH', 'DETENTION BEAM']
 
-function Gourdzilla({ phase, hitKey, winding, dead }: { phase: number; hitKey: number; winding: boolean; dead: boolean }) {
-  const body = phase === 1 ? '#f2a900' : phase === 2 ? '#ff6a1a' : '#ff4d5e'
+function Frostzilla({ phase, hitKey, winding, dead }: { phase: number; hitKey: number; winding: boolean; dead: boolean }) {
+  const body = phase === 1 ? '#f6faff' : phase === 2 ? '#bfe6ff' : '#ffc2ca'
   return (
-    <div key={hitKey} className={hitKey ? 'anim-jiggle' : ''} style={{ filter: winding ? 'drop-shadow(0 0 30px #ff4d5e)' : undefined }}>
-      <svg viewBox="0 0 200 200" className="w-full h-full" aria-hidden style={{ transform: dead ? 'rotate(90deg) translateY(40px)' : phase === 3 ? 'scale(1.08)' : undefined, transition: 'transform .6s', opacity: dead ? 0.6 : 1 }}>
-        {/* horns (phase 3) */}
+    <div key={hitKey} className={hitKey ? 'anim-jiggle' : ''} style={{ filter: winding ? 'drop-shadow(0 0 30px #7fd4ff)' : undefined }}>
+      <svg viewBox="0 -6 200 212" className="w-full h-full" aria-hidden style={{ transform: dead ? 'rotate(90deg) translateY(40px)' : phase === 3 ? 'scale(1.08)' : undefined, transition: 'transform .6s', opacity: dead ? 0.6 : 1 }}>
+        {/* icicle horns (phase 3) */}
         {phase === 3 && (
           <>
-            <path d="M50 50 L30 5 L70 40 Z" fill="#2a0a12" stroke="#071022" strokeWidth="4" />
-            <path d="M150 50 L170 5 L130 40 Z" fill="#2a0a12" stroke="#071022" strokeWidth="4" />
+            <path d="M62 40 L44 2 L78 30 Z" fill="#bff1ff" stroke="#071022" strokeWidth="4" />
+            <path d="M138 40 L156 2 L122 30 Z" fill="#bff1ff" stroke="#071022" strokeWidth="4" />
           </>
         )}
-        <rect x="90" y="18" width="20" height="28" rx="6" fill="#3a7d1a" stroke="#071022" strokeWidth="4" />
-        <ellipse cx="100" cy="115" rx="86" ry="72" fill={body} stroke="#071022" strokeWidth="6" />
-        <ellipse cx="62" cy="115" rx="26" ry="68" fill="none" stroke="#071022" strokeOpacity=".25" strokeWidth="4" />
-        <ellipse cx="138" cy="115" rx="26" ry="68" fill="none" stroke="#071022" strokeOpacity=".25" strokeWidth="4" />
-        {/* angry eyes */}
-        <path d={dead ? 'M50 85 l20 20 m0 -20 l-20 20' : 'M45 80 L85 98 L50 110 Z'} fill="#ffc72c" stroke="#071022" strokeWidth="5" strokeLinejoin="round" />
-        <path d={dead ? 'M130 85 l20 20 m0 -20 l-20 20' : 'M155 80 L115 98 L150 110 Z'} fill="#ffc72c" stroke="#071022" strokeWidth="5" strokeLinejoin="round" />
+        {/* body + head */}
+        <circle cx="100" cy="148" r="50" fill={body} stroke="#071022" strokeWidth="6" />
+        <circle cx="100" cy="72" r="46" fill={body} stroke="#071022" strokeWidth="6" />
+        {/* coal buttons */}
+        <circle cx="100" cy="138" r="5" fill="#071022" />
+        <circle cx="100" cy="160" r="5" fill="#071022" />
+        {/* scarf */}
+        <path d="M58 106 Q100 124 142 106 L142 118 Q100 136 58 118 Z" fill="#e63946" stroke="#071022" strokeWidth="4" strokeLinejoin="round" />
+        <path d="M120 120 L128 158 L114 156 L108 122 Z" fill="#e63946" stroke="#071022" strokeWidth="4" strokeLinejoin="round" />
+        {/* top hat */}
+        <rect x="62" y="28" width="76" height="9" rx="3" fill="#1b2240" stroke="#071022" strokeWidth="4" />
+        <rect x="74" y="0" width="52" height="32" rx="3" fill="#1b2240" stroke="#071022" strokeWidth="4" />
+        <rect x="74" y="20" width="52" height="7" fill="#e63946" />
+        {/* angry coal eyes */}
+        <path d={dead ? 'M66 58 l16 16 m0 -16 l-16 16' : 'M64 56 L92 68 L68 76 Z'} fill="#071022" stroke="#071022" strokeWidth="5" strokeLinejoin="round" />
+        <path d={dead ? 'M118 58 l16 16 m0 -16 l-16 16' : 'M136 56 L108 68 L132 76 Z'} fill="#071022" stroke="#071022" strokeWidth="5" strokeLinejoin="round" />
+        {/* carrot nose */}
+        <path d="M100 80 L132 88 L100 92 Z" fill="#f28c1f" stroke="#071022" strokeWidth="3" strokeLinejoin="round" />
         {/* mouth */}
         <path
-          d={winding ? 'M45 135 Q100 190 155 135 Q100 160 45 135Z' : 'M50 140 L65 130 L80 145 L100 130 L120 145 L135 130 L150 140 Q100 175 50 140Z'}
-          fill="#2a0a12"
+          d={winding ? 'M74 98 Q100 122 126 98 Q100 108 74 98Z' : 'M76 100 L86 96 L94 102 L102 96 L110 102 L118 96 L126 100'}
+          fill={winding ? '#071022' : 'none'}
           stroke="#071022"
           strokeWidth="5"
           strokeLinejoin="round"
+          strokeLinecap="round"
         />
-        {phase >= 2 && <path d="M150 60 l10 18 l-14 -6 l6 16" stroke="#071022" strokeWidth="3" fill="none" />}
+        {phase >= 2 && <path d="M136 132 l10 14 l-12 -4 l6 14" stroke="#071022" strokeWidth="3" fill="none" />}
       </svg>
     </div>
   )
 }
 
-export default function FallFestBoss({ onEnd }: GameProps) {
+export default function WinterFestBoss({ onEnd }: GameProps) {
   const stage = useRef<HTMLDivElement>(null)
   const { spawn, layer } = usePopups()
   const g = useRef({ bossHp: BOSS_HP, hp: PLAYER_HP, dmg: 0, combo: 0, maxCombo: 0, lastHit: 0, crits: 0, start: performance.now(), over: false, cds: {} as Record<string, number>, windupUntil: 0, nextAttack: performance.now() + 7000, blocked: 0 })
   const [, force] = useState(0)
   const [hitKey, setHitKey] = useState(0)
-  const [taunt, setTaunt] = useState<string>('I AM GOURDZILLA. FEAR ME.')
+  const [taunt, setTaunt] = useState<string>('I AM FROSTZILLA. FEEL THE CHILL.')
   const [banner, setBanner] = useState<string | null>(null)
   const [winding, setWinding] = useState<string | null>(null)
   const phaseRef = useRef(1)
@@ -100,7 +112,7 @@ export default function FallFestBoss({ onEnd }: GameProps) {
     } else {
       play('gameover')
       fx.shake('md')
-      setBanner(s.hp <= 0 ? 'YOU GOT GOURDED' : 'TIME’S UP!')
+      setBanner(s.hp <= 0 ? 'YOU GOT FROZEN' : 'TIME’S UP!')
     }
     force((n) => n + 1)
     setTimeout(
@@ -135,7 +147,7 @@ export default function FallFestBoss({ onEnd }: GameProps) {
       const ph = pct > 0.66 ? 1 : pct > 0.33 ? 2 : 3
       if (ph !== phaseRef.current) {
         phaseRef.current = ph
-        setBanner(ph === 2 ? 'PHASE 2: IT’S GETTING SPOOKY' : 'FINAL FORM!!!')
+        setBanner(ph === 2 ? 'PHASE 2: IT’S GETTING CHILLY' : 'FINAL FORM!!!')
         setTimeout(() => setBanner(null), 1800)
         play('levelup')
         fx.shake('lg')
@@ -252,12 +264,12 @@ export default function FallFestBoss({ onEnd }: GameProps) {
   const mult = Math.min(3, 1 + st.combo * 0.02)
 
   return (
-    <div ref={stage} className="absolute inset-0 flex flex-col overflow-hidden" style={{ background: phase === 3 ? 'radial-gradient(circle at 50% 30%, rgba(255,77,94,.25), transparent 60%)' : undefined }}>
+    <div ref={stage} className="absolute inset-0 flex flex-col overflow-hidden" style={{ background: phase === 3 ? 'radial-gradient(circle at 50% 30%, rgba(127,212,255,.25), transparent 60%)' : undefined }}>
       {layer}
       {/* Boss HP */}
       <div className="px-3 pt-3 z-10">
         <div className="flex items-end justify-between gap-2">
-          <div className="font-display text-sm sm:text-lg text-red leading-tight">GOURDZILLA <span className="font-pixel text-[0.65rem] text-dim align-middle">THE ULTIMATE FALL FEST BOSS</span></div>
+          <div className="font-display text-sm sm:text-lg text-blue leading-tight">FROSTZILLA <span className="font-pixel text-[0.65rem] text-dim align-middle">THE ULTIMATE WINTER FEST BOSS</span></div>
           <div className="font-display text-sm tabular-nums">{st.bossHp.toLocaleString()}</div>
         </div>
         <div className="mt-1 flex gap-[3px] sticker rounded-lg bg-bg p-1" role="progressbar" aria-label="Boss HP" aria-valuenow={Math.round(bossPct * 100)} aria-valuemin={0} aria-valuemax={100}>
@@ -293,7 +305,7 @@ export default function FallFestBoss({ onEnd }: GameProps) {
           }}
           aria-label="Slap the boss"
         >
-          <Gourdzilla phase={phase} hitKey={hitKey} winding={!!winding} dead={st.bossHp <= 0} />
+          <Frostzilla phase={phase} hitKey={hitKey} winding={!!winding} dead={st.bossHp <= 0} />
         </button>
         {winding && (
           <div className="absolute inset-0 grid place-items-center bg-red/15 z-20">

@@ -35,7 +35,7 @@ interface FloatText extends Vec {
 }
 
 const PICKUP_EMOJI = { coin: '🪙', shield: '⭐', slow: '⏰', magnet: '🧲' } as const
-const HOMEWORK = ['📄', '📚', '📝', '📐']
+const HOMEWORK = ['❄️', '📚', '❄️', '📝']
 const PLAYER_SPEED = 270
 
 export default function DodgeThePrincipal({ onEnd }: GameProps) {
@@ -57,9 +57,9 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
       H = h
       bg = makeLayer(w, h, (c) => {
         // hallway floor
-        c.fillStyle = '#0b1834'
+        c.fillStyle = '#0c1d3d'
         c.fillRect(0, 0, w, h)
-        c.strokeStyle = 'rgba(47,107,255,.16)'
+        c.strokeStyle = 'rgba(191,230,255,.12)'
         c.lineWidth = 2
         for (let x = 0; x < w; x += 48) {
         c.beginPath()
@@ -80,6 +80,14 @@ export default function DodgeThePrincipal({ onEnd }: GameProps) {
         c.fillStyle = '#0b3b55'
         c.fillRect(x + 6, 6, 22, 3)
         c.fillRect(x + 6, 12, 22, 3)
+        }
+        // string of holiday lights along the lockers
+        const lights = ['#ff6b7a', '#ffd75e', '#6ee7a8', '#7fd4ff']
+        for (let x = 10, i = 0; x < w; x += 28, i++) {
+          c.fillStyle = lights[i % lights.length]
+          c.beginPath()
+          c.arc(x, 31 + (i % 2) * 3, 3.5, 0, Math.PI * 2)
+          c.fill()
         }
       })
     })

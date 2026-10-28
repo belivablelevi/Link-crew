@@ -9,8 +9,9 @@ import { AIM_MAX, AIM_MIN, BALL_R, BOARD_H, BOARD_W, DROP_Y, SLOT_TOP, SLOT_VALU
 const BALLS = 10
 const HUD_SPACE = 74 // keep the board below the score boxes
 
-interface Pumpkin extends Ball {
+interface Ornament extends Ball {
   golden: boolean
+  color: number
   spin: number
 }
 interface FloatText {
@@ -21,7 +22,15 @@ interface FloatText {
   t: number
 }
 
-const slotColor = (v: number) => (v >= 100 ? '#ffc72c' : v >= 40 ? '#f2a900' : v >= 20 ? '#4fb3ff' : v >= 10 ? '#2f6bff' : '#1b2d5c')
+const slotColor = (v: number) => (v >= 100 ? '#ffc72c' : v >= 40 ? '#d62839' : v >= 20 ? '#1b7a43' : v >= 10 ? '#2f6bff' : '#1b2d5c')
+/** Ornament colours: [ball, shine]. */
+const ORNAMENTS: [string, string][] = [
+  ['#e63946', '#ff9aa3'],
+  ['#2fbf71', '#9df0c4'],
+  ['#3d8bff', '#a9cdff'],
+  ['#b45cff', '#dcb3ff'],
+]
+const LIGHTS = ['#ff6b7a', '#ffd75e', '#6ee7a8', '#7fd4ff']
 
 export default function Plinko({ onEnd }: GameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -45,25 +54,28 @@ export default function Plinko({ onEnd }: GameProps) {
 
     const paintBoard = (c: CanvasRenderingContext2D) => {
       const g = c.createLinearGradient(0, 0, 0, H)
-      g.addColorStop(0, '#0d1d45')
-      g.addColorStop(1, '#13214a')
+      g.addColorStop(0, '#0b1a3d')
+      g.addColorStop(1, '#12264d')
       c.fillStyle = g
       c.fillRect(0, 0, W, H)
       c.translate(ox, oy)
       c.scale(scale, scale)
-      c.strokeStyle = 'rgba(79,179,255,.35)'
+      c.strokeStyle = 'rgba(191,230,255,.35)'
       c.lineWidth = 2
       c.strokeRect(0, 0, BOARD_W, BOARD_H)
-      for (const p of pegs) {
-        c.fillStyle = '#071022'
+      // pegs are little string lights
+      pegs.forEach((p, i) => {
+        const color = p.r > 5 ? '#dbeeff' : LIGHTS[i % LIGHTS.length]
+        c.fillStyle = color
+        c.globalAlpha = 0.25
         c.beginPath()
-        c.arc(p.x + 1, p.y + 1.5, p.r, 0, Math.PI * 2)
+        c.arc(p.x, p.y, p.r + 3, 0, Math.PI * 2)
         c.fill()
-        c.fillStyle = p.r > 5 ? '#4fb3ff' : '#8ec2ff'
+        c.globalAlpha = 1
         c.beginPath()
         c.arc(p.x, p.y, p.r, 0, Math.PI * 2)
         c.fill()
-      }
+      })
       SLOT_VALUES.forEach((v, i) => {
         const x = i * SLOT_W
         c.fillStyle = slotColor(v)
@@ -71,13 +83,13 @@ export default function Plinko({ onEnd }: GameProps) {
         c.strokeStyle = '#071022'
         c.lineWidth = 2.5
         c.strokeRect(x + 2, SLOT_TOP + 8, SLOT_W - 4, BOARD_H - SLOT_TOP - 10)
-        c.fillStyle = v >= 40 ? '#071022' : '#f4f7ff'
+        c.fillStyle = v >= 100 ? '#071022' : '#f4f7ff'
         c.font = '800 16px Outfit, sans-serif'
         c.textAlign = 'center'
         c.textBaseline = 'middle'
         c.fillText(String(v), x + SLOT_W / 2, SLOT_TOP + 8 + (BOARD_H - SLOT_TOP - 10) / 2)
       })
-      c.fillStyle = '#4fb3ff'
+      c.fillStyle = '#dbeeff'
       for (let i = 0; i <= SLOT_VALUES.length; i++) c.fillRect(i * SLOT_W - 1.5, SLOT_TOP - 10, 3, BOARD_H - SLOT_TOP + 10)
     }
 
@@ -91,7 +103,7 @@ export default function Plinko({ onEnd }: GameProps) {
     })
     const toBoardX = (clientX: number) => (clientX - canvas.getBoundingClientRect().left - ox) / scale
 
-    const balls: Pumpkin[] = []
+    const balls: Ornament[] = []
     const texts: FloatText[] = []
     let aimX = BOARD_W / 2
     let dropped = 0
@@ -111,9 +123,10 @@ export default function Plinko({ onEnd }: GameProps) {
       if (over || dropped >= BALLS || cooldown > 0) return
       if (clientX !== undefined) aimX = clampAim(toBoardX(clientX))
       const golden = dropped === BALLS - 1
+      const color = dropped % ORNAMENTS.length
       dropped++
       cooldown = 0.45
-      balls.push({ ...newBall(aimX), golden, spin: 0 })
+      balls.push({ ...newBall(aimX), golden, color, spin: 0 })
       play('pop', golden ? 1.4 : 1)
       setHud({ score, left: BALLS - dropped })
     }
@@ -122,7 +135,7 @@ export default function Plinko({ onEnd }: GameProps) {
       aimX = clampAim(toBoardX(clientX))
     }
 
-    const land = (b: Pumpkin) => {
+    const land = (b: Ornament) => {
       landed++
       const base = SLOT_VALUES[b.slot!]
       const value = base * (b.golden ? 3 : 1)
@@ -142,11 +155,11 @@ export default function Plinko({ onEnd }: GameProps) {
           play('victory')
           onEndRef.current({
             score,
-            headline: score >= 600 ? 'PLINKO PRO!' : 'ALL PUMPKINS DROPPED!',
+            headline: score >= 600 ? 'PLINKO PRO!' : 'ALL ORNAMENTS DROPPED!',
             stats: { bigSlots },
             details: [
               { label: '100 SLOTS', value: `${bigSlots}` },
-              { label: 'PUMPKINS', value: `${BALLS}` },
+              { label: 'ORNAMENTS', value: `${BALLS}` },
             ],
           })
         }, 700)
@@ -175,7 +188,8 @@ export default function Plinko({ onEnd }: GameProps) {
       draw(now)
     }
 
-    const drawPumpkin = (x: number, y: number, golden: boolean, rot: number) => {
+    const drawOrnament = (x: number, y: number, golden: boolean, color: number, rot: number) => {
+      const [fill, shine] = golden ? ['#ffd84d', '#fff3b0'] : ORNAMENTS[color]
       ctx.save()
       ctx.translate(x, y)
       ctx.rotate(rot)
@@ -185,20 +199,26 @@ export default function Plinko({ onEnd }: GameProps) {
         ctx.arc(0, 0, BALL_R + 5, 0, Math.PI * 2)
         ctx.fill()
       }
-      ctx.fillStyle = golden ? '#ffd84d' : '#f28c1f'
+      // cap + hook
+      ctx.fillStyle = '#c9d3e6'
       ctx.strokeStyle = '#071022'
+      ctx.lineWidth = 1.2
+      ctx.fillRect(-2.2, -BALL_R - 2.5, 4.4, 3.2)
+      ctx.strokeRect(-2.2, -BALL_R - 2.5, 4.4, 3.2)
+      ctx.beginPath()
+      ctx.arc(0, -BALL_R - 3.5, 1.6, Math.PI, 0)
+      ctx.stroke()
+      // ball
+      ctx.fillStyle = fill
       ctx.lineWidth = 1.6
       ctx.beginPath()
-      ctx.ellipse(0, 0.5, BALL_R, BALL_R * 0.88, 0, 0, Math.PI * 2)
+      ctx.arc(0, 0.5, BALL_R, 0, Math.PI * 2)
       ctx.fill()
       ctx.stroke()
-      ctx.strokeStyle = golden ? '#c99400' : '#b25a08'
-      ctx.lineWidth = 1.2
+      ctx.fillStyle = shine
       ctx.beginPath()
-      ctx.ellipse(0, 0.5, BALL_R * 0.4, BALL_R * 0.86, 0, 0, Math.PI * 2)
-      ctx.stroke()
-      ctx.fillStyle = '#3a7d1a'
-      ctx.fillRect(-1.2, -BALL_R - 2.5, 2.4, 4)
+      ctx.arc(-BALL_R * 0.35, -BALL_R * 0.25, BALL_R * 0.28, 0, Math.PI * 2)
+      ctx.fill()
       ctx.restore()
     }
 
@@ -217,10 +237,10 @@ export default function Plinko({ onEnd }: GameProps) {
         ctx.stroke()
         ctx.setLineDash([])
         ctx.globalAlpha = cooldown <= 0 ? 1 : 0.4
-        drawPumpkin(aimX, DROP_Y + Math.sin(now / 200) * 1.5, dropped === BALLS - 1, 0)
+        drawOrnament(aimX, DROP_Y + Math.sin(now / 200) * 1.5, dropped === BALLS - 1, dropped % ORNAMENTS.length, 0)
         ctx.globalAlpha = 1
       }
-      for (const b of balls) drawPumpkin(b.x, b.y, b.golden, b.spin)
+      for (const b of balls) drawOrnament(b.x, b.y, b.golden, b.color, b.spin)
       for (const t of texts) {
         ctx.globalAlpha = Math.max(0, 1 - t.t / 1.2)
         ctx.font = '800 17px Outfit, sans-serif'
@@ -269,12 +289,12 @@ export default function Plinko({ onEnd }: GameProps) {
       }}
       role="button"
       tabIndex={-1}
-      aria-label="Tap where you want to drop the pumpkin"
+      aria-label="Tap where you want to drop the ornament"
     >
-      <canvas ref={canvasRef} className="block touch-none" aria-label="Plinko board. Tap or click to drop a pumpkin. Arrow keys aim, space drops." />
+      <canvas ref={canvasRef} className="block touch-none" aria-label="Plinko board. Tap or click to drop an ornament. Arrow keys aim, space drops." />
       <div className="absolute top-3 inset-x-3 flex flex-wrap gap-2 pointer-events-none">
         <ScoreDisplay label="SCORE" value={hud.score} bump={hud.score} />
-        <ScoreDisplay label="PUMPKINS LEFT" value={hud.left} color="var(--color-orange)" bump={hud.left} />
+        <ScoreDisplay label="ORNAMENTS LEFT" value={hud.left} color="var(--color-orange)" bump={hud.left} />
         {hud.left === 1 && <span className="tag self-center" style={{ ['--c' as string]: 'var(--color-yellow)' }}>LAST ONE IS GOLDEN: 3X</span>}
       </div>
     </div>
